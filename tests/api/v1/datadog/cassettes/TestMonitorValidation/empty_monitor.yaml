@@ -3,7 +3,7 @@ version: 1
 interactions:
 - request:
     body: |
-      {}
+      {"query":"query","type":"log alert"}
     form: {}
     headers:
       Accept:
@@ -13,32 +13,29 @@ interactions:
       Dd-Operation-Id:
       - ValidateMonitor
       User-Agent:
-      - datadog-api-client-go/1.0.0-beta.2 (go go1.14; os darwin; arch amd64)
+      - datadog-api-client-go/1.0.0-beta.23+dev (go go1.16.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "4464623725498237254"
+      - "2020242322066961725"
       X-Datadog-Sampling-Priority:
       - "1"
       X-Datadog-Trace-Id:
-      - "7591902096834429108"
+      - "2746838848673102631"
     url: https://api.datadoghq.com/api/v1/monitor/validate
     method: POST
   response:
-    body: '{"errors":["The parameter ''type'' is required"]}'
+    body: '{"errors": ["The value provided for parameter ''query'' is invalid: invalid
+      operator specified: "]}'
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "47"
-      Content-Security-Policy:
-      - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
+      - "97"
       Content-Type:
       - application/json
       Date:
-      - Tue, 12 May 2020 13:32:44 GMT
-      Dd-Pool:
-      - dogweb
+      - Wed, 19 May 2021 14:53:55 GMT
       Pragma:
       - no-cache
       Strict-Transport-Security:
@@ -46,7 +43,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2493025"
+      - "35.4563132"
       X-Frame-Options:
       - SAMEORIGIN
     status: 400 Bad Request

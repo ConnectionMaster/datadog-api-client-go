@@ -3,13 +3,13 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Billing** | Pointer to [**OrganizationBilling**](OrganizationBilling.md) |  | [optional] 
 **Created** | Pointer to **string** | Date of the organization creation. | [optional] [readonly] 
 **Description** | Pointer to **string** | Description of the organization. | [optional] 
 **Name** | Pointer to **string** | The name of the new child-organization, limited to 32 characters. | [optional] 
 **PublicId** | Pointer to **string** | The &#x60;public_id&#x60; of the organization you are operating within. | [optional] 
-**Settings** | Pointer to [**OrganizationSettings**](Organization_settings.md) |  | [optional] 
+**Settings** | Pointer to [**OrganizationSettings**](OrganizationSettings.md) |  | [optional] 
 **Subscription** | Pointer to [**OrganizationSubscription**](OrganizationSubscription.md) |  | [optional] 
 
 ## Methods
@@ -18,18 +18,18 @@ Name | Type | Description | Notes
 
 `func NewOrganization() *Organization`
 
-NewOrganization instantiates a new Organization object
+NewOrganization instantiates a new Organization object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewOrganizationWithDefaults
 
 `func NewOrganizationWithDefaults() *Organization`
 
-NewOrganizationWithDefaults instantiates a new Organization object
+NewOrganizationWithDefaults instantiates a new Organization object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetBilling
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **OverrideOnConflict** | Pointer to **bool** | Override or not the target element if already set, | [optional] [default to false]
@@ -13,26 +13,26 @@ Name | Type | Description | Notes
 **Target** | **string** | Final attribute or tag name to remap the sources to. | 
 **TargetFormat** | Pointer to [**TargetFormatType**](TargetFormatType.md) |  | [optional] 
 **TargetType** | Pointer to **string** | Defines if the final attribute or tag name is from log &#x60;attribute&#x60; or &#x60;tag&#x60;. | [optional] [default to "attribute"]
-**Type** | [**LogsAttributeRemapperType**](LogsAttributeRemapperType.md) |  | [default to "attribute-remapper"]
+**Type** | [**LogsAttributeRemapperType**](LogsAttributeRemapperType.md) |  | [default to LOGSATTRIBUTEREMAPPERTYPE_ATTRIBUTE_REMAPPER]
 
 ## Methods
 
 ### NewLogsAttributeRemapper
 
-`func NewLogsAttributeRemapper(sources []string, target string, type_ LogsAttributeRemapperType, ) *LogsAttributeRemapper`
+`func NewLogsAttributeRemapper(sources []string, target string, type_ LogsAttributeRemapperType) *LogsAttributeRemapper`
 
-NewLogsAttributeRemapper instantiates a new LogsAttributeRemapper object
+NewLogsAttributeRemapper instantiates a new LogsAttributeRemapper object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsAttributeRemapperWithDefaults
 
 `func NewLogsAttributeRemapperWithDefaults() *LogsAttributeRemapper`
 
-NewLogsAttributeRemapperWithDefaults instantiates a new LogsAttributeRemapper object
+NewLogsAttributeRemapperWithDefaults instantiates a new LogsAttributeRemapper object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetIsEnabled
 

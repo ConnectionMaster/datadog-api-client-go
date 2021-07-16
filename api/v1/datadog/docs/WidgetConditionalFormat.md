@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Comparator** | [**WidgetComparator**](WidgetComparator.md) |  | 
 **CustomBgColor** | Pointer to **string** | Color palette to apply to the background, same values available as palette. | [optional] 
 **CustomFgColor** | Pointer to **string** | Color palette to apply to the foreground, same values available as palette. | [optional] 
@@ -18,20 +18,20 @@ Name | Type | Description | Notes
 
 ### NewWidgetConditionalFormat
 
-`func NewWidgetConditionalFormat(comparator WidgetComparator, palette WidgetPalette, value float64, ) *WidgetConditionalFormat`
+`func NewWidgetConditionalFormat(comparator WidgetComparator, palette WidgetPalette, value float64) *WidgetConditionalFormat`
 
-NewWidgetConditionalFormat instantiates a new WidgetConditionalFormat object
+NewWidgetConditionalFormat instantiates a new WidgetConditionalFormat object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewWidgetConditionalFormatWithDefaults
 
 `func NewWidgetConditionalFormatWithDefaults() *WidgetConditionalFormat`
 
-NewWidgetConditionalFormatWithDefaults instantiates a new WidgetConditionalFormat object
+NewWidgetConditionalFormatWithDefaults instantiates a new WidgetConditionalFormat object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetComparator
 

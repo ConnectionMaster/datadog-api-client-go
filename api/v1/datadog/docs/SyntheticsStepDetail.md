@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **BrowserErrors** | Pointer to [**[]SyntheticsBrowserError**](SyntheticsBrowserError.md) | Array of errors collected for a browser test. | [optional] 
 **CheckType** | Pointer to [**SyntheticsCheckType**](SyntheticsCheckType.md) |  | [optional] 
 **Description** | Pointer to **string** | Description of the test. | [optional] 
@@ -19,7 +19,8 @@ Name | Type | Description | Notes
 **Type** | Pointer to [**SyntheticsStepType**](SyntheticsStepType.md) |  | [optional] 
 **Url** | Pointer to **string** | URL to perform the step against. | [optional] 
 **Value** | Pointer to **interface{}** | Value for the step. | [optional] 
-**Warnings** | Pointer to [**[]SyntheticsStepDetailWarnings**](SyntheticsStepDetailWarnings.md) | Warning collected that didn&#39;t failed the step. | [optional] 
+**VitalsMetrics** | Pointer to [**[]SyntheticsCoreWebVitals**](SyntheticsCoreWebVitals.md) | Array of Core Web Vitals metrics for the step. | [optional] 
+**Warnings** | Pointer to [**[]SyntheticsStepDetailWarning**](SyntheticsStepDetailWarning.md) | Warning collected that didn&#39;t failed the step. | [optional] 
 
 ## Methods
 
@@ -27,18 +28,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsStepDetail() *SyntheticsStepDetail`
 
-NewSyntheticsStepDetail instantiates a new SyntheticsStepDetail object
+NewSyntheticsStepDetail instantiates a new SyntheticsStepDetail object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsStepDetailWithDefaults
 
 `func NewSyntheticsStepDetailWithDefaults() *SyntheticsStepDetail`
 
-NewSyntheticsStepDetailWithDefaults instantiates a new SyntheticsStepDetail object
+NewSyntheticsStepDetailWithDefaults instantiates a new SyntheticsStepDetail object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetBrowserErrors
 
@@ -415,22 +416,47 @@ SetValue sets Value field to given value.
 
 HasValue returns a boolean if a field has been set.
 
+### GetVitalsMetrics
+
+`func (o *SyntheticsStepDetail) GetVitalsMetrics() []SyntheticsCoreWebVitals`
+
+GetVitalsMetrics returns the VitalsMetrics field if non-nil, zero value otherwise.
+
+### GetVitalsMetricsOk
+
+`func (o *SyntheticsStepDetail) GetVitalsMetricsOk() (*[]SyntheticsCoreWebVitals, bool)`
+
+GetVitalsMetricsOk returns a tuple with the VitalsMetrics field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVitalsMetrics
+
+`func (o *SyntheticsStepDetail) SetVitalsMetrics(v []SyntheticsCoreWebVitals)`
+
+SetVitalsMetrics sets VitalsMetrics field to given value.
+
+### HasVitalsMetrics
+
+`func (o *SyntheticsStepDetail) HasVitalsMetrics() bool`
+
+HasVitalsMetrics returns a boolean if a field has been set.
+
 ### GetWarnings
 
-`func (o *SyntheticsStepDetail) GetWarnings() []SyntheticsStepDetailWarnings`
+`func (o *SyntheticsStepDetail) GetWarnings() []SyntheticsStepDetailWarning`
 
 GetWarnings returns the Warnings field if non-nil, zero value otherwise.
 
 ### GetWarningsOk
 
-`func (o *SyntheticsStepDetail) GetWarningsOk() (*[]SyntheticsStepDetailWarnings, bool)`
+`func (o *SyntheticsStepDetail) GetWarningsOk() (*[]SyntheticsStepDetailWarning, bool)`
 
 GetWarningsOk returns a tuple with the Warnings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWarnings
 
-`func (o *SyntheticsStepDetail) SetWarnings(v []SyntheticsStepDetailWarnings)`
+`func (o *SyntheticsStepDetail) SetWarnings(v []SyntheticsStepDetailWarning)`
 
 SetWarnings sets Warnings field to given value.
 

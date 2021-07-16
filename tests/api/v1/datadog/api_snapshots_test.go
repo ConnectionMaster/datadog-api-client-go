@@ -8,6 +8,7 @@ package test
 
 import (
 	"context"
+	"log"
 	"testing"
 
 	"github.com/DataDog/datadog-api-client-go/api/v1/datadog"
@@ -15,7 +16,9 @@ import (
 )
 
 func TestGetGraphSnapshot(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -26,7 +29,7 @@ func TestGetGraphSnapshot(t *testing.T) {
 	eventQuery := "successful builds"
 
 	// Try to create a snapshot with a metric_query (and an optional event_query)
-	snapshot, httpresp, err := Client(ctx).SnapshotsApi.GetGraphSnapshot(ctx).MetricQuery(metricQuery).Start(start).End(end).EventQuery(eventQuery).Execute()
+	snapshot, httpresp, err := Client(ctx).SnapshotsApi.GetGraphSnapshot(ctx, start, end, *datadog.NewGetGraphSnapshotOptionalParameters().WithMetricQuery(metricQuery).WithEventQuery(eventQuery))
 	if err != nil {
 		t.Fatalf("Error creating Snapshot: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -37,7 +40,7 @@ func TestGetGraphSnapshot(t *testing.T) {
 	assert.NotEmpty(snapshot.GetSnapshotUrl())
 
 	// Try to create a snapshot with a graph_def
-	snapshot, httpresp, err = Client(ctx).SnapshotsApi.GetGraphSnapshot(ctx).GraphDef(graphDef).Start(start).End(end).Execute()
+	snapshot, httpresp, err = Client(ctx).SnapshotsApi.GetGraphSnapshot(ctx, start, end, *datadog.NewGetGraphSnapshotOptionalParameters().WithGraphDef(graphDef))
 	if err != nil {
 		t.Fatalf("Error creating Snapshot: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -47,24 +50,9 @@ func TestGetGraphSnapshot(t *testing.T) {
 	assert.NotEmpty(snapshot.GetSnapshotUrl())
 }
 
-func TestGetGraphSnapshotRequiredParams(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
-	defer finish()
-	assert := tests.Assert(ctx, t)
-
-	var start int64 = 1
-	var end int64 = 2
-	metricQuery := "query"
-
-	_, _, err := Client(ctx).SnapshotsApi.GetGraphSnapshot(ctx).MetricQuery(metricQuery).End(end).Execute()
-	assert.Contains(err.Error(), "start is required")
-	_, _, err = Client(ctx).SnapshotsApi.GetGraphSnapshot(ctx).MetricQuery(metricQuery).Start(start).Execute()
-	assert.Contains(err.Error(), "end is required")
-}
-
 func TestGraphGetErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -80,8 +68,10 @@ func TestGraphGetErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).SnapshotsApi.GetGraphSnapshot((ctx)).Start(345).End(123).Execute()
+			_, httpresp, err := Client(ctx).SnapshotsApi.GetGraphSnapshot(ctx, 345, 123)
+			log.Println("maybe here", httpresp, err)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
+			log.Println("maybe here 2")
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
 			assert.NotEmpty(apiError.GetErrors())

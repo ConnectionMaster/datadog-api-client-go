@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // SyntheticsBrowserError Error response object for a browser test.
@@ -19,8 +20,8 @@ type SyntheticsBrowserError struct {
 	// Name of the error.
 	Name string `json:"name"`
 	// Status Code of the error.
-	StatusCode *int64                     `json:"statusCode,omitempty"`
-	Type       SyntheticsBrowserErrorType `json:"type"`
+	Status *int64                     `json:"status,omitempty"`
+	Type   SyntheticsBrowserErrorType `json:"type"`
 }
 
 // NewSyntheticsBrowserError instantiates a new SyntheticsBrowserError object
@@ -91,36 +92,36 @@ func (o *SyntheticsBrowserError) SetName(v string) {
 	o.Name = v
 }
 
-// GetStatusCode returns the StatusCode field value if set, zero value otherwise.
-func (o *SyntheticsBrowserError) GetStatusCode() int64 {
-	if o == nil || o.StatusCode == nil {
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *SyntheticsBrowserError) GetStatus() int64 {
+	if o == nil || o.Status == nil {
 		var ret int64
 		return ret
 	}
-	return *o.StatusCode
+	return *o.Status
 }
 
-// GetStatusCodeOk returns a tuple with the StatusCode field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SyntheticsBrowserError) GetStatusCodeOk() (*int64, bool) {
-	if o == nil || o.StatusCode == nil {
+func (o *SyntheticsBrowserError) GetStatusOk() (*int64, bool) {
+	if o == nil || o.Status == nil {
 		return nil, false
 	}
-	return o.StatusCode, true
+	return o.Status, true
 }
 
-// HasStatusCode returns a boolean if a field has been set.
-func (o *SyntheticsBrowserError) HasStatusCode() bool {
-	if o != nil && o.StatusCode != nil {
+// HasStatus returns a boolean if a field has been set.
+func (o *SyntheticsBrowserError) HasStatus() bool {
+	if o != nil && o.Status != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetStatusCode gets a reference to the given int64 and assigns it to the StatusCode field.
-func (o *SyntheticsBrowserError) SetStatusCode(v int64) {
-	o.StatusCode = &v
+// SetStatus gets a reference to the given int64 and assigns it to the Status field.
+func (o *SyntheticsBrowserError) SetStatus(v int64) {
+	o.Status = &v
 }
 
 // GetType returns the Type field value
@@ -155,13 +156,49 @@ func (o SyntheticsBrowserError) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.StatusCode != nil {
-		toSerialize["statusCode"] = o.StatusCode
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
 	}
 	if true {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *SyntheticsBrowserError) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Description *string                     `json:"description"`
+		Name        *string                     `json:"name"`
+		Type        *SyntheticsBrowserErrorType `json:"type"`
+	}{}
+	all := struct {
+		Description string                     `json:"description"`
+		Name        string                     `json:"name"`
+		Status      *int64                     `json:"status,omitempty"`
+		Type        SyntheticsBrowserErrorType `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Description == nil {
+		return fmt.Errorf("Required field description missing")
+	}
+	if required.Name == nil {
+		return fmt.Errorf("Required field name missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Description = all.Description
+	o.Name = all.Name
+	o.Status = all.Status
+	o.Type = all.Type
+	return nil
 }
 
 type NullableSyntheticsBrowserError struct {

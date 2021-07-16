@@ -3,11 +3,11 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Description** | **string** | Description of the global variable. | 
 **Id** | Pointer to **string** | Unique identifier of the global variable. | [optional] [readonly] 
 **Name** | **string** | Name of the global variable. | 
-**ParseTestOptions** | Pointer to [**SyntheticsGlobalVariableParseTestOptions**](SyntheticsGlobalVariable_parse_test_options.md) |  | [optional] 
+**ParseTestOptions** | Pointer to [**SyntheticsGlobalVariableParseTestOptions**](SyntheticsGlobalVariableParseTestOptions.md) |  | [optional] 
 **ParseTestPublicId** | Pointer to **string** | A Synthetic test ID to use as a test to generate the variable value. | [optional] 
 **Tags** | **[]string** | Tags of the global variable. | 
 **Value** | [**SyntheticsGlobalVariableValue**](SyntheticsGlobalVariableValue.md) |  | 
@@ -16,20 +16,20 @@ Name | Type | Description | Notes
 
 ### NewSyntheticsGlobalVariable
 
-`func NewSyntheticsGlobalVariable(description string, name string, tags []string, value SyntheticsGlobalVariableValue, ) *SyntheticsGlobalVariable`
+`func NewSyntheticsGlobalVariable(description string, name string, tags []string, value SyntheticsGlobalVariableValue) *SyntheticsGlobalVariable`
 
-NewSyntheticsGlobalVariable instantiates a new SyntheticsGlobalVariable object
+NewSyntheticsGlobalVariable instantiates a new SyntheticsGlobalVariable object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsGlobalVariableWithDefaults
 
 `func NewSyntheticsGlobalVariableWithDefaults() *SyntheticsGlobalVariable`
 
-NewSyntheticsGlobalVariableWithDefaults instantiates a new SyntheticsGlobalVariable object
+NewSyntheticsGlobalVariableWithDefaults instantiates a new SyntheticsGlobalVariable object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDescription
 

@@ -23,7 +23,9 @@ import (
 )
 
 func TestHosts(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -46,7 +48,7 @@ func TestHosts(t *testing.T) {
 
 	// wait for host to appear
 	err = tests.Retry(10*time.Second, 10, func() bool {
-		_, httpresp, err := Client(ctx).TagsApi.GetHostTags(ctx, hostname).Execute()
+		_, httpresp, err := Client(ctx).TagsApi.GetHostTags(ctx, hostname)
 		if err != nil {
 			t.Logf("Error getting host tags for %s: Response %s: %v", hostname, err.(datadog.GenericOpenAPIError).Body(), err)
 		}
@@ -61,7 +63,7 @@ func TestHosts(t *testing.T) {
 		Message: datadog.PtrString("muting for test"),
 		End:     datadog.PtrInt64(now + 60),
 	}
-	muteHostResp, httpresp, err := api.MuteHost(ctx, hostname).Body(hostMuteSettings).Execute()
+	muteHostResp, httpresp, err := api.MuteHost(ctx, hostname, hostMuteSettings)
 	if err != nil {
 		t.Errorf("Error muting host %s: Response %s: %v", hostname, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -75,11 +77,11 @@ func TestHosts(t *testing.T) {
 		Message: datadog.PtrString("muting for test override"),
 		End:     datadog.PtrInt64(now + 120),
 	}
-	muteHostResp, httpresp, err = api.MuteHost(ctx, hostname).Body(hostMuteSettings).Execute()
+	muteHostResp, httpresp, err = api.MuteHost(ctx, hostname, hostMuteSettings)
 	assert.NotNil(err)
 	assert.Equal(400, httpresp.StatusCode)
 	hostMuteSettings.SetOverride(true)
-	muteHostResp, httpresp, err = api.MuteHost(ctx, hostname).Body(hostMuteSettings).Execute()
+	muteHostResp, httpresp, err = api.MuteHost(ctx, hostname, hostMuteSettings)
 	if err != nil {
 		t.Errorf("Error muting host %s: Response %s: %v", hostname, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -89,7 +91,7 @@ func TestHosts(t *testing.T) {
 	assert.Equal(now+120, muteHostResp.GetEnd())
 	assert.Equal("Muted", muteHostResp.GetAction())
 
-	muteHostResp, httpresp, err = api.UnmuteHost(ctx, hostname).Execute()
+	muteHostResp, httpresp, err = api.UnmuteHost(ctx, hostname)
 	if err != nil {
 		t.Errorf("Error unmuting host %s: Response %s: %v", hostname, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -99,8 +101,9 @@ func TestHosts(t *testing.T) {
 }
 
 func TestHostTotalsMocked(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -125,7 +128,7 @@ func TestHostTotalsMocked(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.GetHostTotals(ctx).From(123).Execute()
+	hostListResp, httpresp, err := api.GetHostTotals(ctx, *datadog.NewGetHostTotalsOptionalParameters().WithFrom(123))
 	if err != nil {
 		t.Errorf("Failed to get host totals: %v", err)
 	}
@@ -134,8 +137,9 @@ func TestHostTotalsMocked(t *testing.T) {
 }
 
 func TestHostsSearchMocked(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -164,7 +168,12 @@ func TestHostsSearchMocked(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.ListHosts(ctx).Filter("filter string").Count(4).From(123).SortDir("asc").SortField("status").Start(3).Execute()
+	hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+		WithFilter("filter string").
+		WithCount(4).WithFrom(123).
+		WithSortDir("asc").
+		WithSortField("status").
+		WithStart(3))
 	if err != nil {
 		t.Errorf("Failed to get hosts: %v", err)
 	}
@@ -173,8 +182,8 @@ func TestHostsSearchMocked(t *testing.T) {
 }
 
 func TestHostsListErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -190,7 +199,8 @@ func TestHostsListErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).HostsApi.ListHosts(ctx).Count(-1).Execute()
+			_, httpresp, err := Client(ctx).HostsApi.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+				WithCount(-1))
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -200,8 +210,8 @@ func TestHostsListErrors(t *testing.T) {
 }
 
 func TestHostsGetTotalsErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -217,7 +227,8 @@ func TestHostsGetTotalsErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).HostsApi.GetHostTotals(ctx).From(tests.ClockFromContext(ctx).Now().Unix() + 60).Execute()
+			_, httpresp, err := Client(ctx).HostsApi.GetHostTotals(ctx, *datadog.NewGetHostTotalsOptionalParameters().
+				WithFrom(tests.ClockFromContext(ctx).Now().Unix() + 60))
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -227,8 +238,10 @@ func TestHostsGetTotalsErrors(t *testing.T) {
 }
 
 func TestHostsMuteErrors(t *testing.T) {
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 	// Setup the Client we'll use to interact with the Test account
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -236,11 +249,11 @@ func TestHostsMuteErrors(t *testing.T) {
 	hostname := *tests.UniqueEntityName(ctx, t)
 	muteSettings := *datadog.NewHostMuteSettingsWithDefaults()
 	muteSettings.SetOverride(true)
-	_, httpresp, err := Client(ctx).HostsApi.MuteHost(ctx, hostname).Body(muteSettings).Execute()
+	_, httpresp, err := Client(ctx).HostsApi.MuteHost(ctx, hostname, muteSettings)
 	if err != nil {
 		t.Fatalf("Error muting host %s: Response: %s", hostname, err.(datadog.GenericOpenAPIError).Body())
 	}
-	defer Client(ctx).HostsApi.UnmuteHost(ctx, hostname).Execute()
+	defer Client(ctx).HostsApi.UnmuteHost(ctx, hostname)
 	assert.Equal(200, httpresp.StatusCode)
 
 	testCases := map[string]struct {
@@ -257,7 +270,7 @@ func TestHostsMuteErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).HostsApi.MuteHost(ctx, hostname).Body(datadog.HostMuteSettings{}).Execute()
+			_, httpresp, err := Client(ctx).HostsApi.MuteHost(ctx, hostname, datadog.HostMuteSettings{})
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -267,8 +280,8 @@ func TestHostsMuteErrors(t *testing.T) {
 }
 
 func TestHostsUnmuteErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -285,7 +298,7 @@ func TestHostsUnmuteErrors(t *testing.T) {
 			assert := tests.Assert(ctx, t)
 
 			hostname := *tests.UniqueEntityName(ctx, t)
-			_, httpresp, err := Client(ctx).HostsApi.UnmuteHost(ctx, hostname).Execute()
+			_, httpresp, err := Client(ctx).HostsApi.UnmuteHost(ctx, hostname)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -295,8 +308,9 @@ func TestHostsUnmuteErrors(t *testing.T) {
 }
 
 func TestHostsSearchMockedIncludeMutedHostsDataFalse(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -326,7 +340,13 @@ func TestHostsSearchMockedIncludeMutedHostsDataFalse(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.ListHosts(ctx).Filter("filter string").Count(4).From(123).SortDir("asc").SortField("status").Start(3).IncludeMutedHostsData(false).Execute()
+	hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+		WithFilter("filter string").
+		WithCount(4).WithFrom(123).
+		WithSortDir("asc").
+		WithSortField("status").
+		WithStart(3).
+		WithIncludeMutedHostsData(false))
 	if err != nil {
 		t.Errorf("Failed to get hosts: %v", err)
 	}
@@ -335,8 +355,9 @@ func TestHostsSearchMockedIncludeMutedHostsDataFalse(t *testing.T) {
 }
 
 func TestHostsSearchMockedIncludeMutedHostsDataTrue(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -366,7 +387,14 @@ func TestHostsSearchMockedIncludeMutedHostsDataTrue(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.ListHosts(ctx).Filter("filter string").Count(4).From(123).SortDir("asc").SortField("status").Start(3).IncludeMutedHostsData(true).Execute()
+	hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+		WithFilter("filter string").
+		WithCount(4).
+		WithFrom(123).
+		WithSortDir("asc").
+		WithSortField("status").
+		WithStart(3).
+		WithIncludeMutedHostsData(true))
 	if err != nil {
 		t.Errorf("Failed to get hosts: %v", err)
 	}
@@ -375,8 +403,9 @@ func TestHostsSearchMockedIncludeMutedHostsDataTrue(t *testing.T) {
 }
 
 func TestHostsSearchMockedIncludeMutedHostsDataDefault(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -405,7 +434,13 @@ func TestHostsSearchMockedIncludeMutedHostsDataDefault(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.ListHosts(ctx).Filter("filter string").Count(4).From(123).SortDir("asc").SortField("status").Start(3).Execute()
+	hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+		WithFilter("filter string").
+		WithCount(4).
+		WithFrom(123).
+		WithSortDir("asc").
+		WithSortField("status").
+		WithStart(3))
 	if err != nil {
 		t.Errorf("Failed to get hosts: %v", err)
 	}
@@ -414,8 +449,9 @@ func TestHostsSearchMockedIncludeMutedHostsDataDefault(t *testing.T) {
 }
 
 func TestHostsSearchMockedIncludeHostsMetadataFalse(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -445,7 +481,14 @@ func TestHostsSearchMockedIncludeHostsMetadataFalse(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.ListHosts(ctx).Filter("filter string").Count(4).From(123).SortDir("asc").SortField("status").Start(3).IncludeHostsMetadata(false).Execute()
+	hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+		WithFilter("filter string").
+		WithCount(4).
+		WithFrom(123).
+		WithSortDir("asc").
+		WithSortField("status").
+		WithStart(3).
+		WithIncludeHostsMetadata(false))
 	if err != nil {
 		t.Errorf("Failed to get hosts: %v", err)
 	}
@@ -454,8 +497,9 @@ func TestHostsSearchMockedIncludeHostsMetadataFalse(t *testing.T) {
 }
 
 func TestHostsSearchMockedIncludeHostsMetadataTrue(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -485,7 +529,14 @@ func TestHostsSearchMockedIncludeHostsMetadataTrue(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.ListHosts(ctx).Filter("filter string").Count(4).From(123).SortDir("asc").SortField("status").Start(3).IncludeHostsMetadata(true).Execute()
+	hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+		WithFilter("filter string").
+		WithCount(4).
+		WithFrom(123).
+		WithSortDir("asc").
+		WithSortField("status").
+		WithStart(3).
+		WithIncludeHostsMetadata(true))
 	if err != nil {
 		t.Errorf("Failed to get hosts: %v", err)
 	}
@@ -494,8 +545,9 @@ func TestHostsSearchMockedIncludeHostsMetadataTrue(t *testing.T) {
 }
 
 func TestHostsSearchMockedIncludeHostsMetadataDefault(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	defer gock.Off()
 
@@ -524,7 +576,12 @@ func TestHostsSearchMockedIncludeHostsMetadataDefault(t *testing.T) {
 	json.Unmarshal([]byte(data), &expected)
 
 	api := Client(ctx).HostsApi
-	hostListResp, httpresp, err := api.ListHosts(ctx).Filter("filter string").Count(4).From(123).SortDir("asc").SortField("status").Start(3).Execute()
+	hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+		WithFilter("filter string").
+		WithCount(4).WithFrom(123).
+		WithSortDir("asc").
+		WithSortField("status").
+		WithStart(3))
 	if err != nil {
 		t.Errorf("Failed to get hosts: %v", err)
 	}
@@ -533,7 +590,14 @@ func TestHostsSearchMockedIncludeHostsMetadataDefault(t *testing.T) {
 }
 
 func TestHostsIncludeMutedHostsDataFunctional(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+
+	if tests.GetRecording() == tests.ModeIgnore {
+		t.Skipf("Slow test")
+	}
+
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -558,7 +622,7 @@ func TestHostsIncludeMutedHostsDataFunctional(t *testing.T) {
 
 	// wait for host to appear
 	err = tests.Retry(10*time.Second, 10, func() bool {
-		_, httpresp, err := Client(ctx).TagsApi.GetHostTags(ctx, hostname).Execute()
+		_, httpresp, err := Client(ctx).TagsApi.GetHostTags(ctx, hostname)
 		if err != nil {
 			t.Logf("Error getting host tags for %s: Response %s: %v", hostname, err.(datadog.GenericOpenAPIError).Body(), err)
 		}
@@ -570,7 +634,7 @@ func TestHostsIncludeMutedHostsDataFunctional(t *testing.T) {
 
 	// waiting for host to appear on infralist
 	err = tests.Retry(10*time.Second, 10, func() bool {
-		hostListResp, httpresp, err := api.ListHosts(ctx).Filter(hostname).Execute()
+		hostListResp, httpresp, err := api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().WithFilter(hostname))
 		if err != nil {
 			t.Errorf("Failed to get hosts: %v", err)
 		}
@@ -582,7 +646,7 @@ func TestHostsIncludeMutedHostsDataFunctional(t *testing.T) {
 		Message: datadog.PtrString("muting for test"),
 		End:     datadog.PtrInt64(now + 1200),
 	}
-	muteHostResp, httpresp, err := api.MuteHost(ctx, hostname).Body(hostMuteSettings).Execute()
+	muteHostResp, httpresp, err := api.MuteHost(ctx, hostname, hostMuteSettings)
 	if err != nil {
 		t.Errorf("Error muting host %s: Response %s: %v", hostname, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -594,7 +658,7 @@ func TestHostsIncludeMutedHostsDataFunctional(t *testing.T) {
 
 	// waiting for host to be muted
 	err = tests.Retry(10*time.Second, 10, func() bool {
-		hostListResp, httpresp, err = api.ListHosts(ctx).Filter(hostname).Execute()
+		hostListResp, httpresp, err = api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().WithFilter(hostname))
 		if err != nil {
 			t.Errorf("Failed to get hosts: %v", err)
 		}
@@ -610,7 +674,9 @@ func TestHostsIncludeMutedHostsDataFunctional(t *testing.T) {
 
 	// this is the case where the include_muted_hosts_data is true, should have muted data
 	err = tests.Retry(10*time.Second, 10, func() bool {
-		hostListResp, httpresp, err = api.ListHosts(ctx).Filter(hostname).IncludeMutedHostsData(true).Execute()
+		hostListResp, httpresp, err = api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+			WithFilter(hostname).
+			WithIncludeMutedHostsData(true))
 		if err != nil {
 			t.Errorf("Failed to get hosts: %v", err)
 		}
@@ -624,7 +690,9 @@ func TestHostsIncludeMutedHostsDataFunctional(t *testing.T) {
 
 	// this is the case where the include_muted_hosts_data is false, should not have muted data
 	err = tests.Retry(10*time.Second, 10, func() bool {
-		hostListResp, httpresp, err = api.ListHosts(ctx).Filter(hostname).IncludeMutedHostsData(false).Execute()
+		hostListResp, httpresp, err = api.ListHosts(ctx, *datadog.NewListHostsOptionalParameters().
+			WithFilter(hostname).
+			WithIncludeMutedHostsData(false))
 		if err != nil {
 			t.Errorf("Failed to get hosts: %v", err)
 		}

@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // RelationshipToUserData Relationship to user object.
@@ -35,7 +36,7 @@ func NewRelationshipToUserData(id string, type_ UsersType) *RelationshipToUserDa
 // but it doesn't guarantee that properties required by API are set
 func NewRelationshipToUserDataWithDefaults() *RelationshipToUserData {
 	this := RelationshipToUserData{}
-	var type_ UsersType = "users"
+	var type_ UsersType = USERSTYPE_USERS
 	this.Type = type_
 	return &this
 }
@@ -97,6 +98,34 @@ func (o RelationshipToUserData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *RelationshipToUserData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Id   *string    `json:"id"`
+		Type *UsersType `json:"type"`
+	}{}
+	all := struct {
+		Id   string    `json:"id"`
+		Type UsersType `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Id == nil {
+		return fmt.Errorf("Required field id missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Id = all.Id
+	o.Type = all.Type
+	return nil
 }
 
 type NullableRelationshipToUserData struct {

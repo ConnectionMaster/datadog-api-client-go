@@ -1,9 +1,9 @@
-# \RolesApi
+# RolesApi
 
 All URIs are relative to *https://api.datadoghq.com*
 
 Method | HTTP request | Description
-------------- | ------------- | -------------
+------ | ------------ | ------------
 [**AddPermissionToRole**](RolesApi.md#AddPermissionToRole) | **Post** /api/v2/roles/{role_id}/permissions | Grant permission to a role
 [**AddUserToRole**](RolesApi.md#AddUserToRole) | **Post** /api/v2/roles/{role_id}/users | Add a user to a role
 [**CreateRole**](RolesApi.md#CreateRole) | **Post** /api/v2/roles | Create role
@@ -21,11 +21,9 @@ Method | HTTP request | Description
 
 ## AddPermissionToRole
 
-> PermissionsResponse AddPermissionToRole(ctx, roleId).Body(body).Execute()
+> PermissionsResponse AddPermissionToRole(ctx, roleId, body)
 
-Grant permission to a role
-
-
+Adds a permission to a role.
 
 ### Example
 
@@ -41,53 +39,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
     body := *datadog.NewRelationshipToPermission() // RelationshipToPermission | 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.AddPermissionToRole(ctx, roleId).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.AddPermissionToRole(ctx, roleId, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.AddPermissionToRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.AddPermissionToRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddPermissionToRole`: PermissionsResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.AddPermissionToRole:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.AddPermissionToRole:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleId** | **string** | The ID of the role. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAddPermissionToRoleRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**roleId** | **string** | The ID of the role. |  |
+**body** | [**RelationshipToPermission**](RelationshipToPermission.md) |  | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**RelationshipToPermission**](RelationshipToPermission.md) |  | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -109,11 +93,9 @@ Name | Type | Description  | Notes
 
 ## AddUserToRole
 
-> UsersResponse AddUserToRole(ctx, roleId).Body(body).Execute()
+> UsersResponse AddUserToRole(ctx, roleId, body)
 
-Add a user to a role
-
-
+Adds a user to a role.
 
 ### Example
 
@@ -129,53 +111,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
     body := *datadog.NewRelationshipToUser(*datadog.NewRelationshipToUserData("00000000-0000-0000-0000-000000000000", datadog.UsersType("users"))) // RelationshipToUser | 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.AddUserToRole(ctx, roleId).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.AddUserToRole(ctx, roleId, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.AddUserToRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.AddUserToRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddUserToRole`: UsersResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.AddUserToRole:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.AddUserToRole:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleId** | **string** | The ID of the role. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAddUserToRoleRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**roleId** | **string** | The ID of the role. |  |
+**body** | [**RelationshipToUser**](RelationshipToUser.md) |  | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**RelationshipToUser**](RelationshipToUser.md) |  | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -197,11 +165,9 @@ Name | Type | Description  | Notes
 
 ## CreateRole
 
-> RoleCreateResponse CreateRole(ctx).Body(body).Execute()
+> RoleCreateResponse CreateRole(ctx, body)
 
-Create role
-
-
+Create a new role for your organization.
 
 ### Example
 
@@ -217,47 +183,37 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     body := *datadog.NewRoleCreateRequest(*datadog.NewRoleCreateData(*datadog.NewRoleCreateAttributes("developers"))) // RoleCreateRequest | 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.CreateRole(ctx).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.CreateRole(ctx, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.CreateRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.CreateRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateRole`: RoleCreateResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.CreateRole:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.CreateRole:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateRoleRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**RoleCreateRequest**](RoleCreateRequest.md) |  | 
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**body** | [**RoleCreateRequest**](RoleCreateRequest.md) |  | 
+
+
+### Optional Parameters
+
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -279,11 +235,9 @@ Name | Type | Description  | Notes
 
 ## DeleteRole
 
-> DeleteRole(ctx, roleId).Execute()
+> DeleteRole(ctx, roleId)
 
-Delete role
-
-
+Disables a role.
 
 ### Example
 
@@ -298,47 +252,33 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    r, err := api_client.RolesApi.DeleteRole(ctx, roleId).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    r, err := apiClient.RolesApi.DeleteRole(ctx, roleId)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.DeleteRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.DeleteRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **roleId** | **string** | The ID of the role. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteRoleRequest struct via the builder pattern
+### Optional Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -361,11 +301,9 @@ Name | Type | Description  | Notes
 
 ## GetRole
 
-> RoleResponse GetRole(ctx, roleId).Execute()
+> RoleResponse GetRole(ctx, roleId)
 
-Get a role
-
-
+Get a role in the organization specified by the role’s `role_id`.
 
 ### Example
 
@@ -381,50 +319,36 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.GetRole(ctx, roleId).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.GetRole(ctx, roleId)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.GetRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.GetRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetRole`: RoleResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.GetRole:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.GetRole:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **roleId** | **string** | The ID of the role. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetRoleRequest struct via the builder pattern
+### Optional Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -447,11 +371,9 @@ Name | Type | Description  | Notes
 
 ## ListPermissions
 
-> PermissionsResponse ListPermissions(ctx).Execute()
+> PermissionsResponse ListPermissions(ctx)
 
-List permissions
-
-
+Returns a list of all permissions, including name, description, and ID.
 
 ### Example
 
@@ -467,41 +389,31 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.ListPermissions(ctx).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.ListPermissions(ctx)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListPermissions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListPermissions`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListPermissions`: PermissionsResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListPermissions:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListPermissions:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListPermissionsRequest struct via the builder pattern
+### Optional Parameters
+
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -524,11 +436,9 @@ Other parameters are passed through a pointer to a apiListPermissionsRequest str
 
 ## ListRolePermissions
 
-> PermissionsResponse ListRolePermissions(ctx, roleId).Execute()
+> PermissionsResponse ListRolePermissions(ctx, roleId)
 
-List permissions for a role
-
-
+Returns a list of all permissions for a single role.
 
 ### Example
 
@@ -544,50 +454,36 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.ListRolePermissions(ctx, roleId).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.ListRolePermissions(ctx, roleId)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListRolePermissions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListRolePermissions`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListRolePermissions`: PermissionsResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListRolePermissions:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListRolePermissions:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **roleId** | **string** | The ID of the role. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListRolePermissionsRequest struct via the builder pattern
+### Optional Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -610,11 +506,9 @@ Name | Type | Description  | Notes
 
 ## ListRoleUsers
 
-> UsersResponse ListRoleUsers(ctx, roleId).PageSize(pageSize).PageNumber(pageNumber).Sort(sort).Filter(filter).Execute()
+> UsersResponse ListRoleUsers(ctx, roleId, datadog.ListRoleUsersOptionalParameters{})
 
-Get all users of a role
-
-
+Gets all users of a role.
 
 ### Example
 
@@ -630,59 +524,55 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
-    pageSize := int64(789) // int64 | Size for a given page. (optional) (default to 10)
-    pageNumber := int64(789) // int64 | Specific page number to return. (optional) (default to 0)
+    pageSize := int64(10) // int64 | Size for a given page. (optional) (default to 10)
+    pageNumber := int64(0) // int64 | Specific page number to return. (optional) (default to 0)
     sort := "sort_example" // string | User attribute to order results by. Sort order is **ascending** by default. Sort order is **descending** if the field is prefixed by a negative sign, for example `sort=-name`. Options: `name`, `email`, `status`. (optional) (default to "name")
     filter := "filter_example" // string | Filter all users by the given string. Defaults to no filtering. (optional)
+    optionalParams := datadog.ListRoleUsersOptionalParameters{
+        PageSize: &pageSize,
+        PageNumber: &pageNumber,
+        Sort: &sort,
+        Filter: &filter,
+    }
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.ListRoleUsers(ctx, roleId).PageSize(pageSize).PageNumber(pageNumber).Sort(sort).Filter(filter).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.ListRoleUsers(ctx, roleId, optionalParams)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListRoleUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListRoleUsers`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListRoleUsers`: UsersResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListRoleUsers:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListRoleUsers:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **roleId** | **string** | The ID of the role. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListRoleUsersRequest struct via the builder pattern
+### Optional Parameters
+
+
+Other parameters are passed through a pointer to a ListRoleUsersOptionalParameters struct.
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **pageSize** | **int64** | Size for a given page. | [default to 10]
- **pageNumber** | **int64** | Specific page number to return. | [default to 0]
- **sort** | **string** | User attribute to order results by. Sort order is **ascending** by default. Sort order is **descending** if the field is prefixed by a negative sign, for example &#x60;sort&#x3D;-name&#x60;. Options: &#x60;name&#x60;, &#x60;email&#x60;, &#x60;status&#x60;. | [default to &quot;name&quot;]
- **filter** | **string** | Filter all users by the given string. Defaults to no filtering. | 
+---- | ---- | ------------ | ------
+**pageSize** | **int64** | Size for a given page. | [default to 10]
+**pageNumber** | **int64** | Specific page number to return. | [default to 0]
+**sort** | **string** | User attribute to order results by. Sort order is **ascending** by default. Sort order is **descending** if the field is prefixed by a negative sign, for example &#x60;sort&#x3D;-name&#x60;. Options: &#x60;name&#x60;, &#x60;email&#x60;, &#x60;status&#x60;. | [default to &quot;name&quot;]
+**filter** | **string** | Filter all users by the given string. Defaults to no filtering. | 
 
 ### Return type
 
@@ -704,11 +594,9 @@ Name | Type | Description  | Notes
 
 ## ListRoles
 
-> RolesResponse ListRoles(ctx).PageSize(pageSize).PageNumber(pageNumber).Sort(sort).Filter(filter).Execute()
+> RolesResponse ListRoles(ctx, datadog.ListRolesOptionalParameters{})
 
-List roles
-
-
+Returns all roles, including their names and IDs.
 
 ### Example
 
@@ -724,53 +612,50 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
-    pageSize := int64(789) // int64 | Size for a given page. (optional) (default to 10)
-    pageNumber := int64(789) // int64 | Specific page number to return. (optional) (default to 0)
+    pageSize := int64(10) // int64 | Size for a given page. (optional) (default to 10)
+    pageNumber := int64(0) // int64 | Specific page number to return. (optional) (default to 0)
     sort := datadog.RolesSort("name") // RolesSort | Sort roles depending on the given field. Sort order is **ascending** by default. Sort order is **descending** if the field is prefixed by a negative sign, for example: `sort=-name`. (optional) (default to "name")
     filter := "filter_example" // string | Filter all roles by the given string. (optional)
+    optionalParams := datadog.ListRolesOptionalParameters{
+        PageSize: &pageSize,
+        PageNumber: &pageNumber,
+        Sort: &sort,
+        Filter: &filter,
+    }
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.ListRoles(ctx).PageSize(pageSize).PageNumber(pageNumber).Sort(sort).Filter(filter).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.ListRoles(ctx, optionalParams)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListRoles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.ListRoles`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListRoles`: RolesResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListRoles:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.ListRoles:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListRolesRequest struct via the builder pattern
+### Optional Parameters
+
+
+Other parameters are passed through a pointer to a ListRolesOptionalParameters struct.
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **pageSize** | **int64** | Size for a given page. | [default to 10]
- **pageNumber** | **int64** | Specific page number to return. | [default to 0]
- **sort** | [**RolesSort**](RolesSort.md) | Sort roles depending on the given field. Sort order is **ascending** by default. Sort order is **descending** if the field is prefixed by a negative sign, for example: &#x60;sort&#x3D;-name&#x60;. | [default to &quot;name&quot;]
- **filter** | **string** | Filter all roles by the given string. | 
+---- | ---- | ------------ | ------
+**pageSize** | **int64** | Size for a given page. | [default to 10]
+**pageNumber** | **int64** | Specific page number to return. | [default to 0]
+**sort** | [**RolesSort**](RolesSort.md) | Sort roles depending on the given field. Sort order is **ascending** by default. Sort order is **descending** if the field is prefixed by a negative sign, for example: &#x60;sort&#x3D;-name&#x60;. | [default to &quot;name&quot;]
+**filter** | **string** | Filter all roles by the given string. | 
 
 ### Return type
 
@@ -792,11 +677,9 @@ Name | Type | Description  | Notes
 
 ## RemovePermissionFromRole
 
-> PermissionsResponse RemovePermissionFromRole(ctx, roleId).Body(body).Execute()
+> PermissionsResponse RemovePermissionFromRole(ctx, roleId, body)
 
-Revoke permission
-
-
+Removes a permission from a role.
 
 ### Example
 
@@ -812,53 +695,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
     body := *datadog.NewRelationshipToPermission() // RelationshipToPermission | 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.RemovePermissionFromRole(ctx, roleId).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.RemovePermissionFromRole(ctx, roleId, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.RemovePermissionFromRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.RemovePermissionFromRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `RemovePermissionFromRole`: PermissionsResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.RemovePermissionFromRole:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.RemovePermissionFromRole:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleId** | **string** | The ID of the role. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRemovePermissionFromRoleRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**roleId** | **string** | The ID of the role. |  |
+**body** | [**RelationshipToPermission**](RelationshipToPermission.md) |  | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**RelationshipToPermission**](RelationshipToPermission.md) |  | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -880,11 +749,9 @@ Name | Type | Description  | Notes
 
 ## RemoveUserFromRole
 
-> UsersResponse RemoveUserFromRole(ctx, roleId).Body(body).Execute()
+> UsersResponse RemoveUserFromRole(ctx, roleId, body)
 
-Remove a user from a role
-
-
+Removes a user from a role.
 
 ### Example
 
@@ -900,53 +767,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
     body := *datadog.NewRelationshipToUser(*datadog.NewRelationshipToUserData("00000000-0000-0000-0000-000000000000", datadog.UsersType("users"))) // RelationshipToUser | 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.RemoveUserFromRole(ctx, roleId).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.RemoveUserFromRole(ctx, roleId, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.RemoveUserFromRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.RemoveUserFromRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `RemoveUserFromRole`: UsersResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.RemoveUserFromRole:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.RemoveUserFromRole:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleId** | **string** | The ID of the role. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiRemoveUserFromRoleRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**roleId** | **string** | The ID of the role. |  |
+**body** | [**RelationshipToUser**](RelationshipToUser.md) |  | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**RelationshipToUser**](RelationshipToUser.md) |  | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -968,11 +821,9 @@ Name | Type | Description  | Notes
 
 ## UpdateRole
 
-> RoleUpdateResponse UpdateRole(ctx, roleId).Body(body).Execute()
+> RoleUpdateResponse UpdateRole(ctx, roleId, body)
 
-Update a role
-
-
+Edit a role. Can only be used with application keys belonging to administrators.
 
 ### Example
 
@@ -988,53 +839,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     roleId := "roleId_example" // string | The ID of the role.
     body := *datadog.NewRoleUpdateRequest(*datadog.NewRoleUpdateData(*datadog.NewRoleUpdateAttributes(), "00000000-0000-0000-0000-000000000000", datadog.RolesType("roles"))) // RoleUpdateRequest | 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.RolesApi.UpdateRole(ctx, roleId).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.RolesApi.UpdateRole(ctx, roleId, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.UpdateRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RolesApi.UpdateRole`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateRole`: RoleUpdateResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from RolesApi.UpdateRole:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from RolesApi.UpdateRole:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**roleId** | **string** | The ID of the role. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateRoleRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**roleId** | **string** | The ID of the role. |  |
+**body** | [**RoleUpdateRequest**](RoleUpdateRequest.md) |  | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**RoleUpdateRequest**](RoleUpdateRequest.md) |  | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 

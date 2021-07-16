@@ -3,30 +3,30 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | Pointer to [**IncidentServiceResponseAttributes**](IncidentServiceResponseAttributes.md) |  | [optional] 
 **Id** | **string** | The incident service&#39;s ID. | 
 **Relationships** | Pointer to [**IncidentServiceRelationships**](IncidentServiceRelationships.md) |  | [optional] 
-**Type** | [**IncidentServiceType**](IncidentServiceType.md) |  | [default to "services"]
+**Type** | [**IncidentServiceType**](IncidentServiceType.md) |  | [default to INCIDENTSERVICETYPE_SERVICES]
 
 ## Methods
 
 ### NewIncidentServiceResponseData
 
-`func NewIncidentServiceResponseData(id string, type_ IncidentServiceType, ) *IncidentServiceResponseData`
+`func NewIncidentServiceResponseData(id string, type_ IncidentServiceType) *IncidentServiceResponseData`
 
-NewIncidentServiceResponseData instantiates a new IncidentServiceResponseData object
+NewIncidentServiceResponseData instantiates a new IncidentServiceResponseData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIncidentServiceResponseDataWithDefaults
 
 `func NewIncidentServiceResponseDataWithDefaults() *IncidentServiceResponseData`
 
-NewIncidentServiceResponseDataWithDefaults instantiates a new IncidentServiceResponseData object
+NewIncidentServiceResponseDataWithDefaults instantiates a new IncidentServiceResponseData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Query** | Pointer to **string** | Default query is &#x60;*&#x60;, meaning all logs flowing in the index would be excluded. Scope down exclusion filter to only a subset of logs with a log query. | [optional] 
 **SampleRate** | **float64** | Sample rate to apply to logs going through this exclusion filter, a value of 1 will exclude all logs matching the query. | 
 
@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 
 ### NewLogsExclusionFilter
 
-`func NewLogsExclusionFilter(sampleRate float64, ) *LogsExclusionFilter`
+`func NewLogsExclusionFilter(sampleRate float64) *LogsExclusionFilter`
 
-NewLogsExclusionFilter instantiates a new LogsExclusionFilter object
+NewLogsExclusionFilter instantiates a new LogsExclusionFilter object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsExclusionFilterWithDefaults
 
 `func NewLogsExclusionFilterWithDefaults() *LogsExclusionFilter`
 
-NewLogsExclusionFilterWithDefaults instantiates a new LogsExclusionFilter object
+NewLogsExclusionFilterWithDefaults instantiates a new LogsExclusionFilter object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetQuery
 

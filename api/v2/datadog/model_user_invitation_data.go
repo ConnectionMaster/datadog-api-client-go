@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // UserInvitationData Object to create a user invitation.
@@ -34,7 +35,7 @@ func NewUserInvitationData(relationships UserInvitationRelationships, type_ User
 // but it doesn't guarantee that properties required by API are set
 func NewUserInvitationDataWithDefaults() *UserInvitationData {
 	this := UserInvitationData{}
-	var type_ UserInvitationsType = "user_invitations"
+	var type_ UserInvitationsType = USERINVITATIONSTYPE_USER_INVITATIONS
 	this.Type = type_
 	return &this
 }
@@ -96,6 +97,34 @@ func (o UserInvitationData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *UserInvitationData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Relationships *UserInvitationRelationships `json:"relationships"`
+		Type          *UserInvitationsType         `json:"type"`
+	}{}
+	all := struct {
+		Relationships UserInvitationRelationships `json:"relationships"`
+		Type          UserInvitationsType         `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Relationships == nil {
+		return fmt.Errorf("Required field relationships missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Relationships = all.Relationships
+	o.Type = all.Type
+	return nil
 }
 
 type NullableUserInvitationData struct {

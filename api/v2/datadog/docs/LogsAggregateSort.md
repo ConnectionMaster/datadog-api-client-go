@@ -3,11 +3,11 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Aggregation** | Pointer to [**LogsAggregationFunction**](LogsAggregationFunction.md) |  | [optional] 
 **Metric** | Pointer to **string** | The metric to sort by (only used for &#x60;type&#x3D;measure&#x60;) | [optional] 
 **Order** | Pointer to [**LogsSortOrder**](LogsSortOrder.md) |  | [optional] 
-**Type** | Pointer to [**LogsAggregateSortType**](LogsAggregateSortType.md) |  | [optional] [default to "alphabetical"]
+**Type** | Pointer to [**LogsAggregateSortType**](LogsAggregateSortType.md) |  | [optional] [default to LOGSAGGREGATESORTTYPE_ALPHABETICAL]
 
 ## Methods
 
@@ -15,18 +15,18 @@ Name | Type | Description | Notes
 
 `func NewLogsAggregateSort() *LogsAggregateSort`
 
-NewLogsAggregateSort instantiates a new LogsAggregateSort object
+NewLogsAggregateSort instantiates a new LogsAggregateSort object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsAggregateSortWithDefaults
 
 `func NewLogsAggregateSortWithDefaults() *LogsAggregateSort`
 
-NewLogsAggregateSortWithDefaults instantiates a new LogsAggregateSort object
+NewLogsAggregateSortWithDefaults instantiates a new LogsAggregateSort object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAggregation
 

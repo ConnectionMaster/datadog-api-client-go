@@ -3,30 +3,30 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Sources** | **[]string** | Array of source attributes. | 
-**Type** | [**LogsDateRemapperType**](LogsDateRemapperType.md) |  | [default to "date-remapper"]
+**Type** | [**LogsDateRemapperType**](LogsDateRemapperType.md) |  | [default to LOGSDATEREMAPPERTYPE_DATE_REMAPPER]
 
 ## Methods
 
 ### NewLogsDateRemapper
 
-`func NewLogsDateRemapper(sources []string, type_ LogsDateRemapperType, ) *LogsDateRemapper`
+`func NewLogsDateRemapper(sources []string, type_ LogsDateRemapperType) *LogsDateRemapper`
 
-NewLogsDateRemapper instantiates a new LogsDateRemapper object
+NewLogsDateRemapper instantiates a new LogsDateRemapper object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsDateRemapperWithDefaults
 
 `func NewLogsDateRemapperWithDefaults() *LogsDateRemapper`
 
-NewLogsDateRemapperWithDefaults instantiates a new LogsDateRemapper object
+NewLogsDateRemapperWithDefaults instantiates a new LogsDateRemapper object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetIsEnabled
 

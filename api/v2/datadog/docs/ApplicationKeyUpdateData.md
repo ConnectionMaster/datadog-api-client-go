@@ -3,29 +3,29 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | [**ApplicationKeyUpdateAttributes**](ApplicationKeyUpdateAttributes.md) |  | 
 **Id** | **string** | ID of the application key. | 
-**Type** | [**ApplicationKeysType**](ApplicationKeysType.md) |  | [default to "application_keys"]
+**Type** | [**ApplicationKeysType**](ApplicationKeysType.md) |  | [default to APPLICATIONKEYSTYPE_APPLICATION_KEYS]
 
 ## Methods
 
 ### NewApplicationKeyUpdateData
 
-`func NewApplicationKeyUpdateData(attributes ApplicationKeyUpdateAttributes, id string, type_ ApplicationKeysType, ) *ApplicationKeyUpdateData`
+`func NewApplicationKeyUpdateData(attributes ApplicationKeyUpdateAttributes, id string, type_ ApplicationKeysType) *ApplicationKeyUpdateData`
 
-NewApplicationKeyUpdateData instantiates a new ApplicationKeyUpdateData object
+NewApplicationKeyUpdateData instantiates a new ApplicationKeyUpdateData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewApplicationKeyUpdateDataWithDefaults
 
 `func NewApplicationKeyUpdateDataWithDefaults() *ApplicationKeyUpdateData`
 
-NewApplicationKeyUpdateDataWithDefaults instantiates a new ApplicationKeyUpdateData object
+NewApplicationKeyUpdateDataWithDefaults instantiates a new ApplicationKeyUpdateData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

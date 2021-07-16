@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AccessKeyId** | Pointer to **string** | Your AWS access key ID. Only required if your AWS account is a GovCloud or China account. | [optional] 
 **AccountId** | Pointer to **string** | Your AWS Account ID without dashes. | [optional] 
 **AccountSpecificNamespaceRules** | Pointer to **map[string]bool** | An object, (in the form &#x60;{\&quot;namespace1\&quot;:true/false, \&quot;namespace2\&quot;:true/false}&#x60;), that enables or disables metric collection for specific AWS namespaces for this AWS account only. | [optional] 
@@ -19,18 +19,18 @@ Name | Type | Description | Notes
 
 `func NewAWSAccount() *AWSAccount`
 
-NewAWSAccount instantiates a new AWSAccount object
+NewAWSAccount instantiates a new AWSAccount object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewAWSAccountWithDefaults
 
 `func NewAWSAccountWithDefaults() *AWSAccount`
 
-NewAWSAccountWithDefaults instantiates a new AWSAccount object
+NewAWSAccountWithDefaults instantiates a new AWSAccount object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAccessKeyId
 

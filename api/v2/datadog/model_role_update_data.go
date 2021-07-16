@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // RoleUpdateData Data related to the update of a role.
@@ -37,7 +38,7 @@ func NewRoleUpdateData(attributes RoleUpdateAttributes, id string, type_ RolesTy
 // but it doesn't guarantee that properties required by API are set
 func NewRoleUpdateDataWithDefaults() *RoleUpdateData {
 	this := RoleUpdateData{}
-	var type_ RolesType = "roles"
+	var type_ RolesType = ROLESTYPE_ROLES
 	this.Type = type_
 	return &this
 }
@@ -126,6 +127,40 @@ func (o RoleUpdateData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *RoleUpdateData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Attributes *RoleUpdateAttributes `json:"attributes"`
+		Id         *string               `json:"id"`
+		Type       *RolesType            `json:"type"`
+	}{}
+	all := struct {
+		Attributes RoleUpdateAttributes `json:"attributes"`
+		Id         string               `json:"id"`
+		Type       RolesType            `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Attributes == nil {
+		return fmt.Errorf("Required field attributes missing")
+	}
+	if required.Id == nil {
+		return fmt.Errorf("Required field id missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Id = all.Id
+	o.Type = all.Type
+	return nil
 }
 
 type NullableRoleUpdateData struct {

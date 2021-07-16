@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CreatedAt** | Pointer to **time.Time** | Creation time of the user invitation. | [optional] 
 **ExpiresAt** | Pointer to **time.Time** | Time of invitation expiration. | [optional] 
 **InviteType** | Pointer to **string** | Type of invitation. | [optional] 
@@ -15,18 +15,18 @@ Name | Type | Description | Notes
 
 `func NewUserInvitationDataAttributes() *UserInvitationDataAttributes`
 
-NewUserInvitationDataAttributes instantiates a new UserInvitationDataAttributes object
+NewUserInvitationDataAttributes instantiates a new UserInvitationDataAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUserInvitationDataAttributesWithDefaults
 
 `func NewUserInvitationDataAttributesWithDefaults() *UserInvitationDataAttributes`
 
-NewUserInvitationDataAttributesWithDefaults instantiates a new UserInvitationDataAttributes object
+NewUserInvitationDataAttributesWithDefaults instantiates a new UserInvitationDataAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreatedAt
 

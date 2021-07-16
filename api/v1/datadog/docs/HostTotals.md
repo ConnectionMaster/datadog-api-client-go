@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **TotalActive** | Pointer to **int64** | Total number of active host (UP and ???) reporting to Datadog. | [optional] 
 **TotalUp** | Pointer to **int64** | Number of host that are UP and reporting to Datadog. | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewHostTotals() *HostTotals`
 
-NewHostTotals instantiates a new HostTotals object
+NewHostTotals instantiates a new HostTotals object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewHostTotalsWithDefaults
 
 `func NewHostTotalsWithDefaults() *HostTotals`
 
-NewHostTotalsWithDefaults instantiates a new HostTotals object
+NewHostTotalsWithDefaults instantiates a new HostTotals object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetTotalActive
 

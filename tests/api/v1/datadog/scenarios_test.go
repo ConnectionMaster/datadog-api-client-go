@@ -2,6 +2,7 @@ package test
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"reflect"
 	"strings"
@@ -10,6 +11,7 @@ import (
 	"github.com/DataDog/datadog-api-client-go/api/v1/datadog"
 	"github.com/DataDog/datadog-api-client-go/tests"
 	"github.com/go-bdd/gobdd"
+	ddtesting "gopkg.in/DataDog/dd-trace-go.v1/contrib/testing"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/ext"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
@@ -30,18 +32,32 @@ func TestScenarios(t *testing.T) {
 		gobdd.WithIgnoredTags(tests.GetIgnoredTags()),
 		gobdd.WithBeforeScenario(func(ctx gobdd.Context) {
 			ct, _ := ctx.Get(gobdd.TestingTKey{})
-			cctx, finish := WithRecorder(
+			tt := ct.(*testing.T)
+			testParts := strings.Split(tt.Name(), "/")
+			cctx, closeSpan := ddtesting.StartSpanWithFinish(
+				NewDefaultContext(context.Background()),
+				tt,
+				ddtesting.WithSpanOptions(
+					tracer.Tag(ext.TestName, testParts[2]),
+					tracer.Tag(ext.TestSuite, fmt.Sprintf("v1/%s", testParts[1])),
+					tracer.Tag(ext.TestFramework, "github.com/go-bdd/gobdd"),
+				),
+			)
+			cctx, closeRecorder := WithRecorder(
 				context.WithValue(
-					context.Background(),
+					cctx,
 					datadog.ContextAPIKeys,
 					map[string]datadog.APIKey{},
 				),
-				ct.(*testing.T),
+				tt,
 			)
 			tests.SetCtx(ctx, cctx)
 			tests.SetRequestsUndo(ctx, requestsUndo)
 			tests.SetData(ctx, make(map[string]interface{}))
-			tests.SetCleanup(ctx, map[string]func(){"99-finish": finish})
+			tests.SetCleanup(ctx, map[string]func(){"99-finish": func() {
+				closeRecorder()
+				closeSpan()
+			}})
 		}), gobdd.WithAfterScenario(func(ctx gobdd.Context) {
 			tests.RunCleanup(ctx)
 		}),
@@ -60,6 +76,7 @@ func TestScenarios(t *testing.T) {
 				tracer.SpanType("step"),
 				tracer.ResourceName(parts[len(parts)-1]),
 			)
+			tests.SetFixtureData(ctx)
 			tests.SetCtx(ctx, cctx)
 		}),
 		gobdd.WithAfterStep(func(ctx gobdd.Context) {
@@ -83,8 +100,13 @@ func TestScenarios(t *testing.T) {
 	s.AddStep(`a valid "apiKeyAuth" key in the system`, aValidAPIKeyAuth)
 	s.AddStep(`a valid "appKeyAuth" key in the system`, aValidAppKeyAuth)
 	s.AddStep(`an instance of "([^"]+)" API`, anInstanceOf)
+	s.AddStep(`operation "([^"]+)" enabled`, enableOperations)
 
-	for _, givenStep := range tests.LoadGivenSteps("./features/given.json") {
+	steps, err := tests.LoadGivenSteps("./features/given.json")
+	if err != nil {
+		t.Fatalf("could not load given steps: %v", err)
+	}
+	for _, givenStep := range steps {
 		givenStep.RegisterSuite(s)
 	}
 
@@ -130,4 +152,10 @@ func anInstanceOf(t gobdd.StepTest, ctx gobdd.Context, name string) {
 		t.Fatalf("invalid API name %s", name)
 	}
 	tests.SetAPI(ctx, f)
+}
+
+// enableOperations sets unstable operations specific in this clause to enabled
+func enableOperations(t gobdd.StepTest, ctx gobdd.Context, name string) {
+	client := Client(tests.GetCtx(ctx))
+	client.GetConfig().SetUnstableOperationEnabled(name, true)
 }

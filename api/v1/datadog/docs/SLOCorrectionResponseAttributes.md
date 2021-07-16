@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Category** | Pointer to [**SLOCorrectionCategory**](SLOCorrectionCategory.md) |  | [optional] 
 **Creator** | Pointer to [**Creator**](Creator.md) |  | [optional] 
 **Description** | Pointer to **string** | Description of the correction being made. | [optional] 
@@ -18,18 +18,18 @@ Name | Type | Description | Notes
 
 `func NewSLOCorrectionResponseAttributes() *SLOCorrectionResponseAttributes`
 
-NewSLOCorrectionResponseAttributes instantiates a new SLOCorrectionResponseAttributes object
+NewSLOCorrectionResponseAttributes instantiates a new SLOCorrectionResponseAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSLOCorrectionResponseAttributesWithDefaults
 
 `func NewSLOCorrectionResponseAttributesWithDefaults() *SLOCorrectionResponseAttributes`
 
-NewSLOCorrectionResponseAttributesWithDefaults instantiates a new SLOCorrectionResponseAttributes object
+NewSLOCorrectionResponseAttributesWithDefaults instantiates a new SLOCorrectionResponseAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCategory
 

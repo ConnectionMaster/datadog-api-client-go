@@ -10,12 +10,15 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
-// WidgetLayout The layout for a widget on a free dashboard.
+// WidgetLayout The layout for a widget on a `free` or **new dashboard layout** dashboard.
 type WidgetLayout struct {
 	// The height of the widget. Should be a non-negative integer.
 	Height int64 `json:"height"`
+	// Whether the widget should be the first one on the second column in high density or not. **Note**: Only for the **new dashboard layout** and only one widget in the dashboard should have this property set to `true`.
+	IsColumnBreak *bool `json:"is_column_break,omitempty"`
 	// The width of the widget. Should be a non-negative integer.
 	Width int64 `json:"width"`
 	// The position of the widget on the x (horizontal) axis. Should be a non-negative integer.
@@ -67,6 +70,38 @@ func (o *WidgetLayout) GetHeightOk() (*int64, bool) {
 // SetHeight sets field value
 func (o *WidgetLayout) SetHeight(v int64) {
 	o.Height = v
+}
+
+// GetIsColumnBreak returns the IsColumnBreak field value if set, zero value otherwise.
+func (o *WidgetLayout) GetIsColumnBreak() bool {
+	if o == nil || o.IsColumnBreak == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsColumnBreak
+}
+
+// GetIsColumnBreakOk returns a tuple with the IsColumnBreak field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WidgetLayout) GetIsColumnBreakOk() (*bool, bool) {
+	if o == nil || o.IsColumnBreak == nil {
+		return nil, false
+	}
+	return o.IsColumnBreak, true
+}
+
+// HasIsColumnBreak returns a boolean if a field has been set.
+func (o *WidgetLayout) HasIsColumnBreak() bool {
+	if o != nil && o.IsColumnBreak != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIsColumnBreak gets a reference to the given bool and assigns it to the IsColumnBreak field.
+func (o *WidgetLayout) SetIsColumnBreak(v bool) {
+	o.IsColumnBreak = &v
 }
 
 // GetWidth returns the Width field value
@@ -146,6 +181,9 @@ func (o WidgetLayout) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["height"] = o.Height
 	}
+	if o.IsColumnBreak != nil {
+		toSerialize["is_column_break"] = o.IsColumnBreak
+	}
 	if true {
 		toSerialize["width"] = o.Width
 	}
@@ -156,6 +194,48 @@ func (o WidgetLayout) MarshalJSON() ([]byte, error) {
 		toSerialize["y"] = o.Y
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *WidgetLayout) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Height *int64 `json:"height"`
+		Width  *int64 `json:"width"`
+		X      *int64 `json:"x"`
+		Y      *int64 `json:"y"`
+	}{}
+	all := struct {
+		Height        int64 `json:"height"`
+		IsColumnBreak *bool `json:"is_column_break,omitempty"`
+		Width         int64 `json:"width"`
+		X             int64 `json:"x"`
+		Y             int64 `json:"y"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Height == nil {
+		return fmt.Errorf("Required field height missing")
+	}
+	if required.Width == nil {
+		return fmt.Errorf("Required field width missing")
+	}
+	if required.X == nil {
+		return fmt.Errorf("Required field x missing")
+	}
+	if required.Y == nil {
+		return fmt.Errorf("Required field y missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Height = all.Height
+	o.IsColumnBreak = all.IsColumnBreak
+	o.Width = all.Width
+	o.X = all.X
+	o.Y = all.Y
+	return nil
 }
 
 type NullableWidgetLayout struct {

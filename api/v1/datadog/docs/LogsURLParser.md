@@ -3,32 +3,32 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **NormalizeEndingSlashes** | Pointer to **NullableBool** | Normalize the ending slashes or not. | [optional] [default to false]
 **Sources** | **[]string** | Array of source attributes. | [default to ["http.url"]]
 **Target** | **string** | Name of the parent attribute that contains all the extracted details from the &#x60;sources&#x60;. | [default to "http.url_details"]
-**Type** | [**LogsURLParserType**](LogsURLParserType.md) |  | [default to "url-parser"]
+**Type** | [**LogsURLParserType**](LogsURLParserType.md) |  | [default to LOGSURLPARSERTYPE_URL_PARSER]
 
 ## Methods
 
 ### NewLogsURLParser
 
-`func NewLogsURLParser(sources []string, target string, type_ LogsURLParserType, ) *LogsURLParser`
+`func NewLogsURLParser(sources []string, target string, type_ LogsURLParserType) *LogsURLParser`
 
-NewLogsURLParser instantiates a new LogsURLParser object
+NewLogsURLParser instantiates a new LogsURLParser object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsURLParserWithDefaults
 
 `func NewLogsURLParserWithDefaults() *LogsURLParser`
 
-NewLogsURLParserWithDefaults instantiates a new LogsURLParser object
+NewLogsURLParserWithDefaults instantiates a new LogsURLParser object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetIsEnabled
 

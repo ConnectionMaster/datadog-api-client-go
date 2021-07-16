@@ -10,13 +10,14 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // IncidentServiceUpdateData Incident Service payload for update requests.
 type IncidentServiceUpdateData struct {
 	Attributes *IncidentServiceUpdateAttributes `json:"attributes,omitempty"`
 	// The incident service's ID.
-	Id            string                        `json:"id"`
+	Id            *string                       `json:"id,omitempty"`
 	Relationships *IncidentServiceRelationships `json:"relationships,omitempty"`
 	Type          IncidentServiceType           `json:"type"`
 }
@@ -25,9 +26,8 @@ type IncidentServiceUpdateData struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIncidentServiceUpdateData(id string, type_ IncidentServiceType) *IncidentServiceUpdateData {
+func NewIncidentServiceUpdateData(type_ IncidentServiceType) *IncidentServiceUpdateData {
 	this := IncidentServiceUpdateData{}
-	this.Id = id
 	this.Type = type_
 	return &this
 }
@@ -37,7 +37,7 @@ func NewIncidentServiceUpdateData(id string, type_ IncidentServiceType) *Inciden
 // but it doesn't guarantee that properties required by API are set
 func NewIncidentServiceUpdateDataWithDefaults() *IncidentServiceUpdateData {
 	this := IncidentServiceUpdateData{}
-	var type_ IncidentServiceType = "services"
+	var type_ IncidentServiceType = INCIDENTSERVICETYPE_SERVICES
 	this.Type = type_
 	return &this
 }
@@ -74,28 +74,36 @@ func (o *IncidentServiceUpdateData) SetAttributes(v IncidentServiceUpdateAttribu
 	o.Attributes = &v
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *IncidentServiceUpdateData) GetId() string {
-	if o == nil {
+	if o == nil || o.Id == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IncidentServiceUpdateData) GetIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Id == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *IncidentServiceUpdateData) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *IncidentServiceUpdateData) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetRelationships returns the Relationships field value if set, zero value otherwise.
@@ -159,7 +167,7 @@ func (o IncidentServiceUpdateData) MarshalJSON() ([]byte, error) {
 	if o.Attributes != nil {
 		toSerialize["attributes"] = o.Attributes
 	}
-	if true {
+	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
 	if o.Relationships != nil {
@@ -169,6 +177,34 @@ func (o IncidentServiceUpdateData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *IncidentServiceUpdateData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Type *IncidentServiceType `json:"type"`
+	}{}
+	all := struct {
+		Attributes    *IncidentServiceUpdateAttributes `json:"attributes,omitempty"`
+		Id            *string                          `json:"id,omitempty"`
+		Relationships *IncidentServiceRelationships    `json:"relationships,omitempty"`
+		Type          IncidentServiceType              `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Id = all.Id
+	o.Relationships = all.Relationships
+	o.Type = all.Type
+	return nil
 }
 
 type NullableIncidentServiceUpdateData struct {

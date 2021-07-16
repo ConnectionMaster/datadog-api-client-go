@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Hour** | Pointer to **time.Time** | The hour for the usage. | [optional] 
 **NumCustomInputTimeseries** | Pointer to **int64** | Contains the number of custom metrics that are inputs for aggregations (metric configured is custom). | [optional] 
 **NumCustomOutputTimeseries** | Pointer to **int64** | Contains the number of custom metrics that are outputs for aggregations (metric configured is custom). | [optional] 
@@ -15,18 +15,18 @@ Name | Type | Description | Notes
 
 `func NewUsageTimeseriesHour() *UsageTimeseriesHour`
 
-NewUsageTimeseriesHour instantiates a new UsageTimeseriesHour object
+NewUsageTimeseriesHour instantiates a new UsageTimeseriesHour object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageTimeseriesHourWithDefaults
 
 `func NewUsageTimeseriesHourWithDefaults() *UsageTimeseriesHour`
 
-NewUsageTimeseriesHourWithDefaults instantiates a new UsageTimeseriesHour object
+NewUsageTimeseriesHourWithDefaults instantiates a new UsageTimeseriesHour object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetHour
 

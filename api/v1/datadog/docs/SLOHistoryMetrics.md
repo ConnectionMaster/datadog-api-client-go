@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Denominator** | [**SLOHistoryMetricsSeries**](SLOHistoryMetricsSeries.md) |  | 
 **Interval** | **int64** | The aggregated query interval for the series data. It&#39;s implicit based on the query time window. | 
 **Message** | Pointer to **string** | Optional message if there are specific query issues/warnings. | [optional] 
@@ -17,20 +17,20 @@ Name | Type | Description | Notes
 
 ### NewSLOHistoryMetrics
 
-`func NewSLOHistoryMetrics(denominator SLOHistoryMetricsSeries, interval int64, numerator SLOHistoryMetricsSeries, query string, resType string, respVersion int64, times []float64, ) *SLOHistoryMetrics`
+`func NewSLOHistoryMetrics(denominator SLOHistoryMetricsSeries, interval int64, numerator SLOHistoryMetricsSeries, query string, resType string, respVersion int64, times []float64) *SLOHistoryMetrics`
 
-NewSLOHistoryMetrics instantiates a new SLOHistoryMetrics object
+NewSLOHistoryMetrics instantiates a new SLOHistoryMetrics object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSLOHistoryMetricsWithDefaults
 
 `func NewSLOHistoryMetricsWithDefaults() *SLOHistoryMetrics`
 
-NewSLOHistoryMetricsWithDefaults instantiates a new SLOHistoryMetrics object
+NewSLOHistoryMetricsWithDefaults instantiates a new SLOHistoryMetrics object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDenominator
 

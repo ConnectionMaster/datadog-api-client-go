@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AvgContainerAgentCount** | Pointer to **int64** | Get average number of container agents for that hour. | [optional] 
 **HostCount** | Pointer to **int64** | Contains the total number of profiled hosts reporting during a given hour. | [optional] 
 **Hour** | Pointer to **time.Time** | The hour for the usage. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewUsageProfilingHour() *UsageProfilingHour`
 
-NewUsageProfilingHour instantiates a new UsageProfilingHour object
+NewUsageProfilingHour instantiates a new UsageProfilingHour object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageProfilingHourWithDefaults
 
 `func NewUsageProfilingHourWithDefaults() *UsageProfilingHour`
 
-NewUsageProfilingHourWithDefaults instantiates a new UsageProfilingHour object
+NewUsageProfilingHourWithDefaults instantiates a new UsageProfilingHour object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAvgContainerAgentCount
 

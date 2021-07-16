@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // Organization Organization object.
@@ -35,7 +36,7 @@ func NewOrganization(type_ OrganizationsType) *Organization {
 // but it doesn't guarantee that properties required by API are set
 func NewOrganizationWithDefaults() *Organization {
 	this := Organization{}
-	var type_ OrganizationsType = "orgs"
+	var type_ OrganizationsType = ORGANIZATIONSTYPE_ORGS
 	this.Type = type_
 	return &this
 }
@@ -140,6 +141,32 @@ func (o Organization) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *Organization) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Type *OrganizationsType `json:"type"`
+	}{}
+	all := struct {
+		Attributes *OrganizationAttributes `json:"attributes,omitempty"`
+		Id         *string                 `json:"id,omitempty"`
+		Type       OrganizationsType       `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Id = all.Id
+	o.Type = all.Type
+	return nil
 }
 
 type NullableOrganization struct {

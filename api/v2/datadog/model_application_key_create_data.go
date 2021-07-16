@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // ApplicationKeyCreateData Object used to create an application key.
@@ -34,7 +35,7 @@ func NewApplicationKeyCreateData(attributes ApplicationKeyCreateAttributes, type
 // but it doesn't guarantee that properties required by API are set
 func NewApplicationKeyCreateDataWithDefaults() *ApplicationKeyCreateData {
 	this := ApplicationKeyCreateData{}
-	var type_ ApplicationKeysType = "application_keys"
+	var type_ ApplicationKeysType = APPLICATIONKEYSTYPE_APPLICATION_KEYS
 	this.Type = type_
 	return &this
 }
@@ -96,6 +97,34 @@ func (o ApplicationKeyCreateData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *ApplicationKeyCreateData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Attributes *ApplicationKeyCreateAttributes `json:"attributes"`
+		Type       *ApplicationKeysType            `json:"type"`
+	}{}
+	all := struct {
+		Attributes ApplicationKeyCreateAttributes `json:"attributes"`
+		Type       ApplicationKeysType            `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Attributes == nil {
+		return fmt.Errorf("Required field attributes missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Type = all.Type
+	return nil
 }
 
 type NullableApplicationKeyCreateData struct {

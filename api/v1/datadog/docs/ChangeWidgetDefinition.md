@@ -3,33 +3,33 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CustomLinks** | Pointer to [**[]WidgetCustomLink**](WidgetCustomLink.md) | List of custom links. | [optional] 
 **Requests** | [**[]ChangeWidgetRequest**](ChangeWidgetRequest.md) | Array of one request object to display in the widget.  See the dedicated [Request JSON schema documentation](https://docs.datadoghq.com/dashboards/graphing_json/request_json)  to learn how to build the &#x60;REQUEST_SCHEMA&#x60;. | 
 **Time** | Pointer to [**WidgetTime**](WidgetTime.md) |  | [optional] 
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**ChangeWidgetDefinitionType**](ChangeWidgetDefinitionType.md) |  | [default to "change"]
+**Type** | [**ChangeWidgetDefinitionType**](ChangeWidgetDefinitionType.md) |  | [default to CHANGEWIDGETDEFINITIONTYPE_CHANGE]
 
 ## Methods
 
 ### NewChangeWidgetDefinition
 
-`func NewChangeWidgetDefinition(requests []ChangeWidgetRequest, type_ ChangeWidgetDefinitionType, ) *ChangeWidgetDefinition`
+`func NewChangeWidgetDefinition(requests []ChangeWidgetRequest, type_ ChangeWidgetDefinitionType) *ChangeWidgetDefinition`
 
-NewChangeWidgetDefinition instantiates a new ChangeWidgetDefinition object
+NewChangeWidgetDefinition instantiates a new ChangeWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewChangeWidgetDefinitionWithDefaults
 
 `func NewChangeWidgetDefinitionWithDefaults() *ChangeWidgetDefinition`
 
-NewChangeWidgetDefinitionWithDefaults instantiates a new ChangeWidgetDefinition object
+NewChangeWidgetDefinitionWithDefaults instantiates a new ChangeWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCustomLinks
 

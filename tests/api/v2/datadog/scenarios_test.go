@@ -2,6 +2,7 @@ package test
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"reflect"
 	"strings"
@@ -10,6 +11,7 @@ import (
 	"github.com/DataDog/datadog-api-client-go/api/v2/datadog"
 	"github.com/DataDog/datadog-api-client-go/tests"
 	"github.com/go-bdd/gobdd"
+	ddtesting "gopkg.in/DataDog/dd-trace-go.v1/contrib/testing"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/ext"
 	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
@@ -30,18 +32,32 @@ func TestScenarios(t *testing.T) {
 		gobdd.WithIgnoredTags(tests.GetIgnoredTags()),
 		gobdd.WithBeforeScenario(func(ctx gobdd.Context) {
 			ct, _ := ctx.Get(gobdd.TestingTKey{})
-			cctx, finish := WithRecorder(
+			tt := ct.(*testing.T)
+			testParts := strings.Split(tt.Name(), "/")
+			cctx, closeSpan := ddtesting.StartSpanWithFinish(
+				NewDefaultContext(context.Background()),
+				tt,
+				ddtesting.WithSpanOptions(
+					tracer.Tag(ext.TestName, testParts[2]),
+					tracer.Tag(ext.TestSuite, fmt.Sprintf("v2/%s", testParts[1])),
+					tracer.Tag(ext.TestFramework, "github.com/go-bdd/gobdd"),
+				),
+			)
+			cctx, closeRecorder := WithRecorder(
 				context.WithValue(
-					context.Background(),
+					cctx,
 					datadog.ContextAPIKeys,
 					map[string]datadog.APIKey{},
 				),
-				ct.(*testing.T),
+				tt,
 			)
 			tests.SetCtx(ctx, cctx)
 			tests.SetRequestsUndo(ctx, requestsUndo)
 			tests.SetData(ctx, make(map[string]interface{}))
-			tests.SetCleanup(ctx, map[string]func(){"99-finish": finish})
+			tests.SetCleanup(ctx, map[string]func(){"99-finish": func() {
+				closeRecorder()
+				closeSpan()
+			}})
 		}), gobdd.WithAfterScenario(func(ctx gobdd.Context) {
 			tests.RunCleanup(ctx)
 		}),
@@ -61,12 +77,7 @@ func TestScenarios(t *testing.T) {
 				tracer.ResourceName(parts[len(parts)-1]),
 			)
 
-			testName := strings.Join(strings.Split(ct.(*testing.T).Name(), "/")[1:3], "/")
-			unique := tests.WithUniqueSurrounding(cctx, testName)
-			data := tests.GetData(ctx)
-			data["unique"] = unique
-			data["unique_lower"] = strings.ToLower(unique)
-
+			tests.SetFixtureData(ctx)
 			tests.SetCtx(ctx, cctx)
 		}),
 		gobdd.WithAfterStep(func(ctx gobdd.Context) {
@@ -92,7 +103,11 @@ func TestScenarios(t *testing.T) {
 	s.AddStep(`an instance of "([^"]+)" API`, anInstanceOf)
 	s.AddStep(`operation "([^"]+)" enabled`, enableOperations)
 
-	for _, givenStep := range tests.LoadGivenSteps("./features/given.json") {
+	steps, err := tests.LoadGivenSteps("./features/given.json")
+	if err != nil {
+		t.Fatalf("could not load given steps: %v", err)
+	}
+	for _, givenStep := range steps {
 		givenStep.RegisterSuite(s)
 	}
 

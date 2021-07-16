@@ -3,8 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**AccessRole** | Pointer to [**AccessRole**](AccessRole.md) |  | [optional] [default to "st"]
+---- | ---- | ----------- | ------
+**AccessRole** | Pointer to [**AccessRole**](AccessRole.md) |  | [optional] [default to ACCESSROLE_STANDARD]
 **Disabled** | Pointer to **bool** | The new disabled status of the user. | [optional] 
 **Email** | Pointer to **string** | The new email of the user. | [optional] 
 **Handle** | Pointer to **string** | The user handle, must be a valid email. | [optional] 
@@ -18,18 +18,18 @@ Name | Type | Description | Notes
 
 `func NewUser() *User`
 
-NewUser instantiates a new User object
+NewUser instantiates a new User object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUserWithDefaults
 
 `func NewUserWithDefaults() *User`
 
-NewUserWithDefaults instantiates a new User object
+NewUserWithDefaults instantiates a new User object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAccessRole
 

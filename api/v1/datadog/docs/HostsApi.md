@@ -1,9 +1,9 @@
-# \HostsApi
+# HostsApi
 
 All URIs are relative to *https://api.datadoghq.com*
 
 Method | HTTP request | Description
-------------- | ------------- | -------------
+------ | ------------ | ------------
 [**GetHostTotals**](HostsApi.md#GetHostTotals) | **Get** /api/v1/hosts/totals | Get the total number of active hosts
 [**ListHosts**](HostsApi.md#ListHosts) | **Get** /api/v1/hosts | Get all hosts for your organization
 [**MuteHost**](HostsApi.md#MuteHost) | **Post** /api/v1/host/{host_name}/mute | Mute a host
@@ -13,11 +13,10 @@ Method | HTTP request | Description
 
 ## GetHostTotals
 
-> HostTotals GetHostTotals(ctx).From(from).Execute()
+> HostTotals GetHostTotals(ctx, datadog.GetHostTotalsOptionalParameters{})
 
-Get the total number of active hosts
-
-
+This endpoint returns the total number of active and up hosts in your Datadog account.
+Active means the host has reported in the past hour, and up means it has reported in the past two hours.
 
 ### Example
 
@@ -33,47 +32,41 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     from := int64(789) // int64 | Number of seconds from which you want to get total number of active hosts. (optional)
+    optionalParams := datadog.GetHostTotalsOptionalParameters{
+        From: &from,
+    }
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.HostsApi.GetHostTotals(ctx).From(from).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.HostsApi.GetHostTotals(ctx, optionalParams)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.GetHostTotals``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.GetHostTotals`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetHostTotals`: HostTotals
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from HostsApi.GetHostTotals:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from HostsApi.GetHostTotals:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetHostTotalsRequest struct via the builder pattern
+### Optional Parameters
+
+
+Other parameters are passed through a pointer to a GetHostTotalsOptionalParameters struct.
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **from** | **int64** | Number of seconds from which you want to get total number of active hosts. | 
+---- | ---- | ------------ | ------
+**from** | **int64** | Number of seconds from which you want to get total number of active hosts. | 
 
 ### Return type
 
@@ -95,11 +88,12 @@ Name | Type | Description  | Notes
 
 ## ListHosts
 
-> HostListResponse ListHosts(ctx).Filter(filter).SortField(sortField).SortDir(sortDir).Start(start).Count(count).From(from).IncludeMutedHostsData(includeMutedHostsData).IncludeHostsMetadata(includeHostsMetadata).Execute()
+> HostListResponse ListHosts(ctx, datadog.ListHostsOptionalParameters{})
 
-Get all hosts for your organization
-
-
+This endpoint allows searching for hosts by name, alias, or tag.
+Hosts live within the past 3 hours are included by default.
+Retention is 7 days.
+Results are paginated with a max of 1000 results at a time.
 
 ### Example
 
@@ -115,18 +109,7 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     filter := "filter_example" // string | String to filter search results. (optional)
     sortField := "sortField_example" // string | Sort hosts by this field. (optional)
@@ -136,40 +119,52 @@ func main() {
     from := int64(789) // int64 | Number of seconds since UNIX epoch from which you want to search your hosts. (optional)
     includeMutedHostsData := true // bool | Include information on the muted status of hosts and when the mute expires. (optional)
     includeHostsMetadata := true // bool | Include additional metadata about the hosts (agent_version, machine, platform, processor, etc.). (optional)
+    optionalParams := datadog.ListHostsOptionalParameters{
+        Filter: &filter,
+        SortField: &sortField,
+        SortDir: &sortDir,
+        Start: &start,
+        Count: &count,
+        From: &from,
+        IncludeMutedHostsData: &includeMutedHostsData,
+        IncludeHostsMetadata: &includeHostsMetadata,
+    }
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.HostsApi.ListHosts(ctx).Filter(filter).SortField(sortField).SortDir(sortDir).Start(start).Count(count).From(from).IncludeMutedHostsData(includeMutedHostsData).IncludeHostsMetadata(includeHostsMetadata).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.HostsApi.ListHosts(ctx, optionalParams)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.ListHosts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.ListHosts`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListHosts`: HostListResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from HostsApi.ListHosts:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from HostsApi.ListHosts:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListHostsRequest struct via the builder pattern
+### Optional Parameters
+
+
+Other parameters are passed through a pointer to a ListHostsOptionalParameters struct.
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **filter** | **string** | String to filter search results. | 
- **sortField** | **string** | Sort hosts by this field. | 
- **sortDir** | **string** | Direction of sort. Options include &#x60;asc&#x60; and &#x60;desc&#x60;. | 
- **start** | **int64** | Host result to start search from. | 
- **count** | **int64** | Number of hosts to return. Max 1000. | 
- **from** | **int64** | Number of seconds since UNIX epoch from which you want to search your hosts. | 
- **includeMutedHostsData** | **bool** | Include information on the muted status of hosts and when the mute expires. | 
- **includeHostsMetadata** | **bool** | Include additional metadata about the hosts (agent_version, machine, platform, processor, etc.). | 
+---- | ---- | ------------ | ------
+**filter** | **string** | String to filter search results. | 
+**sortField** | **string** | Sort hosts by this field. | 
+**sortDir** | **string** | Direction of sort. Options include &#x60;asc&#x60; and &#x60;desc&#x60;. | 
+**start** | **int64** | Host result to start search from. | 
+**count** | **int64** | Number of hosts to return. Max 1000. | 
+**from** | **int64** | Number of seconds since UNIX epoch from which you want to search your hosts. | 
+**includeMutedHostsData** | **bool** | Include information on the muted status of hosts and when the mute expires. | 
+**includeHostsMetadata** | **bool** | Include additional metadata about the hosts (agent_version, machine, platform, processor, etc.). | 
 
 ### Return type
 
@@ -191,11 +186,9 @@ Name | Type | Description  | Notes
 
 ## MuteHost
 
-> HostMuteResponse MuteHost(ctx, hostName).Body(body).Execute()
+> HostMuteResponse MuteHost(ctx, hostName, body)
 
-Mute a host
-
-
+Mute a host.
 
 ### Example
 
@@ -211,53 +204,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     hostName := "hostName_example" // string | Name of the host to mute.
     body := *datadog.NewHostMuteSettings() // HostMuteSettings | Mute a host request body.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.HostsApi.MuteHost(ctx, hostName).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.HostsApi.MuteHost(ctx, hostName, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.MuteHost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.MuteHost`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `MuteHost`: HostMuteResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from HostsApi.MuteHost:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from HostsApi.MuteHost:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**hostName** | **string** | Name of the host to mute. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiMuteHostRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**hostName** | **string** | Name of the host to mute. |  |
+**body** | [**HostMuteSettings**](HostMuteSettings.md) | Mute a host request body. | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**HostMuteSettings**](HostMuteSettings.md) | Mute a host request body. | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -279,11 +258,9 @@ Name | Type | Description  | Notes
 
 ## UnmuteHost
 
-> HostMuteResponse UnmuteHost(ctx, hostName).Execute()
+> HostMuteResponse UnmuteHost(ctx, hostName)
 
-Unmute a host
-
-
+Unmutes a host. This endpoint takes no JSON arguments.
 
 ### Example
 
@@ -299,50 +276,36 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     hostName := "hostName_example" // string | Name of the host to unmute.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.HostsApi.UnmuteHost(ctx, hostName).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.HostsApi.UnmuteHost(ctx, hostName)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.UnmuteHost``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `HostsApi.UnmuteHost`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UnmuteHost`: HostMuteResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from HostsApi.UnmuteHost:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from HostsApi.UnmuteHost:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **hostName** | **string** | Name of the host to unmute. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiUnmuteHostRequest struct via the builder pattern
+### Optional Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+This endpoint does not have optional parameters.
 
 
 ### Return type

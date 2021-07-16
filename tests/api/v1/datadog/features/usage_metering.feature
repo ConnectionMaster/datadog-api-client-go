@@ -1,4 +1,4 @@
-@endpoint(usage-metering)
+@endpoint(usage-metering) @endpoint(usage-metering-v1)
 Feature: Usage Metering
   The usage metering API allows you to get hourly, daily, and monthly usage
   across multiple facets of Datadog. This API is available to all Pro and
@@ -20,6 +20,18 @@ Feature: Usage Metering
     Then the response status is 200 OK
 
   @generated @skip
+  Scenario: Get all custom metrics by hourly average returns "Bad Request" response
+    Given new "GetUsageTopAvgMetrics" request
+    When the request is sent
+    Then the response status is 400 Bad Request
+
+  @generated @skip
+  Scenario: Get all custom metrics by hourly average returns "OK" response
+    Given new "GetUsageTopAvgMetrics" request
+    When the request is sent
+    Then the response status is 200 OK
+
+  @generated @skip
   Scenario: Get billable usage across your account returns "Bad Request" response
     Given new "GetUsageBillableSummary" request
     When the request is sent
@@ -28,6 +40,42 @@ Feature: Usage Metering
   @generated @skip
   Scenario: Get billable usage across your account returns "OK" response
     Given new "GetUsageBillableSummary" request
+    When the request is sent
+    Then the response status is 200 OK
+
+  @generated @skip
+  Scenario: Get hourly logs usage by retention returns "Bad Request" response
+    Given new "GetUsageLogsByRetention" request
+    When the request is sent
+    Then the response status is 400 Bad Request
+
+  @generated @skip
+  Scenario: Get hourly logs usage by retention returns "OK" response
+    Given new "GetUsageLogsByRetention" request
+    When the request is sent
+    Then the response status is 200 OK
+
+  @generated @skip
+  Scenario: Get hourly usage for CSPM returns "Bad Request" response
+    Given new "GetUsageCloudSecurityPostureManagement" request
+    When the request is sent
+    Then the response status is 400 Bad Request
+
+  @generated @skip
+  Scenario: Get hourly usage for CSPM returns "OK" response
+    Given new "GetUsageCloudSecurityPostureManagement" request
+    When the request is sent
+    Then the response status is 200 OK
+
+  @generated @skip
+  Scenario: Get hourly usage for Cloud Workload Security returns "Bad Request" response
+    Given new "GetUsageCWS" request
+    When the request is sent
+    Then the response status is 400 Bad Request
+
+  @generated @skip
+  Scenario: Get hourly usage for Cloud Workload Security returns "OK" response
+    Given new "GetUsageCWS" request
     When the request is sent
     Then the response status is 200 OK
 
@@ -176,18 +224,6 @@ Feature: Usage Metering
     Then the response status is 200 OK
 
   @generated @skip
-  Scenario: Get hourly usage for Trace Search returns "Bad Request" response
-    Given new "GetUsageTrace" request
-    When the request is sent
-    Then the response status is 400 Bad Request
-
-  @generated @skip
-  Scenario: Get hourly usage for Trace Search returns "OK" response
-    Given new "GetUsageTrace" request
-    When the request is sent
-    Then the response status is 200 OK
-
-  @generated @skip
   Scenario: Get hourly usage for analyzed logs returns "Bad Request" response
     Given new "GetUsageAnalyzedLogs" request
     When the request is sent
@@ -196,6 +232,18 @@ Feature: Usage Metering
   @generated @skip
   Scenario: Get hourly usage for analyzed logs returns "OK" response
     Given new "GetUsageAnalyzedLogs" request
+    When the request is sent
+    Then the response status is 200 OK
+
+  @generated @skip
+  Scenario: Get hourly usage for audit logs returns "Bad Request" response
+    Given new "GetUsageAuditLogs" request
+    When the request is sent
+    Then the response status is 400 Bad Request
+
+  @generated @skip
+  Scenario: Get hourly usage for audit logs returns "OK" response
+    Given new "GetUsageAuditLogs" request
     When the request is sent
     Then the response status is 200 OK
 
@@ -272,18 +320,6 @@ Feature: Usage Metering
     Then the response status is 200 OK
 
   @generated @skip
-  Scenario: Get hourly usage for tracing without limits returns "Bad Request" response
-    Given new "GetTracingWithoutLimits" request
-    When the request is sent
-    Then the response status is 400 Bad Request
-
-  @generated @skip
-  Scenario: Get hourly usage for tracing without limits returns "OK" response
-    Given new "GetTracingWithoutLimits" request
-    When the request is sent
-    Then the response status is 200 OK
-
-  @generated @skip
   Scenario: Get specified daily custom reports returns "Not Found" response
     Given operation "GetSpecifiedDailyCustomReports" enabled
     And new "GetSpecifiedDailyCustomReports" request
@@ -334,18 +370,6 @@ Feature: Usage Metering
   Scenario: Get the list of available monthly custom reports returns "OK" response
     Given operation "GetMonthlyCustomReports" enabled
     And new "GetMonthlyCustomReports" request
-    When the request is sent
-    Then the response status is 200 OK
-
-  @generated @skip
-  Scenario: Get top custom metrics by hourly average returns "Bad Request" response
-    Given new "GetUsageTopAvgMetrics" request
-    When the request is sent
-    Then the response status is 400 Bad Request
-
-  @generated @skip
-  Scenario: Get top custom metrics by hourly average returns "OK" response
-    Given new "GetUsageTopAvgMetrics" request
     When the request is sent
     Then the response status is 200 OK
 

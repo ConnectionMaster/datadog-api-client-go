@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **LineType** | Pointer to [**WidgetLineType**](WidgetLineType.md) |  | [optional] 
 **LineWidth** | Pointer to [**WidgetLineWidth**](WidgetLineWidth.md) |  | [optional] 
 **Palette** | Pointer to **string** | Color palette to apply to the widget. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewWidgetRequestStyle() *WidgetRequestStyle`
 
-NewWidgetRequestStyle instantiates a new WidgetRequestStyle object
+NewWidgetRequestStyle instantiates a new WidgetRequestStyle object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewWidgetRequestStyleWithDefaults
 
 `func NewWidgetRequestStyleWithDefaults() *WidgetRequestStyle`
 
-NewWidgetRequestStyleWithDefaults instantiates a new WidgetRequestStyle object
+NewWidgetRequestStyleWithDefaults instantiates a new WidgetRequestStyle object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetLineType
 

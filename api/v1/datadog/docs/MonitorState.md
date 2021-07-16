@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Groups** | Pointer to [**map[string]MonitorStateGroup**](MonitorStateGroup.md) | Dictionary where the keys are groups (comma separated lists of tags) and the values are the list of groups your monitor is broken down on. | [optional] 
 
 ## Methods
@@ -12,18 +12,18 @@ Name | Type | Description | Notes
 
 `func NewMonitorState() *MonitorState`
 
-NewMonitorState instantiates a new MonitorState object
+NewMonitorState instantiates a new MonitorState object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewMonitorStateWithDefaults
 
 `func NewMonitorStateWithDefaults() *MonitorState`
 
-NewMonitorStateWithDefaults instantiates a new MonitorState object
+NewMonitorStateWithDefaults instantiates a new MonitorState object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetGroups
 

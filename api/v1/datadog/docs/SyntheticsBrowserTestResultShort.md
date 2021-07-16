@@ -3,10 +3,10 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CheckTime** | Pointer to **float64** | Last time the browser test was performed. | [optional] 
 **ProbeDc** | Pointer to **string** | Location from which the Browser test was performed. | [optional] 
-**Result** | Pointer to [**SyntheticsBrowserTestResultShortResult**](SyntheticsBrowserTestResultShort_result.md) |  | [optional] 
+**Result** | Pointer to [**SyntheticsBrowserTestResultShortResult**](SyntheticsBrowserTestResultShortResult.md) |  | [optional] 
 **ResultId** | Pointer to **string** | ID of the browser test result. | [optional] 
 **Status** | Pointer to [**SyntheticsTestMonitorStatus**](SyntheticsTestMonitorStatus.md) |  | [optional] 
 
@@ -16,18 +16,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsBrowserTestResultShort() *SyntheticsBrowserTestResultShort`
 
-NewSyntheticsBrowserTestResultShort instantiates a new SyntheticsBrowserTestResultShort object
+NewSyntheticsBrowserTestResultShort instantiates a new SyntheticsBrowserTestResultShort object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsBrowserTestResultShortWithDefaults
 
 `func NewSyntheticsBrowserTestResultShortWithDefaults() *SyntheticsBrowserTestResultShort`
 
-NewSyntheticsBrowserTestResultShortWithDefaults instantiates a new SyntheticsBrowserTestResultShort object
+NewSyntheticsBrowserTestResultShortWithDefaults instantiates a new SyntheticsBrowserTestResultShort object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCheckTime
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **From** | **time.Time** | Minimum timestamp for requested logs. | 
 **Timezone** | Pointer to **string** | Timezone can be specified both as an offset (e.g. \&quot;UTC+03:00\&quot;) or a regional zone (e.g. \&quot;Europe/Paris\&quot;). | [optional] 
 **To** | **time.Time** | Maximum timestamp for requested logs. | 
@@ -12,20 +12,20 @@ Name | Type | Description | Notes
 
 ### NewLogsListRequestTime
 
-`func NewLogsListRequestTime(from time.Time, to time.Time, ) *LogsListRequestTime`
+`func NewLogsListRequestTime(from time.Time, to time.Time) *LogsListRequestTime`
 
-NewLogsListRequestTime instantiates a new LogsListRequestTime object
+NewLogsListRequestTime instantiates a new LogsListRequestTime object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsListRequestTimeWithDefaults
 
 `func NewLogsListRequestTimeWithDefaults() *LogsListRequestTime`
 
-NewLogsListRequestTimeWithDefaults instantiates a new LogsListRequestTime object
+NewLogsListRequestTimeWithDefaults instantiates a new LogsListRequestTime object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetFrom
 

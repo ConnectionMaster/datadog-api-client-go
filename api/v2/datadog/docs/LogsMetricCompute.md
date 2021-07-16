@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AggregationType** | [**LogsMetricComputeAggregationType**](LogsMetricComputeAggregationType.md) |  | 
 **Path** | Pointer to **string** | The path to the value the log-based metric will aggregate on (only used if the aggregation type is a \&quot;distribution\&quot;). | [optional] 
 
@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 
 ### NewLogsMetricCompute
 
-`func NewLogsMetricCompute(aggregationType LogsMetricComputeAggregationType, ) *LogsMetricCompute`
+`func NewLogsMetricCompute(aggregationType LogsMetricComputeAggregationType) *LogsMetricCompute`
 
-NewLogsMetricCompute instantiates a new LogsMetricCompute object
+NewLogsMetricCompute instantiates a new LogsMetricCompute object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsMetricComputeWithDefaults
 
 `func NewLogsMetricComputeWithDefaults() *LogsMetricCompute`
 
-NewLogsMetricComputeWithDefaults instantiates a new LogsMetricCompute object
+NewLogsMetricComputeWithDefaults instantiates a new LogsMetricCompute object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAggregationType
 

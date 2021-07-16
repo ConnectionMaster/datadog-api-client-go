@@ -3,33 +3,33 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CustomLinks** | Pointer to [**[]WidgetCustomLink**](WidgetCustomLink.md) | List of custom links. | [optional] 
 **Filters** | **[]string** | Your environment and primary tag (or * if enabled for your account). | 
 **Service** | **string** | The ID of the service you want to map. | 
 **Title** | Pointer to **string** | The title of your widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**ServiceMapWidgetDefinitionType**](ServiceMapWidgetDefinitionType.md) |  | [default to "servicemap"]
+**Type** | [**ServiceMapWidgetDefinitionType**](ServiceMapWidgetDefinitionType.md) |  | [default to SERVICEMAPWIDGETDEFINITIONTYPE_SERVICEMAP]
 
 ## Methods
 
 ### NewServiceMapWidgetDefinition
 
-`func NewServiceMapWidgetDefinition(filters []string, service string, type_ ServiceMapWidgetDefinitionType, ) *ServiceMapWidgetDefinition`
+`func NewServiceMapWidgetDefinition(filters []string, service string, type_ ServiceMapWidgetDefinitionType) *ServiceMapWidgetDefinition`
 
-NewServiceMapWidgetDefinition instantiates a new ServiceMapWidgetDefinition object
+NewServiceMapWidgetDefinition instantiates a new ServiceMapWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewServiceMapWidgetDefinitionWithDefaults
 
 `func NewServiceMapWidgetDefinitionWithDefaults() *ServiceMapWidgetDefinition`
 
-NewServiceMapWidgetDefinitionWithDefaults instantiates a new ServiceMapWidgetDefinition object
+NewServiceMapWidgetDefinitionWithDefaults instantiates a new ServiceMapWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCustomLinks
 

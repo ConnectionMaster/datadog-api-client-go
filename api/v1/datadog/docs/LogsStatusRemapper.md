@@ -3,30 +3,30 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Sources** | **[]string** | Array of source attributes. | 
-**Type** | [**LogsStatusRemapperType**](LogsStatusRemapperType.md) |  | [default to "status-remapper"]
+**Type** | [**LogsStatusRemapperType**](LogsStatusRemapperType.md) |  | [default to LOGSSTATUSREMAPPERTYPE_STATUS_REMAPPER]
 
 ## Methods
 
 ### NewLogsStatusRemapper
 
-`func NewLogsStatusRemapper(sources []string, type_ LogsStatusRemapperType, ) *LogsStatusRemapper`
+`func NewLogsStatusRemapper(sources []string, type_ LogsStatusRemapperType) *LogsStatusRemapper`
 
-NewLogsStatusRemapper instantiates a new LogsStatusRemapper object
+NewLogsStatusRemapper instantiates a new LogsStatusRemapper object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsStatusRemapperWithDefaults
 
 `func NewLogsStatusRemapperWithDefaults() *LogsStatusRemapper`
 
-NewLogsStatusRemapperWithDefaults instantiates a new LogsStatusRemapper object
+NewLogsStatusRemapperWithDefaults instantiates a new LogsStatusRemapper object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetIsEnabled
 

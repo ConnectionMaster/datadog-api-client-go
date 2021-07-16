@@ -3,39 +3,39 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CustomLinks** | Pointer to [**[]WidgetCustomLink**](WidgetCustomLink.md) | List of custom links. | [optional] 
 **Group** | Pointer to **[]string** | List of tag prefixes to group by. | [optional] 
 **NoGroupHosts** | Pointer to **bool** | Whether to show the hosts that don’t fit in a group. | [optional] 
 **NoMetricHosts** | Pointer to **bool** | Whether to show the hosts with no metrics. | [optional] 
 **NodeType** | Pointer to [**WidgetNodeType**](WidgetNodeType.md) |  | [optional] 
 **Notes** | Pointer to **string** | Notes on the title. | [optional] 
-**Requests** | [**HostMapWidgetDefinitionRequests**](HostMapWidgetDefinition_requests.md) |  | 
+**Requests** | [**HostMapWidgetDefinitionRequests**](HostMapWidgetDefinitionRequests.md) |  | 
 **Scope** | Pointer to **[]string** | List of tags used to filter the map. | [optional] 
-**Style** | Pointer to [**HostMapWidgetDefinitionStyle**](HostMapWidgetDefinition_style.md) |  | [optional] 
+**Style** | Pointer to [**HostMapWidgetDefinitionStyle**](HostMapWidgetDefinitionStyle.md) |  | [optional] 
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**HostMapWidgetDefinitionType**](HostMapWidgetDefinitionType.md) |  | [default to "hostmap"]
+**Type** | [**HostMapWidgetDefinitionType**](HostMapWidgetDefinitionType.md) |  | [default to HOSTMAPWIDGETDEFINITIONTYPE_HOSTMAP]
 
 ## Methods
 
 ### NewHostMapWidgetDefinition
 
-`func NewHostMapWidgetDefinition(requests HostMapWidgetDefinitionRequests, type_ HostMapWidgetDefinitionType, ) *HostMapWidgetDefinition`
+`func NewHostMapWidgetDefinition(requests HostMapWidgetDefinitionRequests, type_ HostMapWidgetDefinitionType) *HostMapWidgetDefinition`
 
-NewHostMapWidgetDefinition instantiates a new HostMapWidgetDefinition object
+NewHostMapWidgetDefinition instantiates a new HostMapWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewHostMapWidgetDefinitionWithDefaults
 
 `func NewHostMapWidgetDefinitionWithDefaults() *HostMapWidgetDefinition`
 
-NewHostMapWidgetDefinitionWithDefaults instantiates a new HostMapWidgetDefinition object
+NewHostMapWidgetDefinitionWithDefaults instantiates a new HostMapWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCustomLinks
 

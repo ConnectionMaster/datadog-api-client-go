@@ -3,14 +3,15 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
+**GlobalTimeTarget** | Pointer to **string** | Defined global time target. | [optional] 
 **ShowErrorBudget** | Pointer to **bool** | Defined error budget. | [optional] 
 **SloId** | Pointer to **string** | ID of the SLO displayed. | [optional] 
 **TimeWindows** | Pointer to [**[]WidgetTimeWindows**](WidgetTimeWindows.md) | Times being monitored. | [optional] 
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**SLOWidgetDefinitionType**](SLOWidgetDefinitionType.md) |  | [default to "slo"]
+**Type** | [**SLOWidgetDefinitionType**](SLOWidgetDefinitionType.md) |  | [default to SLOWIDGETDEFINITIONTYPE_SLO]
 **ViewMode** | Pointer to [**WidgetViewMode**](WidgetViewMode.md) |  | [optional] 
 **ViewType** | **string** | Type of view displayed by the widget. | [default to "detail"]
 
@@ -18,20 +19,45 @@ Name | Type | Description | Notes
 
 ### NewSLOWidgetDefinition
 
-`func NewSLOWidgetDefinition(type_ SLOWidgetDefinitionType, viewType string, ) *SLOWidgetDefinition`
+`func NewSLOWidgetDefinition(type_ SLOWidgetDefinitionType, viewType string) *SLOWidgetDefinition`
 
-NewSLOWidgetDefinition instantiates a new SLOWidgetDefinition object
+NewSLOWidgetDefinition instantiates a new SLOWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSLOWidgetDefinitionWithDefaults
 
 `func NewSLOWidgetDefinitionWithDefaults() *SLOWidgetDefinition`
 
-NewSLOWidgetDefinitionWithDefaults instantiates a new SLOWidgetDefinition object
+NewSLOWidgetDefinitionWithDefaults instantiates a new SLOWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
+
+### GetGlobalTimeTarget
+
+`func (o *SLOWidgetDefinition) GetGlobalTimeTarget() string`
+
+GetGlobalTimeTarget returns the GlobalTimeTarget field if non-nil, zero value otherwise.
+
+### GetGlobalTimeTargetOk
+
+`func (o *SLOWidgetDefinition) GetGlobalTimeTargetOk() (*string, bool)`
+
+GetGlobalTimeTargetOk returns a tuple with the GlobalTimeTarget field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGlobalTimeTarget
+
+`func (o *SLOWidgetDefinition) SetGlobalTimeTarget(v string)`
+
+SetGlobalTimeTarget sets GlobalTimeTarget field to given value.
+
+### HasGlobalTimeTarget
+
+`func (o *SLOWidgetDefinition) HasGlobalTimeTarget() bool`
+
+HasGlobalTimeTarget returns a boolean if a field has been set.
 
 ### GetShowErrorBudget
 

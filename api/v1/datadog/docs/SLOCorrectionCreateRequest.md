@@ -3,8 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Data** | Pointer to [**SLOCorrectionCreateRequestData**](SLOCorrectionCreateRequest_data.md) |  | [optional] 
+---- | ---- | ----------- | ------
+**Data** | Pointer to [**SLOCorrectionCreateData**](SLOCorrectionCreateData.md) |  | [optional] 
 
 ## Methods
 
@@ -12,35 +12,35 @@ Name | Type | Description | Notes
 
 `func NewSLOCorrectionCreateRequest() *SLOCorrectionCreateRequest`
 
-NewSLOCorrectionCreateRequest instantiates a new SLOCorrectionCreateRequest object
+NewSLOCorrectionCreateRequest instantiates a new SLOCorrectionCreateRequest object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSLOCorrectionCreateRequestWithDefaults
 
 `func NewSLOCorrectionCreateRequestWithDefaults() *SLOCorrectionCreateRequest`
 
-NewSLOCorrectionCreateRequestWithDefaults instantiates a new SLOCorrectionCreateRequest object
+NewSLOCorrectionCreateRequestWithDefaults instantiates a new SLOCorrectionCreateRequest object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 
-`func (o *SLOCorrectionCreateRequest) GetData() SLOCorrectionCreateRequestData`
+`func (o *SLOCorrectionCreateRequest) GetData() SLOCorrectionCreateData`
 
 GetData returns the Data field if non-nil, zero value otherwise.
 
 ### GetDataOk
 
-`func (o *SLOCorrectionCreateRequest) GetDataOk() (*SLOCorrectionCreateRequestData, bool)`
+`func (o *SLOCorrectionCreateRequest) GetDataOk() (*SLOCorrectionCreateData, bool)`
 
 GetDataOk returns a tuple with the Data field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetData
 
-`func (o *SLOCorrectionCreateRequest) SetData(v SLOCorrectionCreateRequestData)`
+`func (o *SLOCorrectionCreateRequest) SetData(v SLOCorrectionCreateData)`
 
 SetData sets Data field to given value.
 

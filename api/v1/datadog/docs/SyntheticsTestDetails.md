@@ -3,14 +3,14 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Config** | Pointer to [**SyntheticsTestConfig**](SyntheticsTestConfig.md) |  | [optional] 
 **Locations** | Pointer to **[]string** | Array of locations used to run the test. | [optional] 
 **Message** | Pointer to **string** | Notification message associated with the test. | [optional] 
-**MonitorId** | Pointer to **int64** | The associated monitor ID. | [optional] 
+**MonitorId** | Pointer to **int64** | The associated monitor ID. | [optional] [readonly] 
 **Name** | Pointer to **string** | Name of the test. | [optional] 
 **Options** | Pointer to [**SyntheticsTestOptions**](SyntheticsTestOptions.md) |  | [optional] 
-**PublicId** | Pointer to **string** | The test public ID. | [optional] 
+**PublicId** | Pointer to **string** | The test public ID. | [optional] [readonly] 
 **Status** | Pointer to [**SyntheticsTestPauseStatus**](SyntheticsTestPauseStatus.md) |  | [optional] 
 **Steps** | Pointer to [**[]SyntheticsStep**](SyntheticsStep.md) | For browser test, the steps of the test. | [optional] 
 **Subtype** | Pointer to [**SyntheticsTestDetailsSubType**](SyntheticsTestDetailsSubType.md) |  | [optional] 
@@ -23,18 +23,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsTestDetails() *SyntheticsTestDetails`
 
-NewSyntheticsTestDetails instantiates a new SyntheticsTestDetails object
+NewSyntheticsTestDetails instantiates a new SyntheticsTestDetails object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsTestDetailsWithDefaults
 
 `func NewSyntheticsTestDetailsWithDefaults() *SyntheticsTestDetails`
 
-NewSyntheticsTestDetailsWithDefaults instantiates a new SyntheticsTestDetails object
+NewSyntheticsTestDetailsWithDefaults instantiates a new SyntheticsTestDetails object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetConfig
 

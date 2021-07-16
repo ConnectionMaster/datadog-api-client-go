@@ -1,9 +1,9 @@
-# \LogsIndexesApi
+# LogsIndexesApi
 
 All URIs are relative to *https://api.datadoghq.com*
 
 Method | HTTP request | Description
-------------- | ------------- | -------------
+------ | ------------ | ------------
 [**CreateLogsIndex**](LogsIndexesApi.md#CreateLogsIndex) | **Post** /api/v1/logs/config/indexes | Create an index
 [**GetLogsIndex**](LogsIndexesApi.md#GetLogsIndex) | **Get** /api/v1/logs/config/indexes/{name} | Get an index
 [**GetLogsIndexOrder**](LogsIndexesApi.md#GetLogsIndexOrder) | **Get** /api/v1/logs/config/index-order | Get indexes order
@@ -15,11 +15,9 @@ Method | HTTP request | Description
 
 ## CreateLogsIndex
 
-> LogsIndex CreateLogsIndex(ctx).Body(body).Execute()
+> LogsIndex CreateLogsIndex(ctx, body)
 
-Create an index
-
-
+Creates a new index. Returns the Index object passed in the request body when the request is successful.
 
 ### Example
 
@@ -35,48 +33,37 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     body := *datadog.NewLogsIndex(*datadog.NewLogsFilter(), "main") // LogsIndex | Object containing the new index.
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("CreateLogsIndex", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsIndexesApi.CreateLogsIndex(ctx).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsIndexesApi.CreateLogsIndex(ctx, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.CreateLogsIndex``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.CreateLogsIndex`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateLogsIndex`: LogsIndex
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.CreateLogsIndex:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.CreateLogsIndex:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateLogsIndexRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**LogsIndex**](LogsIndex.md) | Object containing the new index. | 
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**body** | [**LogsIndex**](LogsIndex.md) | Object containing the new index. | 
+
+
+### Optional Parameters
+
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -98,11 +85,9 @@ Name | Type | Description  | Notes
 
 ## GetLogsIndex
 
-> LogsIndex GetLogsIndex(ctx, name).Execute()
+> LogsIndex GetLogsIndex(ctx, name)
 
-Get an index
-
-
+Get one log index from your organization. This endpoint takes no JSON arguments.
 
 ### Example
 
@@ -118,51 +103,36 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     name := "name_example" // string | Name of the log index.
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("GetLogsIndex", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsIndexesApi.GetLogsIndex(ctx, name).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsIndexesApi.GetLogsIndex(ctx, name)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.GetLogsIndex``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.GetLogsIndex`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetLogsIndex`: LogsIndex
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.GetLogsIndex:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.GetLogsIndex:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **name** | **string** | Name of the log index. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetLogsIndexRequest struct via the builder pattern
+### Optional Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -185,11 +155,9 @@ Name | Type | Description  | Notes
 
 ## GetLogsIndexOrder
 
-> LogsIndexesOrder GetLogsIndexOrder(ctx).Execute()
+> LogsIndexesOrder GetLogsIndexOrder(ctx)
 
-Get indexes order
-
-
+Get the current order of your log indexes. This endpoint takes no JSON arguments.
 
 ### Example
 
@@ -205,42 +173,31 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("GetLogsIndexOrder", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsIndexesApi.GetLogsIndexOrder(ctx).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsIndexesApi.GetLogsIndexOrder(ctx)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.GetLogsIndexOrder``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.GetLogsIndexOrder`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetLogsIndexOrder`: LogsIndexesOrder
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.GetLogsIndexOrder:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.GetLogsIndexOrder:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetLogsIndexOrderRequest struct via the builder pattern
+### Optional Parameters
+
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -263,11 +220,10 @@ Other parameters are passed through a pointer to a apiGetLogsIndexOrderRequest s
 
 ## ListLogIndexes
 
-> LogsIndexListResponse ListLogIndexes(ctx).Execute()
+> LogsIndexListResponse ListLogIndexes(ctx)
 
-Get all indexes
-
-
+The Index object describes the configuration of a log index.
+This endpoint returns an array of the `LogIndex` objects of your organization.
 
 ### Example
 
@@ -283,42 +239,31 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("ListLogIndexes", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsIndexesApi.ListLogIndexes(ctx).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsIndexesApi.ListLogIndexes(ctx)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.ListLogIndexes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.ListLogIndexes`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListLogIndexes`: LogsIndexListResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.ListLogIndexes:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.ListLogIndexes:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListLogIndexesRequest struct via the builder pattern
+### Optional Parameters
+
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -341,11 +286,13 @@ Other parameters are passed through a pointer to a apiListLogIndexesRequest stru
 
 ## UpdateLogsIndex
 
-> LogsIndex UpdateLogsIndex(ctx, name).Body(body).Execute()
+> LogsIndex UpdateLogsIndex(ctx, name, body)
 
-Update an index
+Update an index as identified by its name.
+Returns the Index object passed in the request body when the request is successful.
 
-
+Using the `PUT` method updates your index’s configuration by **replacing**
+your current configuration with the new one sent to your Datadog organization.
 
 ### Example
 
@@ -361,54 +308,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     name := "name_example" // string | Name of the log index.
     body := *datadog.NewLogsIndexUpdateRequest(*datadog.NewLogsFilter()) // LogsIndexUpdateRequest | Object containing the new `LogsIndexUpdateRequest`.
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("UpdateLogsIndex", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsIndexesApi.UpdateLogsIndex(ctx, name).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsIndexesApi.UpdateLogsIndex(ctx, name, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.UpdateLogsIndex``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.UpdateLogsIndex`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateLogsIndex`: LogsIndex
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.UpdateLogsIndex:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.UpdateLogsIndex:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | Name of the log index. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateLogsIndexRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**name** | **string** | Name of the log index. |  |
+**body** | [**LogsIndexUpdateRequest**](LogsIndexUpdateRequest.md) | Object containing the new &#x60;LogsIndexUpdateRequest&#x60;. | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**LogsIndexUpdateRequest**](LogsIndexUpdateRequest.md) | Object containing the new &#x60;LogsIndexUpdateRequest&#x60;. | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -430,11 +362,10 @@ Name | Type | Description  | Notes
 
 ## UpdateLogsIndexOrder
 
-> LogsIndexesOrder UpdateLogsIndexOrder(ctx).Body(body).Execute()
+> LogsIndexesOrder UpdateLogsIndexOrder(ctx, body)
 
-Update indexes order
-
-
+This endpoint updates the index order of your organization.
+It returns the index order object passed in the request body when the request is successful.
 
 ### Example
 
@@ -450,48 +381,37 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     body := *datadog.NewLogsIndexesOrder([]string{"IndexNames_example"}) // LogsIndexesOrder | Object containing the new ordered list of index names
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("UpdateLogsIndexOrder", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsIndexesApi.UpdateLogsIndexOrder(ctx).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsIndexesApi.UpdateLogsIndexOrder(ctx, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.UpdateLogsIndexOrder``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsIndexesApi.UpdateLogsIndexOrder`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateLogsIndexOrder`: LogsIndexesOrder
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.UpdateLogsIndexOrder:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsIndexesApi.UpdateLogsIndexOrder:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateLogsIndexOrderRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**LogsIndexesOrder**](LogsIndexesOrder.md) | Object containing the new ordered list of index names | 
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**body** | [**LogsIndexesOrder**](LogsIndexesOrder.md) | Object containing the new ordered list of index names | 
+
+
+### Optional Parameters
+
+This endpoint does not have optional parameters.
+
 
 ### Return type
 

@@ -3,8 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Data** | Pointer to [**LogsAggregateResponseData**](LogsAggregateResponse_data.md) |  | [optional] 
+---- | ---- | ----------- | ------
+**Data** | Pointer to [**LogsAggregateResponseData**](LogsAggregateResponseData.md) |  | [optional] 
 **Meta** | Pointer to [**LogsResponseMetadata**](LogsResponseMetadata.md) |  | [optional] 
 
 ## Methods
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewLogsAggregateResponse() *LogsAggregateResponse`
 
-NewLogsAggregateResponse instantiates a new LogsAggregateResponse object
+NewLogsAggregateResponse instantiates a new LogsAggregateResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsAggregateResponseWithDefaults
 
 `func NewLogsAggregateResponseWithDefaults() *LogsAggregateResponse`
 
-NewLogsAggregateResponseWithDefaults instantiates a new LogsAggregateResponse object
+NewLogsAggregateResponseWithDefaults instantiates a new LogsAggregateResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

@@ -3,7 +3,6 @@ package test
 import (
 	"context"
 	"fmt"
-	"log"
 	"strings"
 	"testing"
 
@@ -21,16 +20,18 @@ func testingUserCreateAttributes(ctx context.Context, t *testing.T) *datadog.Use
 	return uca
 }
 
-func disableUser(ctx context.Context, userID string) {
-	_, err := Client(ctx).UsersApi.DisableUser(ctx, userID).Execute()
+func disableUser(ctx context.Context, t *testing.T, userID string) {
+	_, err := Client(ctx).UsersApi.DisableUser(ctx, userID)
 	if err == nil {
 		return
 	}
-	log.Printf("Error disabling User: %v, Another test may have already disabled this user: %s", userID, err.Error())
+	t.Logf("Error disabling User: %v, Another test may have already disabled this user: %s", userID, err.Error())
 }
 
 func TestUserLifecycle(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -40,14 +41,14 @@ func TestUserLifecycle(t *testing.T) {
 	ucd.SetAttributes(*uca)
 	ucr := datadog.NewUserCreateRequestWithDefaults()
 	ucr.SetData(*ucd)
-	ur, httpresp, err := Client(ctx).UsersApi.CreateUser(ctx).Body(*ucr).Execute()
+	ur, httpresp, err := Client(ctx).UsersApi.CreateUser(ctx, *ucr)
 	if err != nil {
 		t.Fatalf("Error creating User %s: Response %s: %v", uca.GetEmail(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	assert.Equal(httpresp.StatusCode, 201)
 	urData := ur.GetData()
 	uid := urData.GetId()
-	defer disableUser(ctx, uid)
+	defer disableUser(ctx, t, uid)
 
 	urAttributes := urData.GetAttributes()
 	assert.Equal(urAttributes.GetEmail(), uca.GetEmail())
@@ -64,14 +65,14 @@ func TestUserLifecycle(t *testing.T) {
 	uur := datadog.NewUserUpdateRequestWithDefaults()
 	uur.SetData(*uud)
 	// no response payload
-	_, httpresp, err = Client(ctx).UsersApi.UpdateUser(ctx, uid).Body(*uur).Execute()
+	_, httpresp, err = Client(ctx).UsersApi.UpdateUser(ctx, uid, *uur)
 	if err != nil {
 		t.Fatalf("Error updating User %s: Response %s: %v", uca.GetEmail(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	assert.Equal(httpresp.StatusCode, 200)
 
 	// now, test getting it
-	urp, httpresp, err := Client(ctx).UsersApi.GetUser(ctx, uid).Execute()
+	urp, httpresp, err := Client(ctx).UsersApi.GetUser(ctx, uid)
 	if err != nil {
 		t.Fatalf("Error getting User %s: Response %s: %v", uca.GetEmail(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -85,20 +86,18 @@ func TestUserLifecycle(t *testing.T) {
 
 	// now, test disabling it
 	// no response payload
-	httpresp, err = Client(ctx).UsersApi.DisableUser(ctx, uid).Execute()
+	httpresp, err = Client(ctx).UsersApi.DisableUser(ctx, uid)
 	if err != nil {
 		t.Fatalf("Error disabling User %s: Response %s: %v", uca.GetEmail(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	assert.Equal(httpresp.StatusCode, 204)
 
 	// now, test filtering for it in the list call
-	usrp, httpresp, err := Client(ctx).UsersApi.
-		ListUsers(ctx).
-		Filter(uca.GetEmail()).
-		PageSize(1).
-		PageNumber(0).
-		SortDir(datadog.QUERYSORTORDER_ASC).
-		Execute()
+	usrp, httpresp, err := Client(ctx).UsersApi.ListUsers(ctx, *datadog.NewListUsersOptionalParameters().
+		WithFilter(uca.GetEmail()).
+		WithPageSize(1).
+		WithPageNumber(0).
+		WithSortDir(datadog.QUERYSORTORDER_ASC))
 	if err != nil {
 		t.Fatalf("Error listing users %s: Response %s: %v", uca.GetEmail(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -117,8 +116,10 @@ func TestUserLifecycle(t *testing.T) {
 }
 
 func TestUpdateUserErrors(t *testing.T) {
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 	// Setup the Client we'll use to interact with the Test account
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 
 	// Build update payload
@@ -155,7 +156,7 @@ func TestUpdateUserErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).UsersApi.UpdateUser(ctx, tc.UserID).Body(*tc.Body).Execute()
+			_, httpresp, err := Client(ctx).UsersApi.UpdateUser(ctx, tc.UserID, *tc.Body)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -165,7 +166,9 @@ func TestUpdateUserErrors(t *testing.T) {
 }
 
 func TestUserInvitation(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -174,14 +177,14 @@ func TestUserInvitation(t *testing.T) {
 	ucd.SetAttributes(*uca)
 	ucr := datadog.NewUserCreateRequestWithDefaults()
 	ucr.SetData(*ucd)
-	ur, httpresp, err := Client(ctx).UsersApi.CreateUser(ctx).Body(*ucr).Execute()
+	ur, httpresp, err := Client(ctx).UsersApi.CreateUser(ctx, *ucr)
 	if err != nil {
 		t.Fatalf("Error creating User %s: Response %s: %v", uca.GetEmail(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	assert.Equal(httpresp.StatusCode, 201)
 	urData := ur.GetData()
 	id := urData.GetId()
-	defer disableUser(ctx, id)
+	defer disableUser(ctx, t, id)
 
 	// first, create the user invitation
 	rtud := datadog.NewRelationshipToUserDataWithDefaults()
@@ -195,7 +198,7 @@ func TestUserInvitation(t *testing.T) {
 	uireq := datadog.NewUserInvitationsRequestWithDefaults()
 	uireq.Data = append(uireq.Data, *uid)
 
-	resp, httpresp, err := Client(ctx).UsersApi.SendInvitations(ctx).Body(*uireq).Execute()
+	resp, httpresp, err := Client(ctx).UsersApi.SendInvitations(ctx, *uireq)
 	if err != nil {
 		assert.IsType(datadog.GenericOpenAPIError{}, err, "%v", err)
 		t.Fatalf("Error sending invitation for %s: Response %s: %v", uca.GetEmail(), err.(datadog.GenericOpenAPIError).Body(), err)
@@ -204,7 +207,7 @@ func TestUserInvitation(t *testing.T) {
 	respID := resp.GetData()[0].GetId()
 
 	// now, test getting the invitation
-	oneresp, httpresp, err := Client(ctx).UsersApi.GetInvitation(ctx, respID).Execute()
+	oneresp, httpresp, err := Client(ctx).UsersApi.GetInvitation(ctx, respID)
 	if err != nil {
 		assert.IsType(datadog.GenericOpenAPIError{}, err, "%v", err)
 		t.Fatalf("Error getting invitation %s: Response %s: %v", respID, err.(datadog.GenericOpenAPIError).Body(), err)

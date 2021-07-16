@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CreatedAt** | Pointer to **time.Time** | Creation time of the role. | [optional] [readonly] 
 **ModifiedAt** | Pointer to **time.Time** | Time of last role modification. | [optional] [readonly] 
 **Name** | **string** | Name of the role. | 
@@ -12,20 +12,20 @@ Name | Type | Description | Notes
 
 ### NewRoleCreateAttributes
 
-`func NewRoleCreateAttributes(name string, ) *RoleCreateAttributes`
+`func NewRoleCreateAttributes(name string) *RoleCreateAttributes`
 
-NewRoleCreateAttributes instantiates a new RoleCreateAttributes object
+NewRoleCreateAttributes instantiates a new RoleCreateAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRoleCreateAttributesWithDefaults
 
 `func NewRoleCreateAttributesWithDefaults() *RoleCreateAttributes`
 
-NewRoleCreateAttributesWithDefaults instantiates a new RoleCreateAttributes object
+NewRoleCreateAttributesWithDefaults instantiates a new RoleCreateAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreatedAt
 

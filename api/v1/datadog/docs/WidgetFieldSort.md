@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Column** | **string** | Facet path for the column | 
 **Order** | [**WidgetSort**](WidgetSort.md) |  | 
 
@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 
 ### NewWidgetFieldSort
 
-`func NewWidgetFieldSort(column string, order WidgetSort, ) *WidgetFieldSort`
+`func NewWidgetFieldSort(column string, order WidgetSort) *WidgetFieldSort`
 
-NewWidgetFieldSort instantiates a new WidgetFieldSort object
+NewWidgetFieldSort instantiates a new WidgetFieldSort object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewWidgetFieldSortWithDefaults
 
 `func NewWidgetFieldSortWithDefaults() *WidgetFieldSort`
 
-NewWidgetFieldSortWithDefaults instantiates a new WidgetFieldSort object
+NewWidgetFieldSortWithDefaults instantiates a new WidgetFieldSort object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetColumn
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **TimeOffset** | Pointer to **int64** | The time offset (in seconds) to apply to the query. | [optional] 
 **Timezone** | Pointer to **string** | The timezone can be specified both as an offset, for example: \&quot;UTC+03:00\&quot;. | [optional] [default to "UTC"]
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewLogsQueryOptions() *LogsQueryOptions`
 
-NewLogsQueryOptions instantiates a new LogsQueryOptions object
+NewLogsQueryOptions instantiates a new LogsQueryOptions object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsQueryOptionsWithDefaults
 
 `func NewLogsQueryOptionsWithDefaults() *LogsQueryOptions`
 
-NewLogsQueryOptionsWithDefaults instantiates a new LogsQueryOptions object
+NewLogsQueryOptionsWithDefaults instantiates a new LogsQueryOptions object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetTimeOffset
 

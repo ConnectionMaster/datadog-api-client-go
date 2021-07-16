@@ -3,9 +3,9 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Elapsed** | Pointer to **int64** | The time elapsed in milliseconds | [optional] 
-**Page** | Pointer to [**LogsResponseMetadataPage**](LogsResponseMetadata_page.md) |  | [optional] 
+**Page** | Pointer to [**LogsResponseMetadataPage**](LogsResponseMetadataPage.md) |  | [optional] 
 **RequestId** | Pointer to **string** | The identifier of the request | [optional] 
 **Status** | Pointer to [**LogsAggregateResponseStatus**](LogsAggregateResponseStatus.md) |  | [optional] 
 **Warnings** | Pointer to [**[]LogsWarning**](LogsWarning.md) | A list of warnings (non fatal errors) encountered, partial results might be returned if warnings are present in the response. | [optional] 
@@ -16,18 +16,18 @@ Name | Type | Description | Notes
 
 `func NewLogsResponseMetadata() *LogsResponseMetadata`
 
-NewLogsResponseMetadata instantiates a new LogsResponseMetadata object
+NewLogsResponseMetadata instantiates a new LogsResponseMetadata object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsResponseMetadataWithDefaults
 
 `func NewLogsResponseMetadataWithDefaults() *LogsResponseMetadata`
 
-NewLogsResponseMetadataWithDefaults instantiates a new LogsResponseMetadata object
+NewLogsResponseMetadataWithDefaults instantiates a new LogsResponseMetadata object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetElapsed
 

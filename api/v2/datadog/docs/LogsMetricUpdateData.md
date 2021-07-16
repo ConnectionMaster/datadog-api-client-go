@@ -3,28 +3,28 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | [**LogsMetricUpdateAttributes**](LogsMetricUpdateAttributes.md) |  | 
-**Type** | [**LogsMetricType**](LogsMetricType.md) |  | [default to "logs_metrics"]
+**Type** | [**LogsMetricType**](LogsMetricType.md) |  | [default to LOGSMETRICTYPE_LOGS_METRICS]
 
 ## Methods
 
 ### NewLogsMetricUpdateData
 
-`func NewLogsMetricUpdateData(attributes LogsMetricUpdateAttributes, type_ LogsMetricType, ) *LogsMetricUpdateData`
+`func NewLogsMetricUpdateData(attributes LogsMetricUpdateAttributes, type_ LogsMetricType) *LogsMetricUpdateData`
 
-NewLogsMetricUpdateData instantiates a new LogsMetricUpdateData object
+NewLogsMetricUpdateData instantiates a new LogsMetricUpdateData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsMetricUpdateDataWithDefaults
 
 `func NewLogsMetricUpdateDataWithDefaults() *LogsMetricUpdateData`
 
-NewLogsMetricUpdateDataWithDefaults instantiates a new LogsMetricUpdateData object
+NewLogsMetricUpdateDataWithDefaults instantiates a new LogsMetricUpdateData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

@@ -3,30 +3,30 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Sources** | Pointer to **[]string** | Array of source attributes. | [optional] [default to ["dd.trace_id"]]
-**Type** | [**LogsTraceRemapperType**](LogsTraceRemapperType.md) |  | [default to "trace-id-remapper"]
+**Type** | [**LogsTraceRemapperType**](LogsTraceRemapperType.md) |  | [default to LOGSTRACEREMAPPERTYPE_TRACE_ID_REMAPPER]
 
 ## Methods
 
 ### NewLogsTraceRemapper
 
-`func NewLogsTraceRemapper(type_ LogsTraceRemapperType, ) *LogsTraceRemapper`
+`func NewLogsTraceRemapper(type_ LogsTraceRemapperType) *LogsTraceRemapper`
 
-NewLogsTraceRemapper instantiates a new LogsTraceRemapper object
+NewLogsTraceRemapper instantiates a new LogsTraceRemapper object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsTraceRemapperWithDefaults
 
 `func NewLogsTraceRemapperWithDefaults() *LogsTraceRemapper`
 
-NewLogsTraceRemapperWithDefaults instantiates a new LogsTraceRemapper object
+NewLogsTraceRemapperWithDefaults instantiates a new LogsTraceRemapper object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetIsEnabled
 

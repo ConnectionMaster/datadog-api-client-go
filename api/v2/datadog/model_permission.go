@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // Permission Permission object.
@@ -35,7 +36,7 @@ func NewPermission(type_ PermissionsType) *Permission {
 // but it doesn't guarantee that properties required by API are set
 func NewPermissionWithDefaults() *Permission {
 	this := Permission{}
-	var type_ PermissionsType = "permissions"
+	var type_ PermissionsType = PERMISSIONSTYPE_PERMISSIONS
 	this.Type = type_
 	return &this
 }
@@ -140,6 +141,32 @@ func (o Permission) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *Permission) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Type *PermissionsType `json:"type"`
+	}{}
+	all := struct {
+		Attributes *PermissionAttributes `json:"attributes,omitempty"`
+		Id         *string               `json:"id,omitempty"`
+		Type       PermissionsType       `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Id = all.Id
+	o.Type = all.Type
+	return nil
 }
 
 type NullablePermission struct {

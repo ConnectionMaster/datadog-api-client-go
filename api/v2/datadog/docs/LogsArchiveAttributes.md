@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Destination** | [**NullableLogsArchiveDestination**](LogsArchiveDestination.md) |  | 
 **IncludeTags** | Pointer to **bool** | To store the tags in the archive, set the value \&quot;true\&quot;. If it is set to \&quot;false\&quot;, the tags will be deleted when the logs are sent to the archive. | [optional] [default to false]
 **Name** | **string** | The archive name. | 
@@ -15,20 +15,20 @@ Name | Type | Description | Notes
 
 ### NewLogsArchiveAttributes
 
-`func NewLogsArchiveAttributes(destination NullableLogsArchiveDestination, name string, query string, ) *LogsArchiveAttributes`
+`func NewLogsArchiveAttributes(destination NullableLogsArchiveDestination, name string, query string) *LogsArchiveAttributes`
 
-NewLogsArchiveAttributes instantiates a new LogsArchiveAttributes object
+NewLogsArchiveAttributes instantiates a new LogsArchiveAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsArchiveAttributesWithDefaults
 
 `func NewLogsArchiveAttributesWithDefaults() *LogsArchiveAttributes`
 
-NewLogsArchiveAttributesWithDefaults instantiates a new LogsArchiveAttributes object
+NewLogsArchiveAttributesWithDefaults instantiates a new LogsArchiveAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDestination
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **ComputedOn** | Pointer to **string** | The date the specified custom report was computed. | [optional] 
 **EndDate** | Pointer to **string** | The ending date of specified custom report. | [optional] 
 **Location** | Pointer to **string** | A downloadable file for the specified custom reporting file. | [optional] 
@@ -17,18 +17,18 @@ Name | Type | Description | Notes
 
 `func NewUsageSpecifiedCustomReportsAttributes() *UsageSpecifiedCustomReportsAttributes`
 
-NewUsageSpecifiedCustomReportsAttributes instantiates a new UsageSpecifiedCustomReportsAttributes object
+NewUsageSpecifiedCustomReportsAttributes instantiates a new UsageSpecifiedCustomReportsAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageSpecifiedCustomReportsAttributesWithDefaults
 
 `func NewUsageSpecifiedCustomReportsAttributesWithDefaults() *UsageSpecifiedCustomReportsAttributes`
 
-NewUsageSpecifiedCustomReportsAttributesWithDefaults instantiates a new UsageSpecifiedCustomReportsAttributes object
+NewUsageSpecifiedCustomReportsAttributesWithDefaults instantiates a new UsageSpecifiedCustomReportsAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetComputedOn
 

@@ -9,6 +9,7 @@
 package datadog
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -23,33 +24,29 @@ var (
 // AuthenticationApiService AuthenticationApi service
 type AuthenticationApiService service
 
-type ApiValidateRequest struct {
+type apiValidateRequest struct {
 	ctx        _context.Context
 	ApiService *AuthenticationApiService
-}
-
-func (r ApiValidateRequest) Execute() (AuthenticationValidationResponse, *_nethttp.Response, error) {
-	return r.ApiService.ValidateExecute(r)
 }
 
 /*
  * Validate Validate API key
  * Check if the API key (not the APP key) is valid. If invalid, a 403 is returned.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiValidateRequest
  */
-func (a *AuthenticationApiService) Validate(ctx _context.Context) ApiValidateRequest {
-	return ApiValidateRequest{
+func (a *AuthenticationApiService) Validate(ctx _context.Context) (AuthenticationValidationResponse, *_nethttp.Response, error) {
+	req := apiValidateRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
+
+	return req.ApiService.validateExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return AuthenticationValidationResponse
  */
-func (a *AuthenticationApiService) ValidateExecute(r ApiValidateRequest) (AuthenticationValidationResponse, *_nethttp.Response, error) {
+func (a *AuthenticationApiService) validateExecute(r apiValidateRequest) (AuthenticationValidationResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -105,18 +102,19 @@ func (a *AuthenticationApiService) ValidateExecute(r ApiValidateRequest) (Authen
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

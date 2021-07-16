@@ -3,10 +3,10 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CheckTime** | Pointer to **float64** | Last time the API test was performed. | [optional] 
 **ProbeDc** | Pointer to **string** | Location from which the API test was performed. | [optional] 
-**Result** | Pointer to [**SyntheticsAPITestResultShortResult**](SyntheticsAPITestResultShort_result.md) |  | [optional] 
+**Result** | Pointer to [**SyntheticsAPITestResultShortResult**](SyntheticsAPITestResultShortResult.md) |  | [optional] 
 **ResultId** | Pointer to **string** | ID of the API test result. | [optional] 
 **Status** | Pointer to [**SyntheticsTestMonitorStatus**](SyntheticsTestMonitorStatus.md) |  | [optional] 
 
@@ -16,18 +16,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsAPITestResultShort() *SyntheticsAPITestResultShort`
 
-NewSyntheticsAPITestResultShort instantiates a new SyntheticsAPITestResultShort object
+NewSyntheticsAPITestResultShort instantiates a new SyntheticsAPITestResultShort object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsAPITestResultShortWithDefaults
 
 `func NewSyntheticsAPITestResultShortWithDefaults() *SyntheticsAPITestResultShort`
 
-NewSyntheticsAPITestResultShortWithDefaults instantiates a new SyntheticsAPITestResultShort object
+NewSyntheticsAPITestResultShortWithDefaults instantiates a new SyntheticsAPITestResultShort object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCheckTime
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Count** | Pointer to **int64** | Number of times a test needs to be retried before marking a location as failed. Defaults to 0. | [optional] 
 **Interval** | Pointer to **float64** | Time interval between retries (in milliseconds). Defaults to 300ms. | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsTestOptionsRetry() *SyntheticsTestOptionsRetry`
 
-NewSyntheticsTestOptionsRetry instantiates a new SyntheticsTestOptionsRetry object
+NewSyntheticsTestOptionsRetry instantiates a new SyntheticsTestOptionsRetry object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsTestOptionsRetryWithDefaults
 
 `func NewSyntheticsTestOptionsRetryWithDefaults() *SyntheticsTestOptionsRetry`
 
-NewSyntheticsTestOptionsRetryWithDefaults instantiates a new SyntheticsTestOptionsRetry object
+NewSyntheticsTestOptionsRetryWithDefaults instantiates a new SyntheticsTestOptionsRetry object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCount
 

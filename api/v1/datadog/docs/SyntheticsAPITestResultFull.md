@@ -3,8 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Check** | Pointer to [**SyntheticsAPITestResultFullCheck**](SyntheticsAPITestResultFull_check.md) |  | [optional] 
+---- | ---- | ----------- | ------
+**Check** | Pointer to [**SyntheticsAPITestResultFullCheck**](SyntheticsAPITestResultFullCheck.md) |  | [optional] 
 **CheckTime** | Pointer to **float64** | When the API test was conducted. | [optional] 
 **CheckVersion** | Pointer to **int64** | Version of the API test used. | [optional] 
 **ProbeDc** | Pointer to **string** | Locations for which to query the API test results. | [optional] 
@@ -18,18 +18,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsAPITestResultFull() *SyntheticsAPITestResultFull`
 
-NewSyntheticsAPITestResultFull instantiates a new SyntheticsAPITestResultFull object
+NewSyntheticsAPITestResultFull instantiates a new SyntheticsAPITestResultFull object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsAPITestResultFullWithDefaults
 
 `func NewSyntheticsAPITestResultFullWithDefaults() *SyntheticsAPITestResultFull`
 
-NewSyntheticsAPITestResultFullWithDefaults instantiates a new SyntheticsAPITestResultFull object
+NewSyntheticsAPITestResultFullWithDefaults instantiates a new SyntheticsAPITestResultFull object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCheck
 

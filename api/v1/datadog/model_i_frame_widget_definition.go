@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // IFrameWidgetDefinition The iframe widget allows you to embed a portion of any other web page on your dashboard. Only available on FREE layout dashboards.
@@ -35,7 +36,7 @@ func NewIFrameWidgetDefinition(type_ IFrameWidgetDefinitionType, url string) *IF
 // but it doesn't guarantee that properties required by API are set
 func NewIFrameWidgetDefinitionWithDefaults() *IFrameWidgetDefinition {
 	this := IFrameWidgetDefinition{}
-	var type_ IFrameWidgetDefinitionType = "iframe"
+	var type_ IFrameWidgetDefinitionType = IFRAMEWIDGETDEFINITIONTYPE_IFRAME
 	this.Type = type_
 	return &this
 }
@@ -97,6 +98,34 @@ func (o IFrameWidgetDefinition) MarshalJSON() ([]byte, error) {
 		toSerialize["url"] = o.Url
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *IFrameWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Type *IFrameWidgetDefinitionType `json:"type"`
+		Url  *string                     `json:"url"`
+	}{}
+	all := struct {
+		Type IFrameWidgetDefinitionType `json:"type"`
+		Url  string                     `json:"url"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	if required.Url == nil {
+		return fmt.Errorf("Required field url missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Type = all.Type
+	o.Url = all.Url
+	return nil
 }
 
 type NullableIFrameWidgetDefinition struct {

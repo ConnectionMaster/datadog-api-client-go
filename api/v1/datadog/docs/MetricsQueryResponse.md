@@ -3,14 +3,14 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Error** | Pointer to **string** | Message indicating the errors if status is not &#x60;ok&#x60;. | [optional] [readonly] 
 **FromDate** | Pointer to **int64** | Start of requested time window, milliseconds since Unix epoch. | [optional] [readonly] 
 **GroupBy** | Pointer to **[]string** | List of tag keys on which to group. | [optional] [readonly] 
 **Message** | Pointer to **string** | Message indicating &#x60;success&#x60; if status is &#x60;ok&#x60;. | [optional] [readonly] 
 **Query** | Pointer to **string** | Query string | [optional] [readonly] 
 **ResType** | Pointer to **string** | Type of response. | [optional] [readonly] 
-**Series** | Pointer to [**[]MetricsQueryResponseSeries**](MetricsQueryResponseSeries.md) | List of timeseries queried. | [optional] [readonly] 
+**Series** | Pointer to [**[]MetricsQueryMetadata**](MetricsQueryMetadata.md) | List of timeseries queried. | [optional] [readonly] 
 **Status** | Pointer to **string** | Status of the query. | [optional] [readonly] 
 **ToDate** | Pointer to **int64** | End of requested time window, milliseconds since Unix epoch. | [optional] [readonly] 
 
@@ -20,18 +20,18 @@ Name | Type | Description | Notes
 
 `func NewMetricsQueryResponse() *MetricsQueryResponse`
 
-NewMetricsQueryResponse instantiates a new MetricsQueryResponse object
+NewMetricsQueryResponse instantiates a new MetricsQueryResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewMetricsQueryResponseWithDefaults
 
 `func NewMetricsQueryResponseWithDefaults() *MetricsQueryResponse`
 
-NewMetricsQueryResponseWithDefaults instantiates a new MetricsQueryResponse object
+NewMetricsQueryResponseWithDefaults instantiates a new MetricsQueryResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetError
 
@@ -185,20 +185,20 @@ HasResType returns a boolean if a field has been set.
 
 ### GetSeries
 
-`func (o *MetricsQueryResponse) GetSeries() []MetricsQueryResponseSeries`
+`func (o *MetricsQueryResponse) GetSeries() []MetricsQueryMetadata`
 
 GetSeries returns the Series field if non-nil, zero value otherwise.
 
 ### GetSeriesOk
 
-`func (o *MetricsQueryResponse) GetSeriesOk() (*[]MetricsQueryResponseSeries, bool)`
+`func (o *MetricsQueryResponse) GetSeriesOk() (*[]MetricsQueryMetadata, bool)`
 
 GetSeriesOk returns a tuple with the Series field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeries
 
-`func (o *MetricsQueryResponse) SetSeries(v []MetricsQueryResponseSeries)`
+`func (o *MetricsQueryResponse) SetSeries(v []MetricsQueryMetadata)`
 
 SetSeries sets Series field to given value.
 

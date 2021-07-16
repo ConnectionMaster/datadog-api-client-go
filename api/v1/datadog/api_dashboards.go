@@ -9,6 +9,7 @@
 package datadog
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -24,40 +25,32 @@ var (
 // DashboardsApiService DashboardsApi service
 type DashboardsApiService service
 
-type ApiCreateDashboardRequest struct {
+type apiCreateDashboardRequest struct {
 	ctx        _context.Context
 	ApiService *DashboardsApiService
 	body       *Dashboard
-}
-
-func (r ApiCreateDashboardRequest) Body(body Dashboard) ApiCreateDashboardRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiCreateDashboardRequest) Execute() (Dashboard, *_nethttp.Response, error) {
-	return r.ApiService.CreateDashboardExecute(r)
 }
 
 /*
  * CreateDashboard Create a new dashboard
  * Create a dashboard using the specified options. When defining queries in your widgets, take note of which queries should have the `as_count()` or `as_rate()` modifiers appended.
 Refer to the following [documentation](https://docs.datadoghq.com/developers/metrics/type_modifiers/?tab=count#in-application-modifiers) for more information on these modifiers.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCreateDashboardRequest
 */
-func (a *DashboardsApiService) CreateDashboard(ctx _context.Context) ApiCreateDashboardRequest {
-	return ApiCreateDashboardRequest{
+func (a *DashboardsApiService) CreateDashboard(ctx _context.Context, body Dashboard) (Dashboard, *_nethttp.Response, error) {
+	req := apiCreateDashboardRequest{
 		ApiService: a,
 		ctx:        ctx,
+		body:       &body,
 	}
+
+	return req.ApiService.createDashboardExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return Dashboard
  */
-func (a *DashboardsApiService) CreateDashboardExecute(r ApiCreateDashboardRequest) (Dashboard, *_nethttp.Response, error) {
+func (a *DashboardsApiService) createDashboardExecute(r apiCreateDashboardRequest) (Dashboard, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -132,18 +125,19 @@ func (a *DashboardsApiService) CreateDashboardExecute(r ApiCreateDashboardReques
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -187,36 +181,31 @@ func (a *DashboardsApiService) CreateDashboardExecute(r ApiCreateDashboardReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteDashboardRequest struct {
+type apiDeleteDashboardRequest struct {
 	ctx         _context.Context
 	ApiService  *DashboardsApiService
 	dashboardId string
 }
 
-func (r ApiDeleteDashboardRequest) Execute() (DashboardDeleteResponse, *_nethttp.Response, error) {
-	return r.ApiService.DeleteDashboardExecute(r)
-}
-
 /*
  * DeleteDashboard Delete a dashboard
  * Delete a dashboard using the specified ID.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param dashboardId The ID of the dashboard.
- * @return ApiDeleteDashboardRequest
  */
-func (a *DashboardsApiService) DeleteDashboard(ctx _context.Context, dashboardId string) ApiDeleteDashboardRequest {
-	return ApiDeleteDashboardRequest{
+func (a *DashboardsApiService) DeleteDashboard(ctx _context.Context, dashboardId string) (DashboardDeleteResponse, *_nethttp.Response, error) {
+	req := apiDeleteDashboardRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		dashboardId: dashboardId,
 	}
+
+	return req.ApiService.deleteDashboardExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return DashboardDeleteResponse
  */
-func (a *DashboardsApiService) DeleteDashboardExecute(r ApiDeleteDashboardRequest) (DashboardDeleteResponse, *_nethttp.Response, error) {
+func (a *DashboardsApiService) deleteDashboardExecute(r apiDeleteDashboardRequest) (DashboardDeleteResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -287,18 +276,19 @@ func (a *DashboardsApiService) DeleteDashboardExecute(r ApiDeleteDashboardReques
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -342,36 +332,185 @@ func (a *DashboardsApiService) DeleteDashboardExecute(r ApiDeleteDashboardReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetDashboardRequest struct {
+type apiDeleteDashboardsRequest struct {
+	ctx        _context.Context
+	ApiService *DashboardsApiService
+	body       *DashboardBulkDeleteRequest
+}
+
+/*
+ * DeleteDashboards Delete dashboards
+ * Delete dashboards using the specified IDs. If there are any failures, no dashboards will be deleted (partial success is not allowed).
+ */
+func (a *DashboardsApiService) DeleteDashboards(ctx _context.Context, body DashboardBulkDeleteRequest) (*_nethttp.Response, error) {
+	req := apiDeleteDashboardsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		body:       &body,
+	}
+
+	return req.ApiService.deleteDashboardsExecute(req)
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *DashboardsApiService) deleteDashboardsExecute(r apiDeleteDashboardsRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsApiService.DeleteDashboards")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/dashboard"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.body == nil {
+		return nil, reportError("body is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+
+	// Set Operation-ID header for telemetry
+	localVarHeaderParams["DD-OPERATION-ID"] = "DeleteDashboards"
+
+	// body params
+	localVarPostBody = r.body
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-API-KEY"] = key
+			}
+		}
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["appKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-APPLICATION-KEY"] = key
+			}
+		}
+	}
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type apiGetDashboardRequest struct {
 	ctx         _context.Context
 	ApiService  *DashboardsApiService
 	dashboardId string
 }
 
-func (r ApiGetDashboardRequest) Execute() (Dashboard, *_nethttp.Response, error) {
-	return r.ApiService.GetDashboardExecute(r)
-}
-
 /*
  * GetDashboard Get a dashboard
  * Get a dashboard using the specified ID.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param dashboardId The ID of the dashboard.
- * @return ApiGetDashboardRequest
  */
-func (a *DashboardsApiService) GetDashboard(ctx _context.Context, dashboardId string) ApiGetDashboardRequest {
-	return ApiGetDashboardRequest{
+func (a *DashboardsApiService) GetDashboard(ctx _context.Context, dashboardId string) (Dashboard, *_nethttp.Response, error) {
+	req := apiGetDashboardRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		dashboardId: dashboardId,
 	}
+
+	return req.ApiService.getDashboardExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return Dashboard
  */
-func (a *DashboardsApiService) GetDashboardExecute(r ApiGetDashboardRequest) (Dashboard, *_nethttp.Response, error) {
+func (a *DashboardsApiService) getDashboardExecute(r apiGetDashboardRequest) (Dashboard, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -442,18 +581,19 @@ func (a *DashboardsApiService) GetDashboardExecute(r ApiGetDashboardRequest) (Da
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -497,13 +637,23 @@ func (a *DashboardsApiService) GetDashboardExecute(r ApiGetDashboardRequest) (Da
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListDashboardsRequest struct {
-	ctx        _context.Context
-	ApiService *DashboardsApiService
+type apiListDashboardsRequest struct {
+	ctx          _context.Context
+	ApiService   *DashboardsApiService
+	filterShared *bool
 }
 
-func (r ApiListDashboardsRequest) Execute() (DashboardSummary, *_nethttp.Response, error) {
-	return r.ApiService.ListDashboardsExecute(r)
+type ListDashboardsOptionalParameters struct {
+	FilterShared *bool
+}
+
+func NewListDashboardsOptionalParameters() *ListDashboardsOptionalParameters {
+	this := ListDashboardsOptionalParameters{}
+	return &this
+}
+func (r *ListDashboardsOptionalParameters) WithFilterShared(filterShared bool) *ListDashboardsOptionalParameters {
+	r.FilterShared = &filterShared
+	return r
 }
 
 /*
@@ -512,21 +662,30 @@ func (r ApiListDashboardsRequest) Execute() (DashboardSummary, *_nethttp.Respons
 
 **Note**: This query will only return custom created or cloned dashboards.
 This query will not return preset dashboards.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiListDashboardsRequest
 */
-func (a *DashboardsApiService) ListDashboards(ctx _context.Context) ApiListDashboardsRequest {
-	return ApiListDashboardsRequest{
+func (a *DashboardsApiService) ListDashboards(ctx _context.Context, o ...ListDashboardsOptionalParameters) (DashboardSummary, *_nethttp.Response, error) {
+	req := apiListDashboardsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue DashboardSummary
+		return localVarReturnValue, nil, reportError("only one argument of type ListDashboardsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.filterShared = o[0].FilterShared
+	}
+
+	return req.ApiService.listDashboardsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return DashboardSummary
  */
-func (a *DashboardsApiService) ListDashboardsExecute(r ApiListDashboardsRequest) (DashboardSummary, *_nethttp.Response, error) {
+func (a *DashboardsApiService) listDashboardsExecute(r apiListDashboardsRequest) (DashboardSummary, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -547,6 +706,9 @@ func (a *DashboardsApiService) ListDashboardsExecute(r ApiListDashboardsRequest)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.filterShared != nil {
+		localVarQueryParams.Add("filter[shared]", parameterToString(*r.filterShared, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -596,18 +758,19 @@ func (a *DashboardsApiService) ListDashboardsExecute(r ApiListDashboardsRequest)
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -641,42 +804,187 @@ func (a *DashboardsApiService) ListDashboardsExecute(r ApiListDashboardsRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateDashboardRequest struct {
+type apiRestoreDashboardsRequest struct {
+	ctx        _context.Context
+	ApiService *DashboardsApiService
+	body       *DashboardRestoreRequest
+}
+
+/*
+ * RestoreDashboards Restore deleted dashboards
+ * Restore dashboards using the specified IDs. If there are any failures, no dashboards will be restored (partial success is not allowed).
+ */
+func (a *DashboardsApiService) RestoreDashboards(ctx _context.Context, body DashboardRestoreRequest) (*_nethttp.Response, error) {
+	req := apiRestoreDashboardsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		body:       &body,
+	}
+
+	return req.ApiService.restoreDashboardsExecute(req)
+}
+
+/*
+ * Execute executes the request
+ */
+func (a *DashboardsApiService) restoreDashboardsExecute(r apiRestoreDashboardsRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DashboardsApiService.RestoreDashboards")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/dashboard"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.body == nil {
+		return nil, reportError("body is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+
+	// Set Operation-ID header for telemetry
+	localVarHeaderParams["DD-OPERATION-ID"] = "RestoreDashboards"
+
+	// body params
+	localVarPostBody = r.body
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-API-KEY"] = key
+			}
+		}
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["appKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-APPLICATION-KEY"] = key
+			}
+		}
+	}
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type apiUpdateDashboardRequest struct {
 	ctx         _context.Context
 	ApiService  *DashboardsApiService
 	dashboardId string
 	body        *Dashboard
 }
 
-func (r ApiUpdateDashboardRequest) Body(body Dashboard) ApiUpdateDashboardRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiUpdateDashboardRequest) Execute() (Dashboard, *_nethttp.Response, error) {
-	return r.ApiService.UpdateDashboardExecute(r)
-}
-
 /*
  * UpdateDashboard Update a dashboard
  * Update a dashboard using the specified ID.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param dashboardId The ID of the dashboard.
- * @return ApiUpdateDashboardRequest
  */
-func (a *DashboardsApiService) UpdateDashboard(ctx _context.Context, dashboardId string) ApiUpdateDashboardRequest {
-	return ApiUpdateDashboardRequest{
+func (a *DashboardsApiService) UpdateDashboard(ctx _context.Context, dashboardId string, body Dashboard) (Dashboard, *_nethttp.Response, error) {
+	req := apiUpdateDashboardRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		dashboardId: dashboardId,
+		body:        &body,
 	}
+
+	return req.ApiService.updateDashboardExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return Dashboard
  */
-func (a *DashboardsApiService) UpdateDashboardExecute(r ApiUpdateDashboardRequest) (Dashboard, *_nethttp.Response, error) {
+func (a *DashboardsApiService) updateDashboardExecute(r apiUpdateDashboardRequest) (Dashboard, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -752,18 +1060,19 @@ func (a *DashboardsApiService) UpdateDashboardExecute(r ApiUpdateDashboardReques
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

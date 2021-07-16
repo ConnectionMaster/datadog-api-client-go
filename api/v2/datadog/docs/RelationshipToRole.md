@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Data** | Pointer to [**RelationshipToRoleData**](RelationshipToRoleData.md) |  | [optional] 
 
 ## Methods
@@ -12,18 +12,18 @@ Name | Type | Description | Notes
 
 `func NewRelationshipToRole() *RelationshipToRole`
 
-NewRelationshipToRole instantiates a new RelationshipToRole object
+NewRelationshipToRole instantiates a new RelationshipToRole object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRelationshipToRoleWithDefaults
 
 `func NewRelationshipToRoleWithDefaults() *RelationshipToRole`
 
-NewRelationshipToRoleWithDefaults instantiates a new RelationshipToRole object
+NewRelationshipToRoleWithDefaults instantiates a new RelationshipToRole object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

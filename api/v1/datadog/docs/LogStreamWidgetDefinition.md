@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Columns** | Pointer to **[]string** | Which columns to display on the widget. | [optional] 
 **Indexes** | Pointer to **[]string** | An array of index names to query in the stream. Use [] to query all indexes at once. | [optional] 
 **Logset** | Pointer to **string** | ID of the log set to use. | [optional] 
@@ -16,26 +16,26 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**LogStreamWidgetDefinitionType**](LogStreamWidgetDefinitionType.md) |  | [default to "log_stream"]
+**Type** | [**LogStreamWidgetDefinitionType**](LogStreamWidgetDefinitionType.md) |  | [default to LOGSTREAMWIDGETDEFINITIONTYPE_LOG_STREAM]
 
 ## Methods
 
 ### NewLogStreamWidgetDefinition
 
-`func NewLogStreamWidgetDefinition(type_ LogStreamWidgetDefinitionType, ) *LogStreamWidgetDefinition`
+`func NewLogStreamWidgetDefinition(type_ LogStreamWidgetDefinitionType) *LogStreamWidgetDefinition`
 
-NewLogStreamWidgetDefinition instantiates a new LogStreamWidgetDefinition object
+NewLogStreamWidgetDefinition instantiates a new LogStreamWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogStreamWidgetDefinitionWithDefaults
 
 `func NewLogStreamWidgetDefinitionWithDefaults() *LogStreamWidgetDefinition`
 
-NewLogStreamWidgetDefinitionWithDefaults instantiates a new LogStreamWidgetDefinition object
+NewLogStreamWidgetDefinitionWithDefaults instantiates a new LogStreamWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetColumns
 

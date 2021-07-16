@@ -1,9 +1,9 @@
-# \LogsMetricsApi
+# LogsMetricsApi
 
 All URIs are relative to *https://api.datadoghq.com*
 
 Method | HTTP request | Description
-------------- | ------------- | -------------
+------ | ------------ | ------------
 [**CreateLogsMetric**](LogsMetricsApi.md#CreateLogsMetric) | **Post** /api/v2/logs/config/metrics | Create a log-based metric
 [**DeleteLogsMetric**](LogsMetricsApi.md#DeleteLogsMetric) | **Delete** /api/v2/logs/config/metrics/{metric_id} | Delete a log-based metric
 [**GetLogsMetric**](LogsMetricsApi.md#GetLogsMetric) | **Get** /api/v2/logs/config/metrics/{metric_id} | Get a log-based metric
@@ -14,11 +14,10 @@ Method | HTTP request | Description
 
 ## CreateLogsMetric
 
-> LogsMetricResponse CreateLogsMetric(ctx).Body(body).Execute()
+> LogsMetricResponse CreateLogsMetric(ctx, body)
 
-Create a log-based metric
-
-
+Create a metric based on your ingested logs in your organization.
+Returns the log-based metric object from the request body when the request is successful.
 
 ### Example
 
@@ -34,47 +33,37 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     body := *datadog.NewLogsMetricCreateRequest(*datadog.NewLogsMetricCreateData(*datadog.NewLogsMetricCreateAttributes(*datadog.NewLogsMetricCompute(datadog.LogsMetricComputeAggregationType("count"))), "logs.page.load.count", datadog.LogsMetricType("logs_metrics"))) // LogsMetricCreateRequest | The definition of the new log-based metric.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsMetricsApi.CreateLogsMetric(ctx).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsMetricsApi.CreateLogsMetric(ctx, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.CreateLogsMetric``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.CreateLogsMetric`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateLogsMetric`: LogsMetricResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.CreateLogsMetric:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.CreateLogsMetric:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiCreateLogsMetricRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**LogsMetricCreateRequest**](LogsMetricCreateRequest.md) | The definition of the new log-based metric. | 
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**body** | [**LogsMetricCreateRequest**](LogsMetricCreateRequest.md) | The definition of the new log-based metric. | 
+
+
+### Optional Parameters
+
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -96,11 +85,9 @@ Name | Type | Description  | Notes
 
 ## DeleteLogsMetric
 
-> DeleteLogsMetric(ctx, metricId).Execute()
+> DeleteLogsMetric(ctx, metricId)
 
-Delete a log-based metric
-
-
+Delete a specific log-based metric from your organization.
 
 ### Example
 
@@ -115,47 +102,33 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     metricId := "metricId_example" // string | The name of the log-based metric.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    r, err := api_client.LogsMetricsApi.DeleteLogsMetric(ctx, metricId).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    r, err := apiClient.LogsMetricsApi.DeleteLogsMetric(ctx, metricId)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.DeleteLogsMetric``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.DeleteLogsMetric`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **metricId** | **string** | The name of the log-based metric. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteLogsMetricRequest struct via the builder pattern
+### Optional Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -178,11 +151,9 @@ Name | Type | Description  | Notes
 
 ## GetLogsMetric
 
-> LogsMetricResponse GetLogsMetric(ctx, metricId).Execute()
+> LogsMetricResponse GetLogsMetric(ctx, metricId)
 
-Get a log-based metric
-
-
+Get a specific log-based metric from your organization.
 
 ### Example
 
@@ -198,50 +169,36 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     metricId := "metricId_example" // string | The name of the log-based metric.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsMetricsApi.GetLogsMetric(ctx, metricId).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsMetricsApi.GetLogsMetric(ctx, metricId)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.GetLogsMetric``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.GetLogsMetric`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetLogsMetric`: LogsMetricResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.GetLogsMetric:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.GetLogsMetric:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
 **metricId** | **string** | The name of the log-based metric. | 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetLogsMetricRequest struct via the builder pattern
+### Optional Parameters
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -264,11 +221,9 @@ Name | Type | Description  | Notes
 
 ## ListLogsMetrics
 
-> LogsMetricsResponse ListLogsMetrics(ctx).Execute()
+> LogsMetricsResponse ListLogsMetrics(ctx)
 
-Get all log-based metrics
-
-
+Get the list of configured log-based metrics with their definitions.
 
 ### Example
 
@@ -284,41 +239,31 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsMetricsApi.ListLogsMetrics(ctx).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsMetricsApi.ListLogsMetrics(ctx)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.ListLogsMetrics``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.ListLogsMetrics`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListLogsMetrics`: LogsMetricsResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.ListLogsMetrics:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.ListLogsMetrics:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListLogsMetricsRequest struct via the builder pattern
+### Optional Parameters
+
+This endpoint does not have optional parameters.
 
 
 ### Return type
@@ -341,11 +286,10 @@ Other parameters are passed through a pointer to a apiListLogsMetricsRequest str
 
 ## UpdateLogsMetric
 
-> LogsMetricResponse UpdateLogsMetric(ctx, metricId).Body(body).Execute()
+> LogsMetricResponse UpdateLogsMetric(ctx, metricId, body)
 
-Update a log-based metric
-
-
+Update a specific log-based metric from your organization.
+Returns the log-based metric object from the request body when the request is successful.
 
 ### Example
 
@@ -361,53 +305,39 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     metricId := "metricId_example" // string | The name of the log-based metric.
     body := *datadog.NewLogsMetricUpdateRequest(*datadog.NewLogsMetricUpdateData(*datadog.NewLogsMetricUpdateAttributes(), datadog.LogsMetricType("logs_metrics"))) // LogsMetricUpdateRequest | New definition of the log-based metric.
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsMetricsApi.UpdateLogsMetric(ctx, metricId).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsMetricsApi.UpdateLogsMetric(ctx, metricId, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.UpdateLogsMetric``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsMetricsApi.UpdateLogsMetric`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateLogsMetric`: LogsMetricResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.UpdateLogsMetric:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsMetricsApi.UpdateLogsMetric:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**metricId** | **string** | The name of the log-based metric. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiUpdateLogsMetricRequest struct via the builder pattern
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**metricId** | **string** | The name of the log-based metric. |  |
+**body** | [**LogsMetricUpdateRequest**](LogsMetricUpdateRequest.md) | New definition of the log-based metric. | 
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
+### Optional Parameters
 
- **body** | [**LogsMetricUpdateRequest**](LogsMetricUpdateRequest.md) | New definition of the log-based metric. | 
+This endpoint does not have optional parameters.
+
 
 ### Return type
 

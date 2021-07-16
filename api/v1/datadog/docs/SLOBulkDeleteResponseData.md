@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Deleted** | Pointer to **[]string** | An array of service level objective object IDs that indicates which objects that were completely deleted. | [optional] 
 **Updated** | Pointer to **[]string** | An array of service level objective object IDs that indicates which objects that were modified (objects for which at least one threshold was deleted, but that were not completely deleted). | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewSLOBulkDeleteResponseData() *SLOBulkDeleteResponseData`
 
-NewSLOBulkDeleteResponseData instantiates a new SLOBulkDeleteResponseData object
+NewSLOBulkDeleteResponseData instantiates a new SLOBulkDeleteResponseData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSLOBulkDeleteResponseDataWithDefaults
 
 `func NewSLOBulkDeleteResponseDataWithDefaults() *SLOBulkDeleteResponseData`
 
-NewSLOBulkDeleteResponseDataWithDefaults instantiates a new SLOBulkDeleteResponseData object
+NewSLOBulkDeleteResponseDataWithDefaults instantiates a new SLOBulkDeleteResponseData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDeleted
 

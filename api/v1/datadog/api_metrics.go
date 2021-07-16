@@ -9,6 +9,7 @@
 package datadog
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -24,36 +25,31 @@ var (
 // MetricsApiService MetricsApi service
 type MetricsApiService service
 
-type ApiGetMetricMetadataRequest struct {
+type apiGetMetricMetadataRequest struct {
 	ctx        _context.Context
 	ApiService *MetricsApiService
 	metricName string
 }
 
-func (r ApiGetMetricMetadataRequest) Execute() (MetricMetadata, *_nethttp.Response, error) {
-	return r.ApiService.GetMetricMetadataExecute(r)
-}
-
 /*
  * GetMetricMetadata Get metric metadata
  * Get metadata about a specific metric.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param metricName Name of the metric for which to get metadata.
- * @return ApiGetMetricMetadataRequest
  */
-func (a *MetricsApiService) GetMetricMetadata(ctx _context.Context, metricName string) ApiGetMetricMetadataRequest {
-	return ApiGetMetricMetadataRequest{
+func (a *MetricsApiService) GetMetricMetadata(ctx _context.Context, metricName string) (MetricMetadata, *_nethttp.Response, error) {
+	req := apiGetMetricMetadataRequest{
 		ApiService: a,
 		ctx:        ctx,
 		metricName: metricName,
 	}
+
+	return req.ApiService.getMetricMetadataExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return MetricMetadata
  */
-func (a *MetricsApiService) GetMetricMetadataExecute(r ApiGetMetricMetadataRequest) (MetricMetadata, *_nethttp.Response, error) {
+func (a *MetricsApiService) getMetricMetadataExecute(r apiGetMetricMetadataRequest) (MetricMetadata, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -124,18 +120,19 @@ func (a *MetricsApiService) GetMetricMetadataExecute(r ApiGetMetricMetadataReque
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -179,44 +176,61 @@ func (a *MetricsApiService) GetMetricMetadataExecute(r ApiGetMetricMetadataReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListActiveMetricsRequest struct {
+type apiListActiveMetricsRequest struct {
 	ctx        _context.Context
 	ApiService *MetricsApiService
 	from       *int64
 	host       *string
+	tagFilter  *string
 }
 
-func (r ApiListActiveMetricsRequest) From(from int64) ApiListActiveMetricsRequest {
-	r.from = &from
-	return r
-}
-func (r ApiListActiveMetricsRequest) Host(host string) ApiListActiveMetricsRequest {
-	r.host = &host
-	return r
+type ListActiveMetricsOptionalParameters struct {
+	Host      *string
+	TagFilter *string
 }
 
-func (r ApiListActiveMetricsRequest) Execute() (MetricsListResponse, *_nethttp.Response, error) {
-	return r.ApiService.ListActiveMetricsExecute(r)
+func NewListActiveMetricsOptionalParameters() *ListActiveMetricsOptionalParameters {
+	this := ListActiveMetricsOptionalParameters{}
+	return &this
+}
+func (r *ListActiveMetricsOptionalParameters) WithHost(host string) *ListActiveMetricsOptionalParameters {
+	r.Host = &host
+	return r
+}
+func (r *ListActiveMetricsOptionalParameters) WithTagFilter(tagFilter string) *ListActiveMetricsOptionalParameters {
+	r.TagFilter = &tagFilter
+	return r
 }
 
 /*
  * ListActiveMetrics Get active metrics list
  * Get the list of actively reporting metrics from a given time until now.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiListActiveMetricsRequest
  */
-func (a *MetricsApiService) ListActiveMetrics(ctx _context.Context) ApiListActiveMetricsRequest {
-	return ApiListActiveMetricsRequest{
+func (a *MetricsApiService) ListActiveMetrics(ctx _context.Context, from int64, o ...ListActiveMetricsOptionalParameters) (MetricsListResponse, *_nethttp.Response, error) {
+	req := apiListActiveMetricsRequest{
 		ApiService: a,
 		ctx:        ctx,
+		from:       &from,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue MetricsListResponse
+		return localVarReturnValue, nil, reportError("only one argument of type ListActiveMetricsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.host = o[0].Host
+		req.tagFilter = o[0].TagFilter
+	}
+
+	return req.ApiService.listActiveMetricsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return MetricsListResponse
  */
-func (a *MetricsApiService) ListActiveMetricsExecute(r ApiListActiveMetricsRequest) (MetricsListResponse, *_nethttp.Response, error) {
+func (a *MetricsApiService) listActiveMetricsExecute(r apiListActiveMetricsRequest) (MetricsListResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -243,6 +257,9 @@ func (a *MetricsApiService) ListActiveMetricsExecute(r ApiListActiveMetricsReque
 	localVarQueryParams.Add("from", parameterToString(*r.from, ""))
 	if r.host != nil {
 		localVarQueryParams.Add("host", parameterToString(*r.host, ""))
+	}
+	if r.tagFilter != nil {
+		localVarQueryParams.Add("tag_filter", parameterToString(*r.tagFilter, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -293,18 +310,19 @@ func (a *MetricsApiService) ListActiveMetricsExecute(r ApiListActiveMetricsReque
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -348,39 +366,31 @@ func (a *MetricsApiService) ListActiveMetricsExecute(r ApiListActiveMetricsReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListMetricsRequest struct {
+type apiListMetricsRequest struct {
 	ctx        _context.Context
 	ApiService *MetricsApiService
 	q          *string
 }
 
-func (r ApiListMetricsRequest) Q(q string) ApiListMetricsRequest {
-	r.q = &q
-	return r
-}
-
-func (r ApiListMetricsRequest) Execute() (MetricSearchResponse, *_nethttp.Response, error) {
-	return r.ApiService.ListMetricsExecute(r)
-}
-
 /*
  * ListMetrics Search metrics
  * Search for metrics from the last 24 hours in Datadog.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiListMetricsRequest
  */
-func (a *MetricsApiService) ListMetrics(ctx _context.Context) ApiListMetricsRequest {
-	return ApiListMetricsRequest{
+func (a *MetricsApiService) ListMetrics(ctx _context.Context, q string) (MetricSearchResponse, *_nethttp.Response, error) {
+	req := apiListMetricsRequest{
 		ApiService: a,
 		ctx:        ctx,
+		q:          &q,
 	}
+
+	return req.ApiService.listMetricsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return MetricSearchResponse
  */
-func (a *MetricsApiService) ListMetricsExecute(r ApiListMetricsRequest) (MetricSearchResponse, *_nethttp.Response, error) {
+func (a *MetricsApiService) listMetricsExecute(r apiListMetricsRequest) (MetricSearchResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -454,18 +464,19 @@ func (a *MetricsApiService) ListMetricsExecute(r ApiListMetricsRequest) (MetricS
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -509,7 +520,7 @@ func (a *MetricsApiService) ListMetricsExecute(r ApiListMetricsRequest) (MetricS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiQueryMetricsRequest struct {
+type apiQueryMetricsRequest struct {
 	ctx        _context.Context
 	ApiService *MetricsApiService
 	from       *int64
@@ -517,41 +528,27 @@ type ApiQueryMetricsRequest struct {
 	query      *string
 }
 
-func (r ApiQueryMetricsRequest) From(from int64) ApiQueryMetricsRequest {
-	r.from = &from
-	return r
-}
-func (r ApiQueryMetricsRequest) To(to int64) ApiQueryMetricsRequest {
-	r.to = &to
-	return r
-}
-func (r ApiQueryMetricsRequest) Query(query string) ApiQueryMetricsRequest {
-	r.query = &query
-	return r
-}
-
-func (r ApiQueryMetricsRequest) Execute() (MetricsQueryResponse, *_nethttp.Response, error) {
-	return r.ApiService.QueryMetricsExecute(r)
-}
-
 /*
  * QueryMetrics Query timeseries points
  * Query timeseries points.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiQueryMetricsRequest
  */
-func (a *MetricsApiService) QueryMetrics(ctx _context.Context) ApiQueryMetricsRequest {
-	return ApiQueryMetricsRequest{
+func (a *MetricsApiService) QueryMetrics(ctx _context.Context, from int64, to int64, query string) (MetricsQueryResponse, *_nethttp.Response, error) {
+	req := apiQueryMetricsRequest{
 		ApiService: a,
 		ctx:        ctx,
+		from:       &from,
+		to:         &to,
+		query:      &query,
 	}
+
+	return req.ApiService.queryMetricsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return MetricsQueryResponse
  */
-func (a *MetricsApiService) QueryMetricsExecute(r ApiQueryMetricsRequest) (MetricsQueryResponse, *_nethttp.Response, error) {
+func (a *MetricsApiService) queryMetricsExecute(r apiQueryMetricsRequest) (MetricsQueryResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -633,18 +630,19 @@ func (a *MetricsApiService) QueryMetricsExecute(r ApiQueryMetricsRequest) (Metri
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -688,42 +686,204 @@ func (a *MetricsApiService) QueryMetricsExecute(r ApiQueryMetricsRequest) (Metri
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateMetricMetadataRequest struct {
+type apiSubmitMetricsRequest struct {
+	ctx        _context.Context
+	ApiService *MetricsApiService
+	body       *MetricsPayload
+}
+
+/*
+ * SubmitMetrics Submit metrics
+ * The metrics end-point allows you to post time-series data that can be graphed on Datadog’s dashboards.
+The maximum payload size is 3.2 megabytes (3200000 bytes). Compressed payloads must have a decompressed size of less than 62 megabytes (62914560 bytes).
+
+If you’re submitting metrics directly to the Datadog API without using DogStatsD, expect:
+
+- 64 bits for the timestamp
+- 32 bits for the value
+- 20 bytes for the metric names
+- 50 bytes for the timeseries
+- The full payload is approximately 100 bytes. However, with the DogStatsD API,
+compression is applied, which reduces the payload size.
+*/
+func (a *MetricsApiService) SubmitMetrics(ctx _context.Context, body MetricsPayload) (IntakePayloadAccepted, *_nethttp.Response, error) {
+	req := apiSubmitMetricsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		body:       &body,
+	}
+
+	return req.ApiService.submitMetricsExecute(req)
+}
+
+/*
+ * Execute executes the request
+ * @return IntakePayloadAccepted
+ */
+func (a *MetricsApiService) submitMetricsExecute(r apiSubmitMetricsRequest) (IntakePayloadAccepted, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  IntakePayloadAccepted
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "MetricsApiService.SubmitMetrics")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/series"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+
+	// Set Operation-ID header for telemetry
+	localVarHeaderParams["DD-OPERATION-ID"] = "SubmitMetrics"
+
+	// body params
+	localVarPostBody = r.body
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-API-KEY"] = key
+			}
+		}
+	}
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 408 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 413 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type apiUpdateMetricMetadataRequest struct {
 	ctx        _context.Context
 	ApiService *MetricsApiService
 	metricName string
 	body       *MetricMetadata
 }
 
-func (r ApiUpdateMetricMetadataRequest) Body(body MetricMetadata) ApiUpdateMetricMetadataRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiUpdateMetricMetadataRequest) Execute() (MetricMetadata, *_nethttp.Response, error) {
-	return r.ApiService.UpdateMetricMetadataExecute(r)
-}
-
 /*
  * UpdateMetricMetadata Edit metric metadata
  * Edit metadata of a specific metric. Find out more about [supported types](https://docs.datadoghq.com/developers/metrics).
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param metricName Name of the metric for which to edit metadata.
- * @return ApiUpdateMetricMetadataRequest
  */
-func (a *MetricsApiService) UpdateMetricMetadata(ctx _context.Context, metricName string) ApiUpdateMetricMetadataRequest {
-	return ApiUpdateMetricMetadataRequest{
+func (a *MetricsApiService) UpdateMetricMetadata(ctx _context.Context, metricName string, body MetricMetadata) (MetricMetadata, *_nethttp.Response, error) {
+	req := apiUpdateMetricMetadataRequest{
 		ApiService: a,
 		ctx:        ctx,
 		metricName: metricName,
+		body:       &body,
 	}
+
+	return req.ApiService.updateMetricMetadataExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return MetricMetadata
  */
-func (a *MetricsApiService) UpdateMetricMetadataExecute(r ApiUpdateMetricMetadataRequest) (MetricMetadata, *_nethttp.Response, error) {
+func (a *MetricsApiService) updateMetricMetadataExecute(r apiUpdateMetricMetadataRequest) (MetricMetadata, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -799,18 +959,19 @@ func (a *MetricsApiService) UpdateMetricMetadataExecute(r ApiUpdateMetricMetadat
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

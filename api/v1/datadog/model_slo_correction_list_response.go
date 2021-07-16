@@ -15,7 +15,8 @@ import (
 // SLOCorrectionListResponse A list of  SLO correction objects
 type SLOCorrectionListResponse struct {
 	// The list of of SLO corrections objects
-	Data *[]SLOCorrectionListResponseData `json:"data,omitempty"`
+	Data *[]SLOCorrection        `json:"data,omitempty"`
+	Meta *ResponseMetaAttributes `json:"meta,omitempty"`
 }
 
 // NewSLOCorrectionListResponse instantiates a new SLOCorrectionListResponse object
@@ -36,9 +37,9 @@ func NewSLOCorrectionListResponseWithDefaults() *SLOCorrectionListResponse {
 }
 
 // GetData returns the Data field value if set, zero value otherwise.
-func (o *SLOCorrectionListResponse) GetData() []SLOCorrectionListResponseData {
+func (o *SLOCorrectionListResponse) GetData() []SLOCorrection {
 	if o == nil || o.Data == nil {
-		var ret []SLOCorrectionListResponseData
+		var ret []SLOCorrection
 		return ret
 	}
 	return *o.Data
@@ -46,7 +47,7 @@ func (o *SLOCorrectionListResponse) GetData() []SLOCorrectionListResponseData {
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SLOCorrectionListResponse) GetDataOk() (*[]SLOCorrectionListResponseData, bool) {
+func (o *SLOCorrectionListResponse) GetDataOk() (*[]SLOCorrection, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -62,15 +63,50 @@ func (o *SLOCorrectionListResponse) HasData() bool {
 	return false
 }
 
-// SetData gets a reference to the given []SLOCorrectionListResponseData and assigns it to the Data field.
-func (o *SLOCorrectionListResponse) SetData(v []SLOCorrectionListResponseData) {
+// SetData gets a reference to the given []SLOCorrection and assigns it to the Data field.
+func (o *SLOCorrectionListResponse) SetData(v []SLOCorrection) {
 	o.Data = &v
+}
+
+// GetMeta returns the Meta field value if set, zero value otherwise.
+func (o *SLOCorrectionListResponse) GetMeta() ResponseMetaAttributes {
+	if o == nil || o.Meta == nil {
+		var ret ResponseMetaAttributes
+		return ret
+	}
+	return *o.Meta
+}
+
+// GetMetaOk returns a tuple with the Meta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SLOCorrectionListResponse) GetMetaOk() (*ResponseMetaAttributes, bool) {
+	if o == nil || o.Meta == nil {
+		return nil, false
+	}
+	return o.Meta, true
+}
+
+// HasMeta returns a boolean if a field has been set.
+func (o *SLOCorrectionListResponse) HasMeta() bool {
+	if o != nil && o.Meta != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMeta gets a reference to the given ResponseMetaAttributes and assigns it to the Meta field.
+func (o *SLOCorrectionListResponse) SetMeta(v ResponseMetaAttributes) {
+	o.Meta = &v
 }
 
 func (o SLOCorrectionListResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
+	}
+	if o.Meta != nil {
+		toSerialize["meta"] = o.Meta
 	}
 	return json.Marshal(toSerialize)
 }

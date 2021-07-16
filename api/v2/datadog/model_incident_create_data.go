@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // IncidentCreateData Incident data for a create request.
@@ -35,7 +36,7 @@ func NewIncidentCreateData(attributes IncidentCreateAttributes, type_ IncidentTy
 // but it doesn't guarantee that properties required by API are set
 func NewIncidentCreateDataWithDefaults() *IncidentCreateData {
 	this := IncidentCreateData{}
-	var type_ IncidentType = "incidents"
+	var type_ IncidentType = INCIDENTTYPE_INCIDENTS
 	this.Type = type_
 	return &this
 }
@@ -132,6 +133,36 @@ func (o IncidentCreateData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *IncidentCreateData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Attributes *IncidentCreateAttributes `json:"attributes"`
+		Type       *IncidentType             `json:"type"`
+	}{}
+	all := struct {
+		Attributes    IncidentCreateAttributes     `json:"attributes"`
+		Relationships *IncidentCreateRelationships `json:"relationships,omitempty"`
+		Type          IncidentType                 `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Attributes == nil {
+		return fmt.Errorf("Required field attributes missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Relationships = all.Relationships
+	o.Type = all.Type
+	return nil
 }
 
 type NullableIncidentCreateData struct {

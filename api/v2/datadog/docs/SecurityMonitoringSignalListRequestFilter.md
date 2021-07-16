@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **From** | Pointer to **time.Time** | The minimum timestamp for requested security signals. | [optional] 
 **Query** | Pointer to **string** | Search query for listing security signals. | [optional] 
 **To** | Pointer to **time.Time** | The maximum timestamp for requested security signals. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewSecurityMonitoringSignalListRequestFilter() *SecurityMonitoringSignalListRequestFilter`
 
-NewSecurityMonitoringSignalListRequestFilter instantiates a new SecurityMonitoringSignalListRequestFilter object
+NewSecurityMonitoringSignalListRequestFilter instantiates a new SecurityMonitoringSignalListRequestFilter object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSecurityMonitoringSignalListRequestFilterWithDefaults
 
 `func NewSecurityMonitoringSignalListRequestFilterWithDefaults() *SecurityMonitoringSignalListRequestFilter`
 
-NewSecurityMonitoringSignalListRequestFilterWithDefaults instantiates a new SecurityMonitoringSignalListRequestFilter object
+NewSecurityMonitoringSignalListRequestFilterWithDefaults instantiates a new SecurityMonitoringSignalListRequestFilter object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetFrom
 

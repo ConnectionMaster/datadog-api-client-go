@@ -10,14 +10,22 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // GroupWidgetDefinition The groups widget allows you to keep similar graphs together on your timeboard. Each group has a custom header, can hold one to many graphs, and is collapsible.
 type GroupWidgetDefinition struct {
+	// Background color of the group title.
+	BackgroundColor *string `json:"background_color,omitempty"`
+	// URL of image to display as a banner for the group.
+	BannerImg  *string          `json:"banner_img,omitempty"`
 	LayoutType WidgetLayoutType `json:"layout_type"`
+	// Whether to show the title or not.
+	ShowTitle *bool `json:"show_title,omitempty"`
 	// Title of the widget.
-	Title *string                   `json:"title,omitempty"`
-	Type  GroupWidgetDefinitionType `json:"type"`
+	Title      *string                   `json:"title,omitempty"`
+	TitleAlign *WidgetTextAlign          `json:"title_align,omitempty"`
+	Type       GroupWidgetDefinitionType `json:"type"`
 	// List of widget groups.
 	Widgets []Widget `json:"widgets"`
 }
@@ -29,6 +37,8 @@ type GroupWidgetDefinition struct {
 func NewGroupWidgetDefinition(layoutType WidgetLayoutType, type_ GroupWidgetDefinitionType, widgets []Widget) *GroupWidgetDefinition {
 	this := GroupWidgetDefinition{}
 	this.LayoutType = layoutType
+	var showTitle bool = true
+	this.ShowTitle = &showTitle
 	this.Type = type_
 	this.Widgets = widgets
 	return &this
@@ -39,9 +49,75 @@ func NewGroupWidgetDefinition(layoutType WidgetLayoutType, type_ GroupWidgetDefi
 // but it doesn't guarantee that properties required by API are set
 func NewGroupWidgetDefinitionWithDefaults() *GroupWidgetDefinition {
 	this := GroupWidgetDefinition{}
-	var type_ GroupWidgetDefinitionType = "group"
+	var showTitle bool = true
+	this.ShowTitle = &showTitle
+	var type_ GroupWidgetDefinitionType = GROUPWIDGETDEFINITIONTYPE_GROUP
 	this.Type = type_
 	return &this
+}
+
+// GetBackgroundColor returns the BackgroundColor field value if set, zero value otherwise.
+func (o *GroupWidgetDefinition) GetBackgroundColor() string {
+	if o == nil || o.BackgroundColor == nil {
+		var ret string
+		return ret
+	}
+	return *o.BackgroundColor
+}
+
+// GetBackgroundColorOk returns a tuple with the BackgroundColor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupWidgetDefinition) GetBackgroundColorOk() (*string, bool) {
+	if o == nil || o.BackgroundColor == nil {
+		return nil, false
+	}
+	return o.BackgroundColor, true
+}
+
+// HasBackgroundColor returns a boolean if a field has been set.
+func (o *GroupWidgetDefinition) HasBackgroundColor() bool {
+	if o != nil && o.BackgroundColor != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBackgroundColor gets a reference to the given string and assigns it to the BackgroundColor field.
+func (o *GroupWidgetDefinition) SetBackgroundColor(v string) {
+	o.BackgroundColor = &v
+}
+
+// GetBannerImg returns the BannerImg field value if set, zero value otherwise.
+func (o *GroupWidgetDefinition) GetBannerImg() string {
+	if o == nil || o.BannerImg == nil {
+		var ret string
+		return ret
+	}
+	return *o.BannerImg
+}
+
+// GetBannerImgOk returns a tuple with the BannerImg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupWidgetDefinition) GetBannerImgOk() (*string, bool) {
+	if o == nil || o.BannerImg == nil {
+		return nil, false
+	}
+	return o.BannerImg, true
+}
+
+// HasBannerImg returns a boolean if a field has been set.
+func (o *GroupWidgetDefinition) HasBannerImg() bool {
+	if o != nil && o.BannerImg != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBannerImg gets a reference to the given string and assigns it to the BannerImg field.
+func (o *GroupWidgetDefinition) SetBannerImg(v string) {
+	o.BannerImg = &v
 }
 
 // GetLayoutType returns the LayoutType field value
@@ -66,6 +142,38 @@ func (o *GroupWidgetDefinition) GetLayoutTypeOk() (*WidgetLayoutType, bool) {
 // SetLayoutType sets field value
 func (o *GroupWidgetDefinition) SetLayoutType(v WidgetLayoutType) {
 	o.LayoutType = v
+}
+
+// GetShowTitle returns the ShowTitle field value if set, zero value otherwise.
+func (o *GroupWidgetDefinition) GetShowTitle() bool {
+	if o == nil || o.ShowTitle == nil {
+		var ret bool
+		return ret
+	}
+	return *o.ShowTitle
+}
+
+// GetShowTitleOk returns a tuple with the ShowTitle field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupWidgetDefinition) GetShowTitleOk() (*bool, bool) {
+	if o == nil || o.ShowTitle == nil {
+		return nil, false
+	}
+	return o.ShowTitle, true
+}
+
+// HasShowTitle returns a boolean if a field has been set.
+func (o *GroupWidgetDefinition) HasShowTitle() bool {
+	if o != nil && o.ShowTitle != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetShowTitle gets a reference to the given bool and assigns it to the ShowTitle field.
+func (o *GroupWidgetDefinition) SetShowTitle(v bool) {
+	o.ShowTitle = &v
 }
 
 // GetTitle returns the Title field value if set, zero value otherwise.
@@ -98,6 +206,38 @@ func (o *GroupWidgetDefinition) HasTitle() bool {
 // SetTitle gets a reference to the given string and assigns it to the Title field.
 func (o *GroupWidgetDefinition) SetTitle(v string) {
 	o.Title = &v
+}
+
+// GetTitleAlign returns the TitleAlign field value if set, zero value otherwise.
+func (o *GroupWidgetDefinition) GetTitleAlign() WidgetTextAlign {
+	if o == nil || o.TitleAlign == nil {
+		var ret WidgetTextAlign
+		return ret
+	}
+	return *o.TitleAlign
+}
+
+// GetTitleAlignOk returns a tuple with the TitleAlign field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupWidgetDefinition) GetTitleAlignOk() (*WidgetTextAlign, bool) {
+	if o == nil || o.TitleAlign == nil {
+		return nil, false
+	}
+	return o.TitleAlign, true
+}
+
+// HasTitleAlign returns a boolean if a field has been set.
+func (o *GroupWidgetDefinition) HasTitleAlign() bool {
+	if o != nil && o.TitleAlign != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTitleAlign gets a reference to the given WidgetTextAlign and assigns it to the TitleAlign field.
+func (o *GroupWidgetDefinition) SetTitleAlign(v WidgetTextAlign) {
+	o.TitleAlign = &v
 }
 
 // GetType returns the Type field value
@@ -150,11 +290,23 @@ func (o *GroupWidgetDefinition) SetWidgets(v []Widget) {
 
 func (o GroupWidgetDefinition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.BackgroundColor != nil {
+		toSerialize["background_color"] = o.BackgroundColor
+	}
+	if o.BannerImg != nil {
+		toSerialize["banner_img"] = o.BannerImg
+	}
 	if true {
 		toSerialize["layout_type"] = o.LayoutType
 	}
+	if o.ShowTitle != nil {
+		toSerialize["show_title"] = o.ShowTitle
+	}
 	if o.Title != nil {
 		toSerialize["title"] = o.Title
+	}
+	if o.TitleAlign != nil {
+		toSerialize["title_align"] = o.TitleAlign
 	}
 	if true {
 		toSerialize["type"] = o.Type
@@ -163,6 +315,50 @@ func (o GroupWidgetDefinition) MarshalJSON() ([]byte, error) {
 		toSerialize["widgets"] = o.Widgets
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *GroupWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		LayoutType *WidgetLayoutType          `json:"layout_type"`
+		Type       *GroupWidgetDefinitionType `json:"type"`
+		Widgets    *[]Widget                  `json:"widgets"`
+	}{}
+	all := struct {
+		BackgroundColor *string                   `json:"background_color,omitempty"`
+		BannerImg       *string                   `json:"banner_img,omitempty"`
+		LayoutType      WidgetLayoutType          `json:"layout_type"`
+		ShowTitle       *bool                     `json:"show_title,omitempty"`
+		Title           *string                   `json:"title,omitempty"`
+		TitleAlign      *WidgetTextAlign          `json:"title_align,omitempty"`
+		Type            GroupWidgetDefinitionType `json:"type"`
+		Widgets         []Widget                  `json:"widgets"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.LayoutType == nil {
+		return fmt.Errorf("Required field layout_type missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	if required.Widgets == nil {
+		return fmt.Errorf("Required field widgets missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.BackgroundColor = all.BackgroundColor
+	o.BannerImg = all.BannerImg
+	o.LayoutType = all.LayoutType
+	o.ShowTitle = all.ShowTitle
+	o.Title = all.Title
+	o.TitleAlign = all.TitleAlign
+	o.Type = all.Type
+	o.Widgets = all.Widgets
+	return nil
 }
 
 type NullableGroupWidgetDefinition struct {

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **EventCount** | Pointer to **int64** | The total number of indexed logs for the queried hour. | [optional] 
 **Hour** | Pointer to **time.Time** | The hour for the usage. | [optional] 
 **IndexId** | Pointer to **string** | The index ID for this usage. | [optional] 
@@ -16,18 +16,18 @@ Name | Type | Description | Notes
 
 `func NewUsageLogsByIndexHour() *UsageLogsByIndexHour`
 
-NewUsageLogsByIndexHour instantiates a new UsageLogsByIndexHour object
+NewUsageLogsByIndexHour instantiates a new UsageLogsByIndexHour object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageLogsByIndexHourWithDefaults
 
 `func NewUsageLogsByIndexHourWithDefaults() *UsageLogsByIndexHour`
 
-NewUsageLogsByIndexHourWithDefaults instantiates a new UsageLogsByIndexHour object
+NewUsageLogsByIndexHourWithDefaults instantiates a new UsageLogsByIndexHour object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetEventCount
 

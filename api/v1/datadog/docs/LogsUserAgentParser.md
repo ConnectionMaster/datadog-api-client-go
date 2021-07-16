@@ -3,32 +3,32 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **IsEncoded** | Pointer to **bool** | Define if the source attribute is URL encoded or not. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Sources** | **[]string** | Array of source attributes. | [default to ["http.useragent"]]
 **Target** | **string** | Name of the parent attribute that contains all the extracted details from the &#x60;sources&#x60;. | [default to "http.useragent_details"]
-**Type** | [**LogsUserAgentParserType**](LogsUserAgentParserType.md) |  | [default to "user-agent-parser"]
+**Type** | [**LogsUserAgentParserType**](LogsUserAgentParserType.md) |  | [default to LOGSUSERAGENTPARSERTYPE_USER_AGENT_PARSER]
 
 ## Methods
 
 ### NewLogsUserAgentParser
 
-`func NewLogsUserAgentParser(sources []string, target string, type_ LogsUserAgentParserType, ) *LogsUserAgentParser`
+`func NewLogsUserAgentParser(sources []string, target string, type_ LogsUserAgentParserType) *LogsUserAgentParser`
 
-NewLogsUserAgentParser instantiates a new LogsUserAgentParser object
+NewLogsUserAgentParser instantiates a new LogsUserAgentParser object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsUserAgentParserWithDefaults
 
 `func NewLogsUserAgentParserWithDefaults() *LogsUserAgentParser`
 
-NewLogsUserAgentParserWithDefaults instantiates a new LogsUserAgentParser object
+NewLogsUserAgentParserWithDefaults instantiates a new LogsUserAgentParser object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetIsEnabled
 

@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // NoteWidgetDefinition The notes and links widget is similar to free text widget, but allows for more formatting options.
@@ -20,13 +21,16 @@ type NoteWidgetDefinition struct {
 	Content string `json:"content"`
 	// Size of the text.
 	FontSize *string `json:"font_size,omitempty"`
+	// Whether to add padding or not.
+	HasPadding *bool `json:"has_padding,omitempty"`
 	// Whether to show a tick or not.
 	ShowTick  *bool            `json:"show_tick,omitempty"`
 	TextAlign *WidgetTextAlign `json:"text_align,omitempty"`
 	TickEdge  *WidgetTickEdge  `json:"tick_edge,omitempty"`
 	// Where to position the tick on an edge.
-	TickPos *string                  `json:"tick_pos,omitempty"`
-	Type    NoteWidgetDefinitionType `json:"type"`
+	TickPos       *string                  `json:"tick_pos,omitempty"`
+	Type          NoteWidgetDefinitionType `json:"type"`
+	VerticalAlign *WidgetVerticalAlign     `json:"vertical_align,omitempty"`
 }
 
 // NewNoteWidgetDefinition instantiates a new NoteWidgetDefinition object
@@ -36,6 +40,8 @@ type NoteWidgetDefinition struct {
 func NewNoteWidgetDefinition(content string, type_ NoteWidgetDefinitionType) *NoteWidgetDefinition {
 	this := NoteWidgetDefinition{}
 	this.Content = content
+	var hasPadding bool = true
+	this.HasPadding = &hasPadding
 	this.Type = type_
 	return &this
 }
@@ -45,7 +51,9 @@ func NewNoteWidgetDefinition(content string, type_ NoteWidgetDefinitionType) *No
 // but it doesn't guarantee that properties required by API are set
 func NewNoteWidgetDefinitionWithDefaults() *NoteWidgetDefinition {
 	this := NoteWidgetDefinition{}
-	var type_ NoteWidgetDefinitionType = "note"
+	var hasPadding bool = true
+	this.HasPadding = &hasPadding
+	var type_ NoteWidgetDefinitionType = NOTEWIDGETDEFINITIONTYPE_NOTE
 	this.Type = type_
 	return &this
 }
@@ -136,6 +144,38 @@ func (o *NoteWidgetDefinition) HasFontSize() bool {
 // SetFontSize gets a reference to the given string and assigns it to the FontSize field.
 func (o *NoteWidgetDefinition) SetFontSize(v string) {
 	o.FontSize = &v
+}
+
+// GetHasPadding returns the HasPadding field value if set, zero value otherwise.
+func (o *NoteWidgetDefinition) GetHasPadding() bool {
+	if o == nil || o.HasPadding == nil {
+		var ret bool
+		return ret
+	}
+	return *o.HasPadding
+}
+
+// GetHasPaddingOk returns a tuple with the HasPadding field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NoteWidgetDefinition) GetHasPaddingOk() (*bool, bool) {
+	if o == nil || o.HasPadding == nil {
+		return nil, false
+	}
+	return o.HasPadding, true
+}
+
+// HasHasPadding returns a boolean if a field has been set.
+func (o *NoteWidgetDefinition) HasHasPadding() bool {
+	if o != nil && o.HasPadding != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHasPadding gets a reference to the given bool and assigns it to the HasPadding field.
+func (o *NoteWidgetDefinition) SetHasPadding(v bool) {
+	o.HasPadding = &v
 }
 
 // GetShowTick returns the ShowTick field value if set, zero value otherwise.
@@ -290,6 +330,38 @@ func (o *NoteWidgetDefinition) SetType(v NoteWidgetDefinitionType) {
 	o.Type = v
 }
 
+// GetVerticalAlign returns the VerticalAlign field value if set, zero value otherwise.
+func (o *NoteWidgetDefinition) GetVerticalAlign() WidgetVerticalAlign {
+	if o == nil || o.VerticalAlign == nil {
+		var ret WidgetVerticalAlign
+		return ret
+	}
+	return *o.VerticalAlign
+}
+
+// GetVerticalAlignOk returns a tuple with the VerticalAlign field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NoteWidgetDefinition) GetVerticalAlignOk() (*WidgetVerticalAlign, bool) {
+	if o == nil || o.VerticalAlign == nil {
+		return nil, false
+	}
+	return o.VerticalAlign, true
+}
+
+// HasVerticalAlign returns a boolean if a field has been set.
+func (o *NoteWidgetDefinition) HasVerticalAlign() bool {
+	if o != nil && o.VerticalAlign != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVerticalAlign gets a reference to the given WidgetVerticalAlign and assigns it to the VerticalAlign field.
+func (o *NoteWidgetDefinition) SetVerticalAlign(v WidgetVerticalAlign) {
+	o.VerticalAlign = &v
+}
+
 func (o NoteWidgetDefinition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.BackgroundColor != nil {
@@ -300,6 +372,9 @@ func (o NoteWidgetDefinition) MarshalJSON() ([]byte, error) {
 	}
 	if o.FontSize != nil {
 		toSerialize["font_size"] = o.FontSize
+	}
+	if o.HasPadding != nil {
+		toSerialize["has_padding"] = o.HasPadding
 	}
 	if o.ShowTick != nil {
 		toSerialize["show_tick"] = o.ShowTick
@@ -316,7 +391,54 @@ func (o NoteWidgetDefinition) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["type"] = o.Type
 	}
+	if o.VerticalAlign != nil {
+		toSerialize["vertical_align"] = o.VerticalAlign
+	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *NoteWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Content *string                   `json:"content"`
+		Type    *NoteWidgetDefinitionType `json:"type"`
+	}{}
+	all := struct {
+		BackgroundColor *string                  `json:"background_color,omitempty"`
+		Content         string                   `json:"content"`
+		FontSize        *string                  `json:"font_size,omitempty"`
+		HasPadding      *bool                    `json:"has_padding,omitempty"`
+		ShowTick        *bool                    `json:"show_tick,omitempty"`
+		TextAlign       *WidgetTextAlign         `json:"text_align,omitempty"`
+		TickEdge        *WidgetTickEdge          `json:"tick_edge,omitempty"`
+		TickPos         *string                  `json:"tick_pos,omitempty"`
+		Type            NoteWidgetDefinitionType `json:"type"`
+		VerticalAlign   *WidgetVerticalAlign     `json:"vertical_align,omitempty"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Content == nil {
+		return fmt.Errorf("Required field content missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.BackgroundColor = all.BackgroundColor
+	o.Content = all.Content
+	o.FontSize = all.FontSize
+	o.HasPadding = all.HasPadding
+	o.ShowTick = all.ShowTick
+	o.TextAlign = all.TextAlign
+	o.TickEdge = all.TickEdge
+	o.TickPos = all.TickPos
+	o.Type = all.Type
+	o.VerticalAlign = all.VerticalAlign
+	return nil
 }
 
 type NullableNoteWidgetDefinition struct {

@@ -3,28 +3,28 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Id** | **string** | A unique identifier that represents the integration metadata. | 
-**Type** | [**IncidentIntegrationMetadataType**](IncidentIntegrationMetadataType.md) |  | [default to "incident_integration_metadata"]
+**Type** | [**IncidentIntegrationMetadataType**](IncidentIntegrationMetadataType.md) |  | [default to INCIDENTINTEGRATIONMETADATATYPE_INCIDENT_INTEGRATIONS]
 
 ## Methods
 
 ### NewRelationshipToIncidentIntegrationMetadataData
 
-`func NewRelationshipToIncidentIntegrationMetadataData(id string, type_ IncidentIntegrationMetadataType, ) *RelationshipToIncidentIntegrationMetadataData`
+`func NewRelationshipToIncidentIntegrationMetadataData(id string, type_ IncidentIntegrationMetadataType) *RelationshipToIncidentIntegrationMetadataData`
 
-NewRelationshipToIncidentIntegrationMetadataData instantiates a new RelationshipToIncidentIntegrationMetadataData object
+NewRelationshipToIncidentIntegrationMetadataData instantiates a new RelationshipToIncidentIntegrationMetadataData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRelationshipToIncidentIntegrationMetadataDataWithDefaults
 
 `func NewRelationshipToIncidentIntegrationMetadataDataWithDefaults() *RelationshipToIncidentIntegrationMetadataData`
 
-NewRelationshipToIncidentIntegrationMetadataDataWithDefaults instantiates a new RelationshipToIncidentIntegrationMetadataData object
+NewRelationshipToIncidentIntegrationMetadataDataWithDefaults instantiates a new RelationshipToIncidentIntegrationMetadataData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetId
 

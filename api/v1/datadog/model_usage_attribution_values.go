@@ -30,22 +30,54 @@ type UsageAttributionValues struct {
 	ContainerPercentage *float64 `json:"container_percentage,omitempty"`
 	// The container usage by tag(s).
 	ContainerUsage *float64 `json:"container_usage,omitempty"`
+	// The percentage of Cloud Security Posture Management container usage by tag(s)
+	CspmContainerPercentage *float64 `json:"cspm_container_percentage,omitempty"`
+	// The Cloud Security Posture Management container usage by tag(s)
+	CspmContainerUsage *float64 `json:"cspm_container_usage,omitempty"`
+	// The percentage of Cloud Security Posture Management host usage by tag(s)
+	CspmHostPercentage *float64 `json:"cspm_host_percentage,omitempty"`
+	// The Cloud Security Posture Management host usage by tag(s)
+	CspmHostUsage *float64 `json:"cspm_host_usage,omitempty"`
 	// The percentage of custom metrics usage by tag(s).
 	CustomTimeseriesPercentage *float64 `json:"custom_timeseries_percentage,omitempty"`
 	// The custom metrics usage by tag(s).
 	CustomTimeseriesUsage *float64 `json:"custom_timeseries_usage,omitempty"`
+	// The percentage of Cloud Workload Security container usage by tag(s)
+	CwsContainerPercentage *float64 `json:"cws_container_percentage,omitempty"`
+	// The Cloud Workload Security container usage by tag(s)
+	CwsContainerUsage *float64 `json:"cws_container_usage,omitempty"`
+	// The percentage of Cloud Workload Security host usage by tag(s)
+	CwsHostPercentage *float64 `json:"cws_host_percentage,omitempty"`
+	// The Cloud Workload Security host usage by tag(s)
+	CwsHostUsage *float64 `json:"cws_host_usage,omitempty"`
 	// The percentage of infrastructure host usage by tag(s).
 	InfraHostPercentage *float64 `json:"infra_host_percentage,omitempty"`
 	// The infrastructure host usage by tag(s).
 	InfraHostUsage *float64 `json:"infra_host_usage,omitempty"`
-	// The percentage of lambda function usage by tag(s).
+	// The percentage of Lambda function usage by tag(s).
+	LambdaFunctionsPercentage *float64 `json:"lambda_functions_percentage,omitempty"`
+	// The Lambda function usage by tag(s).
+	LambdaFunctionsUsage *float64 `json:"lambda_functions_usage,omitempty"`
+	// The percentage of Lambda invocation usage by tag(s).
+	LambdaInvocationsPercentage *float64 `json:"lambda_invocations_percentage,omitempty"`
+	// The Lambda invocation usage by tag(s).
+	LambdaInvocationsUsage *float64 `json:"lambda_invocations_usage,omitempty"`
+	// The percentage of Lambda function usage by tag(s).  **Note** this field is deprecated. Use lambda_functions_percentage instead.
 	LambdaPercentage *float64 `json:"lambda_percentage,omitempty"`
-	// The lambda function usage by tag(s).
+	// The Lambda function usage by tag(s).  **Note** this field is deprecated. Use lambda_functions_usage instead.
 	LambdaUsage *float64 `json:"lambda_usage,omitempty"`
 	// The percentage of network host usage by tag(s).
 	NpmHostPercentage *float64 `json:"npm_host_percentage,omitempty"`
 	// The network host usage by tag(s).
 	NpmHostUsage *float64 `json:"npm_host_usage,omitempty"`
+	// The percentage of profiled containers usage by tag(s).
+	ProfiledContainersPercentage *float64 `json:"profiled_containers_percentage,omitempty"`
+	// The profiled container usage by tag(s).
+	ProfiledContainersUsage *float64 `json:"profiled_containers_usage,omitempty"`
+	// The percentage of profiled hosts usage by tag(s).
+	ProfiledHostsPercentage *float64 `json:"profiled_hosts_percentage,omitempty"`
+	// The profiled host usage by tag(s).
+	ProfiledHostsUsage *float64 `json:"profiled_hosts_usage,omitempty"`
 	// The percentage of network device usage by tag(s).
 	SnmpPercentage *float64 `json:"snmp_percentage,omitempty"`
 	// The network device usage by tag(s).
@@ -325,6 +357,134 @@ func (o *UsageAttributionValues) SetContainerUsage(v float64) {
 	o.ContainerUsage = &v
 }
 
+// GetCspmContainerPercentage returns the CspmContainerPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCspmContainerPercentage() float64 {
+	if o == nil || o.CspmContainerPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CspmContainerPercentage
+}
+
+// GetCspmContainerPercentageOk returns a tuple with the CspmContainerPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCspmContainerPercentageOk() (*float64, bool) {
+	if o == nil || o.CspmContainerPercentage == nil {
+		return nil, false
+	}
+	return o.CspmContainerPercentage, true
+}
+
+// HasCspmContainerPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCspmContainerPercentage() bool {
+	if o != nil && o.CspmContainerPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCspmContainerPercentage gets a reference to the given float64 and assigns it to the CspmContainerPercentage field.
+func (o *UsageAttributionValues) SetCspmContainerPercentage(v float64) {
+	o.CspmContainerPercentage = &v
+}
+
+// GetCspmContainerUsage returns the CspmContainerUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCspmContainerUsage() float64 {
+	if o == nil || o.CspmContainerUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CspmContainerUsage
+}
+
+// GetCspmContainerUsageOk returns a tuple with the CspmContainerUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCspmContainerUsageOk() (*float64, bool) {
+	if o == nil || o.CspmContainerUsage == nil {
+		return nil, false
+	}
+	return o.CspmContainerUsage, true
+}
+
+// HasCspmContainerUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCspmContainerUsage() bool {
+	if o != nil && o.CspmContainerUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCspmContainerUsage gets a reference to the given float64 and assigns it to the CspmContainerUsage field.
+func (o *UsageAttributionValues) SetCspmContainerUsage(v float64) {
+	o.CspmContainerUsage = &v
+}
+
+// GetCspmHostPercentage returns the CspmHostPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCspmHostPercentage() float64 {
+	if o == nil || o.CspmHostPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CspmHostPercentage
+}
+
+// GetCspmHostPercentageOk returns a tuple with the CspmHostPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCspmHostPercentageOk() (*float64, bool) {
+	if o == nil || o.CspmHostPercentage == nil {
+		return nil, false
+	}
+	return o.CspmHostPercentage, true
+}
+
+// HasCspmHostPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCspmHostPercentage() bool {
+	if o != nil && o.CspmHostPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCspmHostPercentage gets a reference to the given float64 and assigns it to the CspmHostPercentage field.
+func (o *UsageAttributionValues) SetCspmHostPercentage(v float64) {
+	o.CspmHostPercentage = &v
+}
+
+// GetCspmHostUsage returns the CspmHostUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCspmHostUsage() float64 {
+	if o == nil || o.CspmHostUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CspmHostUsage
+}
+
+// GetCspmHostUsageOk returns a tuple with the CspmHostUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCspmHostUsageOk() (*float64, bool) {
+	if o == nil || o.CspmHostUsage == nil {
+		return nil, false
+	}
+	return o.CspmHostUsage, true
+}
+
+// HasCspmHostUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCspmHostUsage() bool {
+	if o != nil && o.CspmHostUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCspmHostUsage gets a reference to the given float64 and assigns it to the CspmHostUsage field.
+func (o *UsageAttributionValues) SetCspmHostUsage(v float64) {
+	o.CspmHostUsage = &v
+}
+
 // GetCustomTimeseriesPercentage returns the CustomTimeseriesPercentage field value if set, zero value otherwise.
 func (o *UsageAttributionValues) GetCustomTimeseriesPercentage() float64 {
 	if o == nil || o.CustomTimeseriesPercentage == nil {
@@ -389,6 +549,134 @@ func (o *UsageAttributionValues) SetCustomTimeseriesUsage(v float64) {
 	o.CustomTimeseriesUsage = &v
 }
 
+// GetCwsContainerPercentage returns the CwsContainerPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCwsContainerPercentage() float64 {
+	if o == nil || o.CwsContainerPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CwsContainerPercentage
+}
+
+// GetCwsContainerPercentageOk returns a tuple with the CwsContainerPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCwsContainerPercentageOk() (*float64, bool) {
+	if o == nil || o.CwsContainerPercentage == nil {
+		return nil, false
+	}
+	return o.CwsContainerPercentage, true
+}
+
+// HasCwsContainerPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCwsContainerPercentage() bool {
+	if o != nil && o.CwsContainerPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCwsContainerPercentage gets a reference to the given float64 and assigns it to the CwsContainerPercentage field.
+func (o *UsageAttributionValues) SetCwsContainerPercentage(v float64) {
+	o.CwsContainerPercentage = &v
+}
+
+// GetCwsContainerUsage returns the CwsContainerUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCwsContainerUsage() float64 {
+	if o == nil || o.CwsContainerUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CwsContainerUsage
+}
+
+// GetCwsContainerUsageOk returns a tuple with the CwsContainerUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCwsContainerUsageOk() (*float64, bool) {
+	if o == nil || o.CwsContainerUsage == nil {
+		return nil, false
+	}
+	return o.CwsContainerUsage, true
+}
+
+// HasCwsContainerUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCwsContainerUsage() bool {
+	if o != nil && o.CwsContainerUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCwsContainerUsage gets a reference to the given float64 and assigns it to the CwsContainerUsage field.
+func (o *UsageAttributionValues) SetCwsContainerUsage(v float64) {
+	o.CwsContainerUsage = &v
+}
+
+// GetCwsHostPercentage returns the CwsHostPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCwsHostPercentage() float64 {
+	if o == nil || o.CwsHostPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CwsHostPercentage
+}
+
+// GetCwsHostPercentageOk returns a tuple with the CwsHostPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCwsHostPercentageOk() (*float64, bool) {
+	if o == nil || o.CwsHostPercentage == nil {
+		return nil, false
+	}
+	return o.CwsHostPercentage, true
+}
+
+// HasCwsHostPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCwsHostPercentage() bool {
+	if o != nil && o.CwsHostPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCwsHostPercentage gets a reference to the given float64 and assigns it to the CwsHostPercentage field.
+func (o *UsageAttributionValues) SetCwsHostPercentage(v float64) {
+	o.CwsHostPercentage = &v
+}
+
+// GetCwsHostUsage returns the CwsHostUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetCwsHostUsage() float64 {
+	if o == nil || o.CwsHostUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.CwsHostUsage
+}
+
+// GetCwsHostUsageOk returns a tuple with the CwsHostUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetCwsHostUsageOk() (*float64, bool) {
+	if o == nil || o.CwsHostUsage == nil {
+		return nil, false
+	}
+	return o.CwsHostUsage, true
+}
+
+// HasCwsHostUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasCwsHostUsage() bool {
+	if o != nil && o.CwsHostUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCwsHostUsage gets a reference to the given float64 and assigns it to the CwsHostUsage field.
+func (o *UsageAttributionValues) SetCwsHostUsage(v float64) {
+	o.CwsHostUsage = &v
+}
+
 // GetInfraHostPercentage returns the InfraHostPercentage field value if set, zero value otherwise.
 func (o *UsageAttributionValues) GetInfraHostPercentage() float64 {
 	if o == nil || o.InfraHostPercentage == nil {
@@ -451,6 +739,134 @@ func (o *UsageAttributionValues) HasInfraHostUsage() bool {
 // SetInfraHostUsage gets a reference to the given float64 and assigns it to the InfraHostUsage field.
 func (o *UsageAttributionValues) SetInfraHostUsage(v float64) {
 	o.InfraHostUsage = &v
+}
+
+// GetLambdaFunctionsPercentage returns the LambdaFunctionsPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetLambdaFunctionsPercentage() float64 {
+	if o == nil || o.LambdaFunctionsPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.LambdaFunctionsPercentage
+}
+
+// GetLambdaFunctionsPercentageOk returns a tuple with the LambdaFunctionsPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetLambdaFunctionsPercentageOk() (*float64, bool) {
+	if o == nil || o.LambdaFunctionsPercentage == nil {
+		return nil, false
+	}
+	return o.LambdaFunctionsPercentage, true
+}
+
+// HasLambdaFunctionsPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasLambdaFunctionsPercentage() bool {
+	if o != nil && o.LambdaFunctionsPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLambdaFunctionsPercentage gets a reference to the given float64 and assigns it to the LambdaFunctionsPercentage field.
+func (o *UsageAttributionValues) SetLambdaFunctionsPercentage(v float64) {
+	o.LambdaFunctionsPercentage = &v
+}
+
+// GetLambdaFunctionsUsage returns the LambdaFunctionsUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetLambdaFunctionsUsage() float64 {
+	if o == nil || o.LambdaFunctionsUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.LambdaFunctionsUsage
+}
+
+// GetLambdaFunctionsUsageOk returns a tuple with the LambdaFunctionsUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetLambdaFunctionsUsageOk() (*float64, bool) {
+	if o == nil || o.LambdaFunctionsUsage == nil {
+		return nil, false
+	}
+	return o.LambdaFunctionsUsage, true
+}
+
+// HasLambdaFunctionsUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasLambdaFunctionsUsage() bool {
+	if o != nil && o.LambdaFunctionsUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLambdaFunctionsUsage gets a reference to the given float64 and assigns it to the LambdaFunctionsUsage field.
+func (o *UsageAttributionValues) SetLambdaFunctionsUsage(v float64) {
+	o.LambdaFunctionsUsage = &v
+}
+
+// GetLambdaInvocationsPercentage returns the LambdaInvocationsPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetLambdaInvocationsPercentage() float64 {
+	if o == nil || o.LambdaInvocationsPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.LambdaInvocationsPercentage
+}
+
+// GetLambdaInvocationsPercentageOk returns a tuple with the LambdaInvocationsPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetLambdaInvocationsPercentageOk() (*float64, bool) {
+	if o == nil || o.LambdaInvocationsPercentage == nil {
+		return nil, false
+	}
+	return o.LambdaInvocationsPercentage, true
+}
+
+// HasLambdaInvocationsPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasLambdaInvocationsPercentage() bool {
+	if o != nil && o.LambdaInvocationsPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLambdaInvocationsPercentage gets a reference to the given float64 and assigns it to the LambdaInvocationsPercentage field.
+func (o *UsageAttributionValues) SetLambdaInvocationsPercentage(v float64) {
+	o.LambdaInvocationsPercentage = &v
+}
+
+// GetLambdaInvocationsUsage returns the LambdaInvocationsUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetLambdaInvocationsUsage() float64 {
+	if o == nil || o.LambdaInvocationsUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.LambdaInvocationsUsage
+}
+
+// GetLambdaInvocationsUsageOk returns a tuple with the LambdaInvocationsUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetLambdaInvocationsUsageOk() (*float64, bool) {
+	if o == nil || o.LambdaInvocationsUsage == nil {
+		return nil, false
+	}
+	return o.LambdaInvocationsUsage, true
+}
+
+// HasLambdaInvocationsUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasLambdaInvocationsUsage() bool {
+	if o != nil && o.LambdaInvocationsUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLambdaInvocationsUsage gets a reference to the given float64 and assigns it to the LambdaInvocationsUsage field.
+func (o *UsageAttributionValues) SetLambdaInvocationsUsage(v float64) {
+	o.LambdaInvocationsUsage = &v
 }
 
 // GetLambdaPercentage returns the LambdaPercentage field value if set, zero value otherwise.
@@ -581,6 +997,134 @@ func (o *UsageAttributionValues) SetNpmHostUsage(v float64) {
 	o.NpmHostUsage = &v
 }
 
+// GetProfiledContainersPercentage returns the ProfiledContainersPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetProfiledContainersPercentage() float64 {
+	if o == nil || o.ProfiledContainersPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.ProfiledContainersPercentage
+}
+
+// GetProfiledContainersPercentageOk returns a tuple with the ProfiledContainersPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetProfiledContainersPercentageOk() (*float64, bool) {
+	if o == nil || o.ProfiledContainersPercentage == nil {
+		return nil, false
+	}
+	return o.ProfiledContainersPercentage, true
+}
+
+// HasProfiledContainersPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasProfiledContainersPercentage() bool {
+	if o != nil && o.ProfiledContainersPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProfiledContainersPercentage gets a reference to the given float64 and assigns it to the ProfiledContainersPercentage field.
+func (o *UsageAttributionValues) SetProfiledContainersPercentage(v float64) {
+	o.ProfiledContainersPercentage = &v
+}
+
+// GetProfiledContainersUsage returns the ProfiledContainersUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetProfiledContainersUsage() float64 {
+	if o == nil || o.ProfiledContainersUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.ProfiledContainersUsage
+}
+
+// GetProfiledContainersUsageOk returns a tuple with the ProfiledContainersUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetProfiledContainersUsageOk() (*float64, bool) {
+	if o == nil || o.ProfiledContainersUsage == nil {
+		return nil, false
+	}
+	return o.ProfiledContainersUsage, true
+}
+
+// HasProfiledContainersUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasProfiledContainersUsage() bool {
+	if o != nil && o.ProfiledContainersUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProfiledContainersUsage gets a reference to the given float64 and assigns it to the ProfiledContainersUsage field.
+func (o *UsageAttributionValues) SetProfiledContainersUsage(v float64) {
+	o.ProfiledContainersUsage = &v
+}
+
+// GetProfiledHostsPercentage returns the ProfiledHostsPercentage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetProfiledHostsPercentage() float64 {
+	if o == nil || o.ProfiledHostsPercentage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.ProfiledHostsPercentage
+}
+
+// GetProfiledHostsPercentageOk returns a tuple with the ProfiledHostsPercentage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetProfiledHostsPercentageOk() (*float64, bool) {
+	if o == nil || o.ProfiledHostsPercentage == nil {
+		return nil, false
+	}
+	return o.ProfiledHostsPercentage, true
+}
+
+// HasProfiledHostsPercentage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasProfiledHostsPercentage() bool {
+	if o != nil && o.ProfiledHostsPercentage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProfiledHostsPercentage gets a reference to the given float64 and assigns it to the ProfiledHostsPercentage field.
+func (o *UsageAttributionValues) SetProfiledHostsPercentage(v float64) {
+	o.ProfiledHostsPercentage = &v
+}
+
+// GetProfiledHostsUsage returns the ProfiledHostsUsage field value if set, zero value otherwise.
+func (o *UsageAttributionValues) GetProfiledHostsUsage() float64 {
+	if o == nil || o.ProfiledHostsUsage == nil {
+		var ret float64
+		return ret
+	}
+	return *o.ProfiledHostsUsage
+}
+
+// GetProfiledHostsUsageOk returns a tuple with the ProfiledHostsUsage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionValues) GetProfiledHostsUsageOk() (*float64, bool) {
+	if o == nil || o.ProfiledHostsUsage == nil {
+		return nil, false
+	}
+	return o.ProfiledHostsUsage, true
+}
+
+// HasProfiledHostsUsage returns a boolean if a field has been set.
+func (o *UsageAttributionValues) HasProfiledHostsUsage() bool {
+	if o != nil && o.ProfiledHostsUsage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProfiledHostsUsage gets a reference to the given float64 and assigns it to the ProfiledHostsUsage field.
+func (o *UsageAttributionValues) SetProfiledHostsUsage(v float64) {
+	o.ProfiledHostsUsage = &v
+}
+
 // GetSnmpPercentage returns the SnmpPercentage field value if set, zero value otherwise.
 func (o *UsageAttributionValues) GetSnmpPercentage() float64 {
 	if o == nil || o.SnmpPercentage == nil {
@@ -671,17 +1215,53 @@ func (o UsageAttributionValues) MarshalJSON() ([]byte, error) {
 	if o.ContainerUsage != nil {
 		toSerialize["container_usage"] = o.ContainerUsage
 	}
+	if o.CspmContainerPercentage != nil {
+		toSerialize["cspm_container_percentage"] = o.CspmContainerPercentage
+	}
+	if o.CspmContainerUsage != nil {
+		toSerialize["cspm_container_usage"] = o.CspmContainerUsage
+	}
+	if o.CspmHostPercentage != nil {
+		toSerialize["cspm_host_percentage"] = o.CspmHostPercentage
+	}
+	if o.CspmHostUsage != nil {
+		toSerialize["cspm_host_usage"] = o.CspmHostUsage
+	}
 	if o.CustomTimeseriesPercentage != nil {
 		toSerialize["custom_timeseries_percentage"] = o.CustomTimeseriesPercentage
 	}
 	if o.CustomTimeseriesUsage != nil {
 		toSerialize["custom_timeseries_usage"] = o.CustomTimeseriesUsage
 	}
+	if o.CwsContainerPercentage != nil {
+		toSerialize["cws_container_percentage"] = o.CwsContainerPercentage
+	}
+	if o.CwsContainerUsage != nil {
+		toSerialize["cws_container_usage"] = o.CwsContainerUsage
+	}
+	if o.CwsHostPercentage != nil {
+		toSerialize["cws_host_percentage"] = o.CwsHostPercentage
+	}
+	if o.CwsHostUsage != nil {
+		toSerialize["cws_host_usage"] = o.CwsHostUsage
+	}
 	if o.InfraHostPercentage != nil {
 		toSerialize["infra_host_percentage"] = o.InfraHostPercentage
 	}
 	if o.InfraHostUsage != nil {
 		toSerialize["infra_host_usage"] = o.InfraHostUsage
+	}
+	if o.LambdaFunctionsPercentage != nil {
+		toSerialize["lambda_functions_percentage"] = o.LambdaFunctionsPercentage
+	}
+	if o.LambdaFunctionsUsage != nil {
+		toSerialize["lambda_functions_usage"] = o.LambdaFunctionsUsage
+	}
+	if o.LambdaInvocationsPercentage != nil {
+		toSerialize["lambda_invocations_percentage"] = o.LambdaInvocationsPercentage
+	}
+	if o.LambdaInvocationsUsage != nil {
+		toSerialize["lambda_invocations_usage"] = o.LambdaInvocationsUsage
 	}
 	if o.LambdaPercentage != nil {
 		toSerialize["lambda_percentage"] = o.LambdaPercentage
@@ -694,6 +1274,18 @@ func (o UsageAttributionValues) MarshalJSON() ([]byte, error) {
 	}
 	if o.NpmHostUsage != nil {
 		toSerialize["npm_host_usage"] = o.NpmHostUsage
+	}
+	if o.ProfiledContainersPercentage != nil {
+		toSerialize["profiled_containers_percentage"] = o.ProfiledContainersPercentage
+	}
+	if o.ProfiledContainersUsage != nil {
+		toSerialize["profiled_containers_usage"] = o.ProfiledContainersUsage
+	}
+	if o.ProfiledHostsPercentage != nil {
+		toSerialize["profiled_hosts_percentage"] = o.ProfiledHostsPercentage
+	}
+	if o.ProfiledHostsUsage != nil {
+		toSerialize["profiled_hosts_usage"] = o.ProfiledHostsUsage
 	}
 	if o.SnmpPercentage != nil {
 		toSerialize["snmp_percentage"] = o.SnmpPercentage

@@ -3,32 +3,32 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Grok** | [**LogsGrokParserRules**](LogsGrokParserRules.md) |  | 
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Samples** | Pointer to **[]string** | List of sample logs to test this grok parser. | [optional] 
 **Source** | **string** | Name of the log attribute to parse. | [default to "message"]
-**Type** | [**LogsGrokParserType**](LogsGrokParserType.md) |  | [default to "grok-parser"]
+**Type** | [**LogsGrokParserType**](LogsGrokParserType.md) |  | [default to LOGSGROKPARSERTYPE_GROK_PARSER]
 
 ## Methods
 
 ### NewLogsGrokParser
 
-`func NewLogsGrokParser(grok LogsGrokParserRules, source string, type_ LogsGrokParserType, ) *LogsGrokParser`
+`func NewLogsGrokParser(grok LogsGrokParserRules, source string, type_ LogsGrokParserType) *LogsGrokParser`
 
-NewLogsGrokParser instantiates a new LogsGrokParser object
+NewLogsGrokParser instantiates a new LogsGrokParser object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsGrokParserWithDefaults
 
 `func NewLogsGrokParserWithDefaults() *LogsGrokParser`
 
-NewLogsGrokParserWithDefaults instantiates a new LogsGrokParser object
+NewLogsGrokParserWithDefaults instantiates a new LogsGrokParser object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetGrok
 

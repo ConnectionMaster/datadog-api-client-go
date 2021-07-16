@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Compute** | Pointer to [**LogsMetricResponseCompute**](LogsMetricResponseCompute.md) |  | [optional] 
 **Filter** | Pointer to [**LogsMetricResponseFilter**](LogsMetricResponseFilter.md) |  | [optional] 
 **GroupBy** | Pointer to [**[]LogsMetricResponseGroupBy**](LogsMetricResponseGroupBy.md) | The rules for the group by. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewLogsMetricResponseAttributes() *LogsMetricResponseAttributes`
 
-NewLogsMetricResponseAttributes instantiates a new LogsMetricResponseAttributes object
+NewLogsMetricResponseAttributes instantiates a new LogsMetricResponseAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsMetricResponseAttributesWithDefaults
 
 `func NewLogsMetricResponseAttributesWithDefaults() *LogsMetricResponseAttributes`
 
-NewLogsMetricResponseAttributesWithDefaults instantiates a new LogsMetricResponseAttributes object
+NewLogsMetricResponseAttributesWithDefaults instantiates a new LogsMetricResponseAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCompute
 

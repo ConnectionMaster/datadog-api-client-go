@@ -3,29 +3,29 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | Pointer to [**IncidentTeamCreateAttributes**](IncidentTeamCreateAttributes.md) |  | [optional] 
 **Relationships** | Pointer to [**IncidentTeamRelationships**](IncidentTeamRelationships.md) |  | [optional] 
-**Type** | [**IncidentTeamType**](IncidentTeamType.md) |  | [default to "teams"]
+**Type** | [**IncidentTeamType**](IncidentTeamType.md) |  | [default to INCIDENTTEAMTYPE_TEAMS]
 
 ## Methods
 
 ### NewIncidentTeamCreateData
 
-`func NewIncidentTeamCreateData(type_ IncidentTeamType, ) *IncidentTeamCreateData`
+`func NewIncidentTeamCreateData(type_ IncidentTeamType) *IncidentTeamCreateData`
 
-NewIncidentTeamCreateData instantiates a new IncidentTeamCreateData object
+NewIncidentTeamCreateData instantiates a new IncidentTeamCreateData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIncidentTeamCreateDataWithDefaults
 
 `func NewIncidentTeamCreateDataWithDefaults() *IncidentTeamCreateData`
 
-NewIncidentTeamCreateDataWithDefaults instantiates a new IncidentTeamCreateData object
+NewIncidentTeamCreateDataWithDefaults instantiates a new IncidentTeamCreateData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

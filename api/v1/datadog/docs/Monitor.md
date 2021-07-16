@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Created** | Pointer to **time.Time** | Timestamp of the monitor creation. | [optional] [readonly] 
 **Creator** | Pointer to [**Creator**](Creator.md) |  | [optional] 
 **Deleted** | Pointer to **NullableTime** | Whether or not the monitor is deleted. (Always &#x60;null&#x60;) | [optional] [readonly] 
@@ -15,30 +15,30 @@ Name | Type | Description | Notes
 **Options** | Pointer to [**MonitorOptions**](MonitorOptions.md) |  | [optional] 
 **OverallState** | Pointer to [**MonitorOverallStates**](MonitorOverallStates.md) |  | [optional] 
 **Priority** | Pointer to **int64** | Integer from 1 (high) to 5 (low) indicating alert severity. | [optional] 
-**Query** | Pointer to **string** | The monitor query. | [optional] 
+**Query** | **string** | The monitor query. | 
 **RestrictedRoles** | Pointer to **[]string** | A list of role identifiers that can be pulled from the Roles API. Cannot be used with &#x60;locked&#x60; option. | [optional] 
 **State** | Pointer to [**MonitorState**](MonitorState.md) |  | [optional] 
 **Tags** | Pointer to **[]string** | Tags associated to your monitor. | [optional] 
-**Type** | Pointer to [**MonitorType**](MonitorType.md) |  | [optional] 
+**Type** | [**MonitorType**](MonitorType.md) |  | 
 
 ## Methods
 
 ### NewMonitor
 
-`func NewMonitor() *Monitor`
+`func NewMonitor(query string, type_ MonitorType) *Monitor`
 
-NewMonitor instantiates a new Monitor object
+NewMonitor instantiates a new Monitor object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewMonitorWithDefaults
 
 `func NewMonitorWithDefaults() *Monitor`
 
-NewMonitorWithDefaults instantiates a new Monitor object
+NewMonitorWithDefaults instantiates a new Monitor object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreated
 
@@ -344,11 +344,6 @@ and a boolean to check if the value has been set.
 
 SetQuery sets Query field to given value.
 
-### HasQuery
-
-`func (o *Monitor) HasQuery() bool`
-
-HasQuery returns a boolean if a field has been set.
 
 ### GetRestrictedRoles
 
@@ -444,11 +439,6 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
-### HasType
-
-`func (o *Monitor) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

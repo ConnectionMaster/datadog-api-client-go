@@ -3,27 +3,27 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **PipelineIds** | **[]string** | Ordered Array of &#x60;&lt;PIPELINE_ID&gt;&#x60; strings, the order of pipeline IDs in the array define the overall Pipelines order for Datadog. | 
 
 ## Methods
 
 ### NewLogsPipelinesOrder
 
-`func NewLogsPipelinesOrder(pipelineIds []string, ) *LogsPipelinesOrder`
+`func NewLogsPipelinesOrder(pipelineIds []string) *LogsPipelinesOrder`
 
-NewLogsPipelinesOrder instantiates a new LogsPipelinesOrder object
+NewLogsPipelinesOrder instantiates a new LogsPipelinesOrder object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsPipelinesOrderWithDefaults
 
 `func NewLogsPipelinesOrderWithDefaults() *LogsPipelinesOrder`
 
-NewLogsPipelinesOrderWithDefaults instantiates a new LogsPipelinesOrder object
+NewLogsPipelinesOrderWithDefaults instantiates a new LogsPipelinesOrder object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetPipelineIds
 

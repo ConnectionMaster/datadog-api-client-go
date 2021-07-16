@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **End** | Pointer to **int64** | POSIX timestamp in seconds when the host is unmuted. If omitted, the host remains muted until explicitly unmuted. | [optional] 
 **Message** | Pointer to **string** | Message to associate with the muting of this host. | [optional] 
 **Override** | Pointer to **bool** | If true and the host is already muted, replaces existing host mute settings. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewHostMuteSettings() *HostMuteSettings`
 
-NewHostMuteSettings instantiates a new HostMuteSettings object
+NewHostMuteSettings instantiates a new HostMuteSettings object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewHostMuteSettingsWithDefaults
 
 `func NewHostMuteSettingsWithDefaults() *HostMuteSettings`
 
-NewHostMuteSettingsWithDefaults instantiates a new HostMuteSettings object
+NewHostMuteSettingsWithDefaults instantiates a new HostMuteSettings object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetEnd
 

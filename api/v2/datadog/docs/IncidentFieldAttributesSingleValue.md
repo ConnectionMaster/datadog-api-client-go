@@ -3,8 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Type** | Pointer to [**IncidentFieldAttributesSingleValueType**](IncidentFieldAttributesSingleValueType.md) |  | [optional] [default to "dropdown"]
+---- | ---- | ----------- | ------
+**Type** | Pointer to [**IncidentFieldAttributesSingleValueType**](IncidentFieldAttributesSingleValueType.md) |  | [optional] [default to INCIDENTFIELDATTRIBUTESSINGLEVALUETYPE_DROPDOWN]
 **Value** | Pointer to **string** | The single value selected for this field. | [optional] 
 
 ## Methods
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewIncidentFieldAttributesSingleValue() *IncidentFieldAttributesSingleValue`
 
-NewIncidentFieldAttributesSingleValue instantiates a new IncidentFieldAttributesSingleValue object
+NewIncidentFieldAttributesSingleValue instantiates a new IncidentFieldAttributesSingleValue object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIncidentFieldAttributesSingleValueWithDefaults
 
 `func NewIncidentFieldAttributesSingleValueWithDefaults() *IncidentFieldAttributesSingleValue`
 
-NewIncidentFieldAttributesSingleValueWithDefaults instantiates a new IncidentFieldAttributesSingleValue object
+NewIncidentFieldAttributesSingleValueWithDefaults instantiates a new IncidentFieldAttributesSingleValue object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetType
 

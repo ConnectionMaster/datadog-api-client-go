@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Data** | Pointer to [**[]PartialApplicationKey**](PartialApplicationKey.md) | Array of application keys. | [optional] 
 **Included** | Pointer to [**[]ApplicationKeyResponseIncludedItem**](ApplicationKeyResponseIncludedItem.md) | Array of objects related to the application key. | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewListApplicationKeysResponse() *ListApplicationKeysResponse`
 
-NewListApplicationKeysResponse instantiates a new ListApplicationKeysResponse object
+NewListApplicationKeysResponse instantiates a new ListApplicationKeysResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewListApplicationKeysResponseWithDefaults
 
 `func NewListApplicationKeysResponseWithDefaults() *ListApplicationKeysResponse`
 
-NewListApplicationKeysResponseWithDefaults instantiates a new ListApplicationKeysResponse object
+NewListApplicationKeysResponseWithDefaults instantiates a new ListApplicationKeysResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CustomLinks** | Pointer to [**[]WidgetCustomLink**](WidgetCustomLink.md) | List of custom links. | [optional] 
 **HasSearchBar** | Pointer to [**TableWidgetHasSearchBar**](TableWidgetHasSearchBar.md) |  | [optional] 
 **Requests** | [**[]TableWidgetRequest**](TableWidgetRequest.md) | Widget definition. | 
@@ -11,26 +11,26 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | Title of your widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**TableWidgetDefinitionType**](TableWidgetDefinitionType.md) |  | [default to "query_table"]
+**Type** | [**TableWidgetDefinitionType**](TableWidgetDefinitionType.md) |  | [default to TABLEWIDGETDEFINITIONTYPE_QUERY_TABLE]
 
 ## Methods
 
 ### NewTableWidgetDefinition
 
-`func NewTableWidgetDefinition(requests []TableWidgetRequest, type_ TableWidgetDefinitionType, ) *TableWidgetDefinition`
+`func NewTableWidgetDefinition(requests []TableWidgetRequest, type_ TableWidgetDefinitionType) *TableWidgetDefinition`
 
-NewTableWidgetDefinition instantiates a new TableWidgetDefinition object
+NewTableWidgetDefinition instantiates a new TableWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewTableWidgetDefinitionWithDefaults
 
 `func NewTableWidgetDefinitionWithDefaults() *TableWidgetDefinition`
 
-NewTableWidgetDefinitionWithDefaults instantiates a new TableWidgetDefinition object
+NewTableWidgetDefinitionWithDefaults instantiates a new TableWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCustomLinks
 

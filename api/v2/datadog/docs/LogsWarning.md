@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Code** | Pointer to **string** | A unique code for this type of warning | [optional] 
 **Detail** | Pointer to **string** | A detailed explanation of this specific warning | [optional] 
 **Title** | Pointer to **string** | A short human-readable summary of the warning | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewLogsWarning() *LogsWarning`
 
-NewLogsWarning instantiates a new LogsWarning object
+NewLogsWarning instantiates a new LogsWarning object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsWarningWithDefaults
 
 `func NewLogsWarningWithDefaults() *LogsWarning`
 
-NewLogsWarningWithDefaults instantiates a new LogsWarning object
+NewLogsWarningWithDefaults instantiates a new LogsWarning object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCode
 

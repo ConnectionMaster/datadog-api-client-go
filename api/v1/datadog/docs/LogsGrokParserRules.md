@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **MatchRules** | **string** | List of match rules for the grok parser, separated by a new line. | 
 **SupportRules** | Pointer to **string** | List of support rules for the grok parser, separated by a new line. | [optional] [default to ""]
 
@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 
 ### NewLogsGrokParserRules
 
-`func NewLogsGrokParserRules(matchRules string, ) *LogsGrokParserRules`
+`func NewLogsGrokParserRules(matchRules string) *LogsGrokParserRules`
 
-NewLogsGrokParserRules instantiates a new LogsGrokParserRules object
+NewLogsGrokParserRules instantiates a new LogsGrokParserRules object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsGrokParserRulesWithDefaults
 
 `func NewLogsGrokParserRulesWithDefaults() *LogsGrokParserRules`
 
-NewLogsGrokParserRulesWithDefaults instantiates a new LogsGrokParserRules object
+NewLogsGrokParserRulesWithDefaults instantiates a new LogsGrokParserRules object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetMatchRules
 

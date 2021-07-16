@@ -1,20 +1,18 @@
-# \IPRangesApi
+# IPRangesApi
 
 All URIs are relative to *https://api.datadoghq.com*
 
 Method | HTTP request | Description
-------------- | ------------- | -------------
+------ | ------------ | ------------
 [**GetIPRanges**](IPRangesApi.md#GetIPRanges) | **Get** / | List IP Ranges
 
 
 
 ## GetIPRanges
 
-> IPRanges GetIPRanges(ctx).Execute()
+> IPRanges GetIPRanges(ctx)
 
-List IP Ranges
-
-
+Get information about Datadog IP ranges.
 
 ### Example
 
@@ -35,25 +33,26 @@ func main() {
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.IPRangesApi.GetIPRanges(ctx).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.IPRangesApi.GetIPRanges(ctx)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IPRangesApi.GetIPRanges``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `IPRangesApi.GetIPRanges`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetIPRanges`: IPRanges
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from IPRangesApi.GetIPRanges:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from IPRangesApi.GetIPRanges:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 This endpoint does not need any parameter.
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetIPRangesRequest struct via the builder pattern
+### Optional Parameters
+
+This endpoint does not have optional parameters.
 
 
 ### Return type

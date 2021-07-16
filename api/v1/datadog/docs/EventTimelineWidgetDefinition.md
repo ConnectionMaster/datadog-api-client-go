@@ -3,33 +3,33 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Query** | **string** | Query to filter the event timeline with. | 
 **TagsExecution** | Pointer to **string** | The execution method for multi-value filters. Can be either and or or. | [optional] 
 **Time** | Pointer to [**WidgetTime**](WidgetTime.md) |  | [optional] 
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**EventTimelineWidgetDefinitionType**](EventTimelineWidgetDefinitionType.md) |  | [default to "event_timeline"]
+**Type** | [**EventTimelineWidgetDefinitionType**](EventTimelineWidgetDefinitionType.md) |  | [default to EVENTTIMELINEWIDGETDEFINITIONTYPE_EVENT_TIMELINE]
 
 ## Methods
 
 ### NewEventTimelineWidgetDefinition
 
-`func NewEventTimelineWidgetDefinition(query string, type_ EventTimelineWidgetDefinitionType, ) *EventTimelineWidgetDefinition`
+`func NewEventTimelineWidgetDefinition(query string, type_ EventTimelineWidgetDefinitionType) *EventTimelineWidgetDefinition`
 
-NewEventTimelineWidgetDefinition instantiates a new EventTimelineWidgetDefinition object
+NewEventTimelineWidgetDefinition instantiates a new EventTimelineWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewEventTimelineWidgetDefinitionWithDefaults
 
 `func NewEventTimelineWidgetDefinitionWithDefaults() *EventTimelineWidgetDefinition`
 
-NewEventTimelineWidgetDefinitionWithDefaults instantiates a new EventTimelineWidgetDefinition object
+NewEventTimelineWidgetDefinitionWithDefaults instantiates a new EventTimelineWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetQuery
 

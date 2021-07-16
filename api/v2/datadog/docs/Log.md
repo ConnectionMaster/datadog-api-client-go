@@ -3,10 +3,10 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Attributes** | Pointer to [**LogAttributes**](Log_attributes.md) |  | [optional] 
+---- | ---- | ----------- | ------
+**Attributes** | Pointer to [**LogAttributes**](LogAttributes.md) |  | [optional] 
 **Id** | Pointer to **string** | Unique ID of the Log. | [optional] 
-**Type** | Pointer to [**LogType**](LogType.md) |  | [optional] [default to "log"]
+**Type** | Pointer to [**LogType**](LogType.md) |  | [optional] [default to LOGTYPE_LOG]
 
 ## Methods
 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewLog() *Log`
 
-NewLog instantiates a new Log object
+NewLog instantiates a new Log object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogWithDefaults
 
 `func NewLogWithDefaults() *Log`
 
-NewLogWithDefaults instantiates a new Log object
+NewLogWithDefaults instantiates a new Log object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

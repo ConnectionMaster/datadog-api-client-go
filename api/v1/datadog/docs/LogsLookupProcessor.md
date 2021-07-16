@@ -3,33 +3,33 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **DefaultLookup** | Pointer to **string** | Value to set the target attribute if the source value is not found in the list. | [optional] 
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **LookupTable** | **[]string** | Mapping table of values for the source attribute and their associated target attribute values, formatted as &#x60;[\&quot;source_key1,target_value1\&quot;, \&quot;source_key2,target_value2\&quot;]&#x60; | 
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Source** | **string** | Source attribute used to perform the lookup. | 
 **Target** | **string** | Name of the attribute that contains the corresponding value in the mapping list or the &#x60;default_lookup&#x60; if not found in the mapping list. | 
-**Type** | [**LogsLookupProcessorType**](LogsLookupProcessorType.md) |  | [default to "lookup-processor"]
+**Type** | [**LogsLookupProcessorType**](LogsLookupProcessorType.md) |  | [default to LOGSLOOKUPPROCESSORTYPE_LOOKUP_PROCESSOR]
 
 ## Methods
 
 ### NewLogsLookupProcessor
 
-`func NewLogsLookupProcessor(lookupTable []string, source string, target string, type_ LogsLookupProcessorType, ) *LogsLookupProcessor`
+`func NewLogsLookupProcessor(lookupTable []string, source string, target string, type_ LogsLookupProcessorType) *LogsLookupProcessor`
 
-NewLogsLookupProcessor instantiates a new LogsLookupProcessor object
+NewLogsLookupProcessor instantiates a new LogsLookupProcessor object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsLookupProcessorWithDefaults
 
 `func NewLogsLookupProcessorWithDefaults() *LogsLookupProcessor`
 
-NewLogsLookupProcessorWithDefaults instantiates a new LogsLookupProcessor object
+NewLogsLookupProcessorWithDefaults instantiates a new LogsLookupProcessor object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDefaultLookup
 

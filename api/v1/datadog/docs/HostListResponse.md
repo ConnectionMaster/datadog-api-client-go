@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **HostList** | Pointer to [**[]Host**](Host.md) | Array of hosts. | [optional] 
 **TotalMatching** | Pointer to **int64** | Number of host matching the query. | [optional] 
 **TotalReturned** | Pointer to **int64** | Number of host returned. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewHostListResponse() *HostListResponse`
 
-NewHostListResponse instantiates a new HostListResponse object
+NewHostListResponse instantiates a new HostListResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewHostListResponseWithDefaults
 
 `func NewHostListResponseWithDefaults() *HostListResponse`
 
-NewHostListResponseWithDefaults instantiates a new HostListResponse object
+NewHostListResponseWithDefaults instantiates a new HostListResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetHostList
 

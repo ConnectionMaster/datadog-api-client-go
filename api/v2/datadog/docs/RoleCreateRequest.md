@@ -3,27 +3,27 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Data** | [**RoleCreateData**](RoleCreateData.md) |  | 
 
 ## Methods
 
 ### NewRoleCreateRequest
 
-`func NewRoleCreateRequest(data RoleCreateData, ) *RoleCreateRequest`
+`func NewRoleCreateRequest(data RoleCreateData) *RoleCreateRequest`
 
-NewRoleCreateRequest instantiates a new RoleCreateRequest object
+NewRoleCreateRequest instantiates a new RoleCreateRequest object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRoleCreateRequestWithDefaults
 
 `func NewRoleCreateRequestWithDefaults() *RoleCreateRequest`
 
-NewRoleCreateRequestWithDefaults instantiates a new RoleCreateRequest object
+NewRoleCreateRequestWithDefaults instantiates a new RoleCreateRequest object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

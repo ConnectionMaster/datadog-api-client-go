@@ -3,30 +3,30 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | Pointer to [**RoleUpdateAttributes**](RoleUpdateAttributes.md) |  | [optional] 
 **Id** | Pointer to **string** | ID of the role. | [optional] 
 **Relationships** | Pointer to [**RoleResponseRelationships**](RoleResponseRelationships.md) |  | [optional] 
-**Type** | [**RolesType**](RolesType.md) |  | [default to "roles"]
+**Type** | [**RolesType**](RolesType.md) |  | [default to ROLESTYPE_ROLES]
 
 ## Methods
 
 ### NewRoleUpdateResponseData
 
-`func NewRoleUpdateResponseData(type_ RolesType, ) *RoleUpdateResponseData`
+`func NewRoleUpdateResponseData(type_ RolesType) *RoleUpdateResponseData`
 
-NewRoleUpdateResponseData instantiates a new RoleUpdateResponseData object
+NewRoleUpdateResponseData instantiates a new RoleUpdateResponseData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRoleUpdateResponseDataWithDefaults
 
 `func NewRoleUpdateResponseDataWithDefaults() *RoleUpdateResponseData`
 
-NewRoleUpdateResponseDataWithDefaults instantiates a new RoleUpdateResponseData object
+NewRoleUpdateResponseDataWithDefaults instantiates a new RoleUpdateResponseData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

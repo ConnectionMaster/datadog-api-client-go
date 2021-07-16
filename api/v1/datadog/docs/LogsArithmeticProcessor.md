@@ -3,32 +3,32 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Expression** | **string** | Arithmetic operation between one or more log attributes. | 
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **IsReplaceMissing** | Pointer to **bool** | If &#x60;true&#x60;, it replaces all missing attributes of expression by &#x60;0&#x60;, &#x60;false&#x60; skip the operation if an attribute is missing. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Target** | **string** | Name of the attribute that contains the result of the arithmetic operation. | 
-**Type** | [**LogsArithmeticProcessorType**](LogsArithmeticProcessorType.md) |  | [default to "arithmetic-processor"]
+**Type** | [**LogsArithmeticProcessorType**](LogsArithmeticProcessorType.md) |  | [default to LOGSARITHMETICPROCESSORTYPE_ARITHMETIC_PROCESSOR]
 
 ## Methods
 
 ### NewLogsArithmeticProcessor
 
-`func NewLogsArithmeticProcessor(expression string, target string, type_ LogsArithmeticProcessorType, ) *LogsArithmeticProcessor`
+`func NewLogsArithmeticProcessor(expression string, target string, type_ LogsArithmeticProcessorType) *LogsArithmeticProcessor`
 
-NewLogsArithmeticProcessor instantiates a new LogsArithmeticProcessor object
+NewLogsArithmeticProcessor instantiates a new LogsArithmeticProcessor object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsArithmeticProcessorWithDefaults
 
 `func NewLogsArithmeticProcessorWithDefaults() *LogsArithmeticProcessor`
 
-NewLogsArithmeticProcessorWithDefaults instantiates a new LogsArithmeticProcessor object
+NewLogsArithmeticProcessorWithDefaults instantiates a new LogsArithmeticProcessor object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetExpression
 

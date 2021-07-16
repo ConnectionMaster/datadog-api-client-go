@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"runtime"
 	"strings"
 
@@ -116,6 +117,7 @@ func NewConfiguration() *Configuration {
 						DefaultValue: "datadoghq.com",
 						EnumValues: []string{
 							"datadoghq.com",
+							"us3.datadoghq.com",
 							"datadoghq.eu",
 							"ddog-gov.com",
 						},
@@ -140,6 +142,20 @@ func NewConfiguration() *Configuration {
 					},
 				},
 			},
+			{
+				URL:         "https://{subdomain}.{site}",
+				Description: "No description provided",
+				Variables: map[string]ServerVariable{
+					"site": ServerVariable{
+						Description:  "Any Datadog deployment.",
+						DefaultValue: "datadoghq.com",
+					},
+					"subdomain": ServerVariable{
+						Description:  "The subdomain where the API is deployed.",
+						DefaultValue: "api",
+					},
+				},
+			},
 		},
 		OperationServers: map[string]ServerConfigurations{},
 		unstableOperations: map[string]bool{
@@ -158,11 +174,11 @@ func NewConfiguration() *Configuration {
 			"GetIncident":                     false,
 			"ListIncidents":                   false,
 			"UpdateIncident":                  false,
-			"ListLogs":                        false,
-			"ListLogsGet":                     false,
-			"AddReadRoleToArchive":            false,
-			"ListArchiveReadRoles":            false,
-			"RemoveRoleFromArchive":           false,
+			"CreateTagConfiguration":          false,
+			"DeleteTagConfiguration":          false,
+			"ListTagConfigurationByName":      false,
+			"ListTagConfigurations":           false,
+			"UpdateTagConfiguration":          false,
 			"ListSecurityMonitoringSignals":   false,
 			"SearchSecurityMonitoringSignals": false,
 		},
@@ -332,4 +348,34 @@ func getUserAgent() string {
 		runtime.GOOS,
 		runtime.GOARCH,
 	)
+}
+
+// NewDefaultContext returns a new context setup with environment variables
+func NewDefaultContext(ctx context.Context) context.Context {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	if site, ok := os.LookupEnv("DD_SITE"); ok {
+		ctx = context.WithValue(
+			ctx,
+			ContextServerVariables,
+			map[string]string{"site": site},
+		)
+	}
+
+	keys := make(map[string]APIKey)
+	if apiKey, ok := os.LookupEnv("DD_API_KEY"); ok {
+		keys["apiKeyAuth"] = APIKey{Key: apiKey}
+	}
+	if apiKey, ok := os.LookupEnv("DD_APP_KEY"); ok {
+		keys["appKeyAuth"] = APIKey{Key: apiKey}
+	}
+	ctx = context.WithValue(
+		ctx,
+		ContextAPIKeys,
+		keys,
+	)
+
+	return ctx
 }

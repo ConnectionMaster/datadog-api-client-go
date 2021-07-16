@@ -9,6 +9,7 @@
 package datadog
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -24,35 +25,30 @@ var (
 // DowntimesApiService DowntimesApi service
 type DowntimesApiService service
 
-type ApiCancelDowntimeRequest struct {
+type apiCancelDowntimeRequest struct {
 	ctx        _context.Context
 	ApiService *DowntimesApiService
 	downtimeId int64
 }
 
-func (r ApiCancelDowntimeRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.CancelDowntimeExecute(r)
-}
-
 /*
  * CancelDowntime Cancel a downtime
  * Cancel a downtime.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param downtimeId ID of the downtime to cancel.
- * @return ApiCancelDowntimeRequest
  */
-func (a *DowntimesApiService) CancelDowntime(ctx _context.Context, downtimeId int64) ApiCancelDowntimeRequest {
-	return ApiCancelDowntimeRequest{
+func (a *DowntimesApiService) CancelDowntime(ctx _context.Context, downtimeId int64) (*_nethttp.Response, error) {
+	req := apiCancelDowntimeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		downtimeId: downtimeId,
 	}
+
+	return req.ApiService.cancelDowntimeExecute(req)
 }
 
 /*
  * Execute executes the request
  */
-func (a *DowntimesApiService) CancelDowntimeExecute(r ApiCancelDowntimeRequest) (*_nethttp.Response, error) {
+func (a *DowntimesApiService) cancelDowntimeExecute(r apiCancelDowntimeRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -122,18 +118,19 @@ func (a *DowntimesApiService) CancelDowntimeExecute(r ApiCancelDowntimeRequest) 
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -168,39 +165,31 @@ func (a *DowntimesApiService) CancelDowntimeExecute(r ApiCancelDowntimeRequest) 
 	return localVarHTTPResponse, nil
 }
 
-type ApiCancelDowntimesByScopeRequest struct {
+type apiCancelDowntimesByScopeRequest struct {
 	ctx        _context.Context
 	ApiService *DowntimesApiService
 	body       *CancelDowntimesByScopeRequest
 }
 
-func (r ApiCancelDowntimesByScopeRequest) Body(body CancelDowntimesByScopeRequest) ApiCancelDowntimesByScopeRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiCancelDowntimesByScopeRequest) Execute() (CanceledDowntimesIds, *_nethttp.Response, error) {
-	return r.ApiService.CancelDowntimesByScopeExecute(r)
-}
-
 /*
  * CancelDowntimesByScope Cancel downtimes by scope
  * Delete all downtimes that match the scope of `X`.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCancelDowntimesByScopeRequest
  */
-func (a *DowntimesApiService) CancelDowntimesByScope(ctx _context.Context) ApiCancelDowntimesByScopeRequest {
-	return ApiCancelDowntimesByScopeRequest{
+func (a *DowntimesApiService) CancelDowntimesByScope(ctx _context.Context, body CancelDowntimesByScopeRequest) (CanceledDowntimesIds, *_nethttp.Response, error) {
+	req := apiCancelDowntimesByScopeRequest{
 		ApiService: a,
 		ctx:        ctx,
+		body:       &body,
 	}
+
+	return req.ApiService.cancelDowntimesByScopeExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return CanceledDowntimesIds
  */
-func (a *DowntimesApiService) CancelDowntimesByScopeExecute(r ApiCancelDowntimesByScopeRequest) (CanceledDowntimesIds, *_nethttp.Response, error) {
+func (a *DowntimesApiService) cancelDowntimesByScopeExecute(r apiCancelDowntimesByScopeRequest) (CanceledDowntimesIds, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -275,18 +264,19 @@ func (a *DowntimesApiService) CancelDowntimesByScopeExecute(r ApiCancelDowntimes
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -340,39 +330,31 @@ func (a *DowntimesApiService) CancelDowntimesByScopeExecute(r ApiCancelDowntimes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiCreateDowntimeRequest struct {
+type apiCreateDowntimeRequest struct {
 	ctx        _context.Context
 	ApiService *DowntimesApiService
 	body       *Downtime
 }
 
-func (r ApiCreateDowntimeRequest) Body(body Downtime) ApiCreateDowntimeRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiCreateDowntimeRequest) Execute() (Downtime, *_nethttp.Response, error) {
-	return r.ApiService.CreateDowntimeExecute(r)
-}
-
 /*
  * CreateDowntime Schedule a downtime
  * Schedule a downtime.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiCreateDowntimeRequest
  */
-func (a *DowntimesApiService) CreateDowntime(ctx _context.Context) ApiCreateDowntimeRequest {
-	return ApiCreateDowntimeRequest{
+func (a *DowntimesApiService) CreateDowntime(ctx _context.Context, body Downtime) (Downtime, *_nethttp.Response, error) {
+	req := apiCreateDowntimeRequest{
 		ApiService: a,
 		ctx:        ctx,
+		body:       &body,
 	}
+
+	return req.ApiService.createDowntimeExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return Downtime
  */
-func (a *DowntimesApiService) CreateDowntimeExecute(r ApiCreateDowntimeRequest) (Downtime, *_nethttp.Response, error) {
+func (a *DowntimesApiService) createDowntimeExecute(r apiCreateDowntimeRequest) (Downtime, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -447,18 +429,19 @@ func (a *DowntimesApiService) CreateDowntimeExecute(r ApiCreateDowntimeRequest) 
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -502,36 +485,31 @@ func (a *DowntimesApiService) CreateDowntimeExecute(r ApiCreateDowntimeRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetDowntimeRequest struct {
+type apiGetDowntimeRequest struct {
 	ctx        _context.Context
 	ApiService *DowntimesApiService
 	downtimeId int64
 }
 
-func (r ApiGetDowntimeRequest) Execute() (Downtime, *_nethttp.Response, error) {
-	return r.ApiService.GetDowntimeExecute(r)
-}
-
 /*
  * GetDowntime Get a downtime
  * Get downtime detail by `downtime_id`.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param downtimeId ID of the downtime to fetch.
- * @return ApiGetDowntimeRequest
  */
-func (a *DowntimesApiService) GetDowntime(ctx _context.Context, downtimeId int64) ApiGetDowntimeRequest {
-	return ApiGetDowntimeRequest{
+func (a *DowntimesApiService) GetDowntime(ctx _context.Context, downtimeId int64) (Downtime, *_nethttp.Response, error) {
+	req := apiGetDowntimeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		downtimeId: downtimeId,
 	}
+
+	return req.ApiService.getDowntimeExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return Downtime
  */
-func (a *DowntimesApiService) GetDowntimeExecute(r ApiGetDowntimeRequest) (Downtime, *_nethttp.Response, error) {
+func (a *DowntimesApiService) getDowntimeExecute(r apiGetDowntimeRequest) (Downtime, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -602,18 +580,19 @@ func (a *DowntimesApiService) GetDowntimeExecute(r ApiGetDowntimeRequest) (Downt
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -657,39 +636,52 @@ func (a *DowntimesApiService) GetDowntimeExecute(r ApiGetDowntimeRequest) (Downt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListDowntimesRequest struct {
+type apiListDowntimesRequest struct {
 	ctx         _context.Context
 	ApiService  *DowntimesApiService
 	currentOnly *bool
 }
 
-func (r ApiListDowntimesRequest) CurrentOnly(currentOnly bool) ApiListDowntimesRequest {
-	r.currentOnly = &currentOnly
-	return r
+type ListDowntimesOptionalParameters struct {
+	CurrentOnly *bool
 }
 
-func (r ApiListDowntimesRequest) Execute() ([]Downtime, *_nethttp.Response, error) {
-	return r.ApiService.ListDowntimesExecute(r)
+func NewListDowntimesOptionalParameters() *ListDowntimesOptionalParameters {
+	this := ListDowntimesOptionalParameters{}
+	return &this
+}
+func (r *ListDowntimesOptionalParameters) WithCurrentOnly(currentOnly bool) *ListDowntimesOptionalParameters {
+	r.CurrentOnly = &currentOnly
+	return r
 }
 
 /*
  * ListDowntimes Get all downtimes
  * Get all scheduled downtimes.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiListDowntimesRequest
  */
-func (a *DowntimesApiService) ListDowntimes(ctx _context.Context) ApiListDowntimesRequest {
-	return ApiListDowntimesRequest{
+func (a *DowntimesApiService) ListDowntimes(ctx _context.Context, o ...ListDowntimesOptionalParameters) ([]Downtime, *_nethttp.Response, error) {
+	req := apiListDowntimesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue []Downtime
+		return localVarReturnValue, nil, reportError("only one argument of type ListDowntimesOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.currentOnly = o[0].CurrentOnly
+	}
+
+	return req.ApiService.listDowntimesExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return []Downtime
  */
-func (a *DowntimesApiService) ListDowntimesExecute(r ApiListDowntimesRequest) ([]Downtime, *_nethttp.Response, error) {
+func (a *DowntimesApiService) listDowntimesExecute(r apiListDowntimesRequest) ([]Downtime, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -762,18 +754,19 @@ func (a *DowntimesApiService) ListDowntimesExecute(r ApiListDowntimesRequest) ([
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -807,42 +800,184 @@ func (a *DowntimesApiService) ListDowntimesExecute(r ApiListDowntimesRequest) ([
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateDowntimeRequest struct {
+type apiListMonitorDowntimesRequest struct {
+	ctx        _context.Context
+	ApiService *DowntimesApiService
+	monitorId  int64
+}
+
+/*
+ * ListMonitorDowntimes Get all downtimes for a monitor
+ * Get all downtimes for the specified monitor
+ */
+func (a *DowntimesApiService) ListMonitorDowntimes(ctx _context.Context, monitorId int64) ([]Downtime, *_nethttp.Response, error) {
+	req := apiListMonitorDowntimesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		monitorId:  monitorId,
+	}
+
+	return req.ApiService.listMonitorDowntimesExecute(req)
+}
+
+/*
+ * Execute executes the request
+ * @return []Downtime
+ */
+func (a *DowntimesApiService) listMonitorDowntimesExecute(r apiListMonitorDowntimesRequest) ([]Downtime, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []Downtime
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DowntimesApiService.ListMonitorDowntimes")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/monitor/{monitor_id}/downtimes"
+	localVarPath = strings.Replace(localVarPath, "{"+"monitor_id"+"}", _neturl.PathEscape(parameterToString(r.monitorId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+
+	// Set Operation-ID header for telemetry
+	localVarHeaderParams["DD-OPERATION-ID"] = "ListMonitorDowntimes"
+
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-API-KEY"] = key
+			}
+		}
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["appKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-APPLICATION-KEY"] = key
+			}
+		}
+	}
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type apiUpdateDowntimeRequest struct {
 	ctx        _context.Context
 	ApiService *DowntimesApiService
 	downtimeId int64
 	body       *Downtime
 }
 
-func (r ApiUpdateDowntimeRequest) Body(body Downtime) ApiUpdateDowntimeRequest {
-	r.body = &body
-	return r
-}
-
-func (r ApiUpdateDowntimeRequest) Execute() (Downtime, *_nethttp.Response, error) {
-	return r.ApiService.UpdateDowntimeExecute(r)
-}
-
 /*
  * UpdateDowntime Update a downtime
  * Update a single downtime by `downtime_id`.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param downtimeId ID of the downtime to update.
- * @return ApiUpdateDowntimeRequest
  */
-func (a *DowntimesApiService) UpdateDowntime(ctx _context.Context, downtimeId int64) ApiUpdateDowntimeRequest {
-	return ApiUpdateDowntimeRequest{
+func (a *DowntimesApiService) UpdateDowntime(ctx _context.Context, downtimeId int64, body Downtime) (Downtime, *_nethttp.Response, error) {
+	req := apiUpdateDowntimeRequest{
 		ApiService: a,
 		ctx:        ctx,
 		downtimeId: downtimeId,
+		body:       &body,
 	}
+
+	return req.ApiService.updateDowntimeExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return Downtime
  */
-func (a *DowntimesApiService) UpdateDowntimeExecute(r ApiUpdateDowntimeRequest) (Downtime, *_nethttp.Response, error) {
+func (a *DowntimesApiService) updateDowntimeExecute(r apiUpdateDowntimeRequest) (Downtime, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -918,18 +1053,19 @@ func (a *DowntimesApiService) UpdateDowntimeExecute(r ApiUpdateDowntimeRequest) 
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

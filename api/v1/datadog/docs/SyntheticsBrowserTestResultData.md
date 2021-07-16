@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **BrowserType** | Pointer to **string** | Type of browser device used for the browser test. | [optional] 
 **BrowserVersion** | Pointer to **string** | Browser version used for the browser test. | [optional] 
 **Device** | Pointer to [**SyntheticsDevice**](SyntheticsDevice.md) |  | [optional] 
@@ -22,18 +22,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsBrowserTestResultData() *SyntheticsBrowserTestResultData`
 
-NewSyntheticsBrowserTestResultData instantiates a new SyntheticsBrowserTestResultData object
+NewSyntheticsBrowserTestResultData instantiates a new SyntheticsBrowserTestResultData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsBrowserTestResultDataWithDefaults
 
 `func NewSyntheticsBrowserTestResultDataWithDefaults() *SyntheticsBrowserTestResultData`
 
-NewSyntheticsBrowserTestResultDataWithDefaults instantiates a new SyntheticsBrowserTestResultData object
+NewSyntheticsBrowserTestResultDataWithDefaults instantiates a new SyntheticsBrowserTestResultData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetBrowserType
 

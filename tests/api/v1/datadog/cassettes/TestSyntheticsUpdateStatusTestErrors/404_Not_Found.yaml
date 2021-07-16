@@ -13,13 +13,13 @@ interactions:
       Dd-Operation-Id:
       - UpdateTestPauseStatus
       User-Agent:
-      - datadog-api-client-go/1.0.0-beta.13+dev (go go1.15.3; os darwin; arch amd64)
+      - datadog-api-client-go/1.0.0-beta.23+dev (go go1.15.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8461109197990717121"
+      - "1124016413887479011"
       X-Datadog-Sampling-Priority:
       - "1"
       X-Datadog-Trace-Id:
-      - "7785456979198650073"
+      - "3610271481788181737"
     url: https://api.datadoghq.com/api/v1/synthetics/tests/aaa-aaa-aaa/status
     method: PUT
   response:
@@ -32,9 +32,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 15 Dec 2020 13:53:57 GMT
-      Dd-Pool:
-      - dogweb
+      - Mon, 07 Jun 2021 14:39:50 GMT
       Pragma:
       - no-cache
       Strict-Transport-Security:
@@ -44,17 +42,17 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.3543624"
+      - "35.4690362"
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
-      - "120"
+      - "500"
       X-Ratelimit-Period:
       - "60"
       X-Ratelimit-Remaining:
-      - "116"
+      - "498"
       X-Ratelimit-Reset:
-      - "3"
+      - "10"
     status: 404 Not Found
     code: 404
     duration: ""

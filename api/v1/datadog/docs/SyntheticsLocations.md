@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Locations** | Pointer to [**[]SyntheticsLocation**](SyntheticsLocation.md) | List of Synthetics locations. | [optional] 
 
 ## Methods
@@ -12,18 +12,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsLocations() *SyntheticsLocations`
 
-NewSyntheticsLocations instantiates a new SyntheticsLocations object
+NewSyntheticsLocations instantiates a new SyntheticsLocations object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsLocationsWithDefaults
 
 `func NewSyntheticsLocationsWithDefaults() *SyntheticsLocations`
 
-NewSyntheticsLocationsWithDefaults instantiates a new SyntheticsLocations object
+NewSyntheticsLocationsWithDefaults instantiates a new SyntheticsLocations object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetLocations
 

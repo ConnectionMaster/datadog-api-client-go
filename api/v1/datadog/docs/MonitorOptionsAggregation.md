@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **GroupBy** | Pointer to **string** | Group to break down the monitor on. | [optional] 
 **Metric** | Pointer to **string** | Metric name used in the monitor. | [optional] 
 **Type** | Pointer to **string** | Metric type used in the monitor. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewMonitorOptionsAggregation() *MonitorOptionsAggregation`
 
-NewMonitorOptionsAggregation instantiates a new MonitorOptionsAggregation object
+NewMonitorOptionsAggregation instantiates a new MonitorOptionsAggregation object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewMonitorOptionsAggregationWithDefaults
 
 `func NewMonitorOptionsAggregationWithDefaults() *MonitorOptionsAggregation`
 
-NewMonitorOptionsAggregationWithDefaults instantiates a new MonitorOptionsAggregation object
+NewMonitorOptionsAggregationWithDefaults instantiates a new MonitorOptionsAggregation object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetGroupBy
 

@@ -3,32 +3,32 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Container** | **string** | The container where the archive will be stored. | 
 **Integration** | [**LogsArchiveIntegrationAzure**](LogsArchiveIntegrationAzure.md) |  | 
 **Path** | Pointer to **string** | The archive path. | [optional] 
 **Region** | Pointer to **string** | The region where the archive will be stored. | [optional] 
 **StorageAccount** | **string** | The associated storage account. | 
-**Type** | [**LogsArchiveDestinationAzureType**](LogsArchiveDestinationAzureType.md) |  | [default to "azure"]
+**Type** | [**LogsArchiveDestinationAzureType**](LogsArchiveDestinationAzureType.md) |  | [default to LOGSARCHIVEDESTINATIONAZURETYPE_AZURE]
 
 ## Methods
 
 ### NewLogsArchiveDestinationAzure
 
-`func NewLogsArchiveDestinationAzure(container string, integration LogsArchiveIntegrationAzure, storageAccount string, type_ LogsArchiveDestinationAzureType, ) *LogsArchiveDestinationAzure`
+`func NewLogsArchiveDestinationAzure(container string, integration LogsArchiveIntegrationAzure, storageAccount string, type_ LogsArchiveDestinationAzureType) *LogsArchiveDestinationAzure`
 
-NewLogsArchiveDestinationAzure instantiates a new LogsArchiveDestinationAzure object
+NewLogsArchiveDestinationAzure instantiates a new LogsArchiveDestinationAzure object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsArchiveDestinationAzureWithDefaults
 
 `func NewLogsArchiveDestinationAzureWithDefaults() *LogsArchiveDestinationAzure`
 
-NewLogsArchiveDestinationAzureWithDefaults instantiates a new LogsArchiveDestinationAzure object
+NewLogsArchiveDestinationAzureWithDefaults instantiates a new LogsArchiveDestinationAzure object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetContainer
 

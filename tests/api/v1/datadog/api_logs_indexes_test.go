@@ -17,28 +17,11 @@ import (
 	"gopkg.in/h2non/gock.v1"
 )
 
-func enableLogsIndexesUnstableOperations(ctx context.Context) func() {
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("GetLogsIndex", true)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("ListLogIndexes", true)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("UpdateLogsIndex", true)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("GetLogsIndexOrder", true)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("UpdateLogsIndexOrder", true)
-	return func() { disableLogsIndexesUnstableOperations(ctx) }
-}
-
-func disableLogsIndexesUnstableOperations(ctx context.Context) {
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("GetLogsIndex", false)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("ListLogIndexes", false)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("UpdateLogsIndex", false)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("GetLogsIndexOrder", false)
-	Client(ctx).GetConfig().SetUnstableOperationEnabled("UpdateLogsIndexOrder", false)
-}
-
 func TestGetAllLogsIndexes(t *testing.T) {
-	ctx, stop := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	defer gock.Off()
-	defer stop()
-	defer enableLogsIndexesUnstableOperations(ctx)()
 	assert := tests.Assert(ctx, t)
 
 	data, err := tests.ReadFixture("fixtures/logs-indexes/log-indexes.json")
@@ -52,7 +35,7 @@ func TestGetAllLogsIndexes(t *testing.T) {
 		Reply(200).
 		JSON(data)
 
-	logIndexes, httpresp, err := Client(ctx).LogsIndexesApi.ListLogIndexes(ctx).Execute()
+	logIndexes, httpresp, err := Client(ctx).LogsIndexesApi.ListLogIndexes(ctx)
 	if err != nil {
 		t.Fatalf("Error getting all log indexes: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -61,11 +44,11 @@ func TestGetAllLogsIndexes(t *testing.T) {
 }
 
 func TestGetLogsIndex(t *testing.T) {
-	ctx, stop := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	defer gock.Off()
-	defer stop()
 	assert := tests.Assert(ctx, t)
-	defer enableLogsIndexesUnstableOperations(ctx)()
 
 	data, err := tests.ReadFixture("fixtures/logs-indexes/log-index.json")
 	if err != nil {
@@ -81,7 +64,7 @@ func TestGetLogsIndex(t *testing.T) {
 		Reply(200).
 		JSON(data)
 
-	logsIndex, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndex(ctx, name).Execute()
+	logsIndex, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndex(ctx, name)
 	if err != nil {
 		t.Fatalf("Error getting logs index '%s': Response %s: %v", name, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -96,9 +79,10 @@ func TestGetLogsIndex(t *testing.T) {
 }
 
 func TestLogsIndexOrder(t *testing.T) {
-	ctx, stop := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	defer gock.Off()
-	defer stop()
 	assert := tests.Assert(ctx, t)
 
 	data, err := tests.ReadFixture("fixtures/logs-indexes/logs-index-order.json")
@@ -115,8 +99,7 @@ func TestLogsIndexOrder(t *testing.T) {
 		Reply(200).
 		JSON(data)
 
-	defer enableLogsIndexesUnstableOperations(ctx)()
-	indexOrder, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndexOrder(ctx).Execute()
+	indexOrder, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndexOrder(ctx)
 	if err != nil {
 		t.Fatalf("Error getting index order: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -126,11 +109,11 @@ func TestLogsIndexOrder(t *testing.T) {
 }
 
 func TestUpdateLogsIndex(t *testing.T) {
-	ctx, stop := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	defer gock.Off()
-	defer stop()
 	assert := tests.Assert(ctx, t)
-	defer enableLogsIndexesUnstableOperations(ctx)()
 
 	data, err := tests.ReadFixture("fixtures/logs-indexes/log-index.json")
 	if err != nil {
@@ -146,7 +129,7 @@ func TestUpdateLogsIndex(t *testing.T) {
 		Reply(200).
 		JSON(data)
 
-	logsIndex, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndex(ctx, name).Execute()
+	logsIndex, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndex(ctx, name)
 	if err != nil {
 		t.Fatalf("Error getting logs index '%s': Response %s: %v", name, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -177,7 +160,7 @@ func TestUpdateLogsIndex(t *testing.T) {
 		Reply(200).
 		JSON(data)
 
-	updatedLogsIndex, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndex(ctx, name).Body(updateLogsIndex).Execute()
+	updatedLogsIndex, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndex(ctx, name, updateLogsIndex)
 	if err != nil {
 		t.Fatalf("Error updating logs index '%s': Response %s: %v", name, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -186,9 +169,10 @@ func TestUpdateLogsIndex(t *testing.T) {
 }
 
 func TestUpdateLogsIndexOrder(t *testing.T) {
-	ctx, stop := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	defer gock.Off()
-	defer stop()
 	assert := tests.Assert(ctx, t)
 
 	data, err := tests.ReadFixture("fixtures/logs-indexes/logs-index-order.json")
@@ -203,8 +187,7 @@ func TestUpdateLogsIndexOrder(t *testing.T) {
 		Reply(200).
 		JSON(data)
 
-	defer enableLogsIndexesUnstableOperations(ctx)()
-	indexOrder, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndexOrder(ctx).Execute()
+	indexOrder, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndexOrder(ctx)
 	if err != nil {
 		t.Fatalf("Error getting index order: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -226,7 +209,7 @@ func TestUpdateLogsIndexOrder(t *testing.T) {
 		Reply(200).
 		JSON(data)
 
-	newIndexOrder, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndexOrder(ctx).Body(indexOrder).Execute()
+	newIndexOrder, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndexOrder(ctx, indexOrder)
 	if err != nil {
 		t.Fatalf("Error updating with new order %v: Response %s: %v", newOrder, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -235,8 +218,8 @@ func TestUpdateLogsIndexOrder(t *testing.T) {
 }
 
 func TestLogsIndexesListErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -251,10 +234,7 @@ func TestLogsIndexesListErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			defer enableLogsIndexesUnstableOperations(ctx)()
-
-			_, httpresp, err := Client(ctx).LogsIndexesApi.ListLogIndexes(ctx).Execute()
-			fmt.Println(err)
+			_, httpresp, err := Client(ctx).LogsIndexesApi.ListLogIndexes(ctx)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -264,8 +244,8 @@ func TestLogsIndexesListErrors(t *testing.T) {
 }
 
 func TestLogsIndexesGetErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -281,10 +261,7 @@ func TestLogsIndexesGetErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			defer enableLogsIndexesUnstableOperations(ctx)()
-
-			_, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndex(ctx, "shrugs").Execute()
-			fmt.Println(err)
+			_, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndex(ctx, "shrugs")
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			if tc.ExpectedStatusCode == 403 {
 				apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
@@ -300,8 +277,8 @@ func TestLogsIndexesGetErrors(t *testing.T) {
 }
 
 func TestLogsIndexesUpdateErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -318,9 +295,7 @@ func TestLogsIndexesUpdateErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			defer enableLogsIndexesUnstableOperations(ctx)()
-
-			_, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndex(ctx, "shrugs").Body(tc.Body).Execute()
+			_, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndex(ctx, "shrugs", tc.Body)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			if tc.ExpectedStatusCode == 403 {
 				apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
@@ -336,10 +311,10 @@ func TestLogsIndexesUpdateErrors(t *testing.T) {
 }
 
 func TestLogsIndexesUpdate429Error(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
-	defer enableLogsIndexesUnstableOperations(ctx)()
 
 	data, err := tests.ReadFixture("fixtures/logs-indexes/error_429.json")
 	if err != nil {
@@ -354,7 +329,7 @@ func TestLogsIndexesUpdate429Error(t *testing.T) {
 		JSON(data)
 	defer gock.Off()
 
-	_, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndex(ctx, "name").Body(datadog.LogsIndexUpdateRequest{}).Execute()
+	_, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndex(ctx, "name", datadog.LogsIndexUpdateRequest{})
 	assert.Equal(429, httpresp.StatusCode)
 	apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.LogsAPIErrorResponse)
 	assert.True(ok)
@@ -363,8 +338,8 @@ func TestLogsIndexesUpdate429Error(t *testing.T) {
 }
 
 func TestLogsIndexesOrderGetErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -379,10 +354,7 @@ func TestLogsIndexesOrderGetErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			defer enableLogsIndexesUnstableOperations(ctx)()
-
-			_, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndexOrder(ctx).Execute()
-			fmt.Println(err)
+			_, httpresp, err := Client(ctx).LogsIndexesApi.GetLogsIndexOrder(ctx)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -392,8 +364,8 @@ func TestLogsIndexesOrderGetErrors(t *testing.T) {
 }
 
 func TestLogsIndexesOrderUpdateErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -410,9 +382,7 @@ func TestLogsIndexesOrderUpdateErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			defer enableLogsIndexesUnstableOperations(ctx)()
-
-			_, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndexOrder(ctx).Body(tc.Body).Execute()
+			_, httpresp, err := Client(ctx).LogsIndexesApi.UpdateLogsIndexOrder(ctx, tc.Body)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			if tc.ExpectedStatusCode == 403 {
 				apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)

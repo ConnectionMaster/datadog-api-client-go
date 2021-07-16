@@ -55,31 +55,31 @@ func WithTestAuth(ctx context.Context) context.Context {
 	)
 }
 
+// NewDefaultContext return context with detected values.
+func NewDefaultContext(ctx context.Context) context.Context {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	if site, ok := os.LookupEnv("DD_TEST_SITE"); ok {
+		ctx = context.WithValue(
+			ctx,
+			datadog.ContextServerIndex,
+			2,
+		)
+		ctx = context.WithValue(
+			ctx,
+			datadog.ContextServerVariables,
+			map[string]string{"site": site},
+		)
+	}
+	return ctx
+}
+
 // NewConfiguration return configuration with known options.
 func NewConfiguration() *datadog.Configuration {
 	config := datadog.NewConfiguration()
 	config.Debug = os.Getenv("DEBUG") == "true"
-
-	// Set test site as default
-	testSite, ok := os.LookupEnv("DD_TEST_SITE")
-	if ok {
-		server := config.Servers[0]
-		site := server.Variables["site"]
-		site.DefaultValue = testSite
-		site.EnumValues = append(site.EnumValues, testSite)
-		server.Variables["site"] = site
-		config.Servers[0] = server
-
-		for operationID, servers := range config.OperationServers {
-			server := servers[0]
-			site := server.Variables["site"]
-			site.DefaultValue = testSite
-			site.EnumValues = append(site.EnumValues, testSite)
-			server.Variables["site"] = site
-			servers[0] = server
-			config.OperationServers[operationID] = servers
-		}
-	}
 	return config
 }
 
@@ -90,10 +90,9 @@ var (
 )
 
 // WithClient sets client for unit tests in context.
-func WithClient(ctx context.Context, t *testing.T) (context.Context, func()) {
-	ctx, finish := tests.WithTestSpan(ctx, t)
-	ctx = context.WithValue(ctx, clientKey, datadog.NewAPIClient(NewConfiguration()))
-	return ctx, finish
+func WithClient(ctx context.Context) context.Context {
+	ctx = NewDefaultContext(ctx)
+	return context.WithValue(ctx, clientKey, datadog.NewAPIClient(NewConfiguration()))
 }
 
 // ClientFromContext returns client and indication if it was successful.
@@ -119,23 +118,22 @@ func Client(ctx context.Context) *datadog.APIClient {
 
 // WithRecorder configures client with recorder.
 func WithRecorder(ctx context.Context, t *testing.T) (context.Context, func()) {
-	ctx, finish := WithClient(ctx, t)
+	ctx = WithClient(ctx)
 	client := Client(ctx)
 
 	ctx, err := tests.WithClock(ctx, tests.SecurePath(t.Name()))
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("could not setup clock: %v", err)
 	}
 
 	r, err := tests.Recorder(ctx, tests.SecurePath(t.Name()))
 	if err != nil {
-		log.Fatal(err)
+		t.Fatalf("could not setup recorder: %v", err)
 	}
 	client.GetConfig().HTTPClient = &http.Client{Transport: tests.WrapRoundTripper(r)}
 
 	return ctx, func() {
 		r.Stop()
-		finish()
 	}
 }
 

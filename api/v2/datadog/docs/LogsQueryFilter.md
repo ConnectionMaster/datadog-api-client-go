@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **From** | Pointer to **string** | The minimum time for the requested logs, supports date math and regular timestamps | [optional] [default to "now-15m"]
 **Indexes** | Pointer to **[]string** | For customers with multiple indexes, the indexes to search. Defaults to [&#39;*&#39;] which means all indexes. | [optional] [default to ["*"]]
 **Query** | Pointer to **string** | The search query - following the log search syntax. | [optional] [default to "*"]
@@ -15,18 +15,18 @@ Name | Type | Description | Notes
 
 `func NewLogsQueryFilter() *LogsQueryFilter`
 
-NewLogsQueryFilter instantiates a new LogsQueryFilter object
+NewLogsQueryFilter instantiates a new LogsQueryFilter object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsQueryFilterWithDefaults
 
 `func NewLogsQueryFilterWithDefaults() *LogsQueryFilter`
 
-NewLogsQueryFilterWithDefaults instantiates a new LogsQueryFilter object
+NewLogsQueryFilterWithDefaults instantiates a new LogsQueryFilter object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetFrom
 

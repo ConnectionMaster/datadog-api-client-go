@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Usage** | Pointer to [**[]UsageFargateHour**](UsageFargateHour.md) | Array with the number of hourly Fargate tasks recorded for a given organization. | [optional] 
 
 ## Methods
@@ -12,18 +12,18 @@ Name | Type | Description | Notes
 
 `func NewUsageFargateResponse() *UsageFargateResponse`
 
-NewUsageFargateResponse instantiates a new UsageFargateResponse object
+NewUsageFargateResponse instantiates a new UsageFargateResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageFargateResponseWithDefaults
 
 `func NewUsageFargateResponseWithDefaults() *UsageFargateResponse`
 
-NewUsageFargateResponseWithDefaults instantiates a new UsageFargateResponse object
+NewUsageFargateResponseWithDefaults instantiates a new UsageFargateResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetUsage
 

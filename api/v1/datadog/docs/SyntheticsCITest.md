@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AllowInsecureCertificates** | Pointer to **bool** | Disable certificate checks in API tests. | [optional] 
 **BasicAuth** | Pointer to [**SyntheticsBasicAuth**](SyntheticsBasicAuth.md) |  | [optional] 
 **Body** | Pointer to **string** | Body to include in the test. | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **FollowRedirects** | Pointer to **bool** | For API HTTP test, whether or not the test should follow redirects. | [optional] 
 **Headers** | Pointer to **map[string]string** | Headers to include when performing the test. | [optional] 
 **Locations** | Pointer to **[]string** | Array of locations used to run the test. | [optional] 
-**Metadata** | Pointer to [**SyntheticsCITestMetadata**](SyntheticsCITest_metadata.md) |  | [optional] 
+**Metadata** | Pointer to [**SyntheticsCITestMetadata**](SyntheticsCITestMetadata.md) |  | [optional] 
 **PublicId** | **string** | The public ID of the Synthetics test to trigger. | 
 **Retry** | Pointer to [**SyntheticsTestOptionsRetry**](SyntheticsTestOptionsRetry.md) |  | [optional] 
 **StartUrl** | Pointer to **string** | Starting URL for the browser test. | [optional] 
@@ -23,20 +23,20 @@ Name | Type | Description | Notes
 
 ### NewSyntheticsCITest
 
-`func NewSyntheticsCITest(publicId string, ) *SyntheticsCITest`
+`func NewSyntheticsCITest(publicId string) *SyntheticsCITest`
 
-NewSyntheticsCITest instantiates a new SyntheticsCITest object
+NewSyntheticsCITest instantiates a new SyntheticsCITest object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsCITestWithDefaults
 
 `func NewSyntheticsCITestWithDefaults() *SyntheticsCITest`
 
-NewSyntheticsCITestWithDefaults instantiates a new SyntheticsCITest object
+NewSyntheticsCITestWithDefaults instantiates a new SyntheticsCITest object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAllowInsecureCertificates
 

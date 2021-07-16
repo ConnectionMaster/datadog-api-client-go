@@ -3,28 +3,28 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Data** | [**CheckCanDeleteMonitorResponseData**](CheckCanDeleteMonitorResponse_data.md) |  | 
+---- | ---- | ----------- | ------
+**Data** | [**CheckCanDeleteMonitorResponseData**](CheckCanDeleteMonitorResponseData.md) |  | 
 **Errors** | Pointer to **map[string][]string** | A mapping of Monitor ID to strings denoting where it&#39;s used. | [optional] 
 
 ## Methods
 
 ### NewCheckCanDeleteMonitorResponse
 
-`func NewCheckCanDeleteMonitorResponse(data CheckCanDeleteMonitorResponseData, ) *CheckCanDeleteMonitorResponse`
+`func NewCheckCanDeleteMonitorResponse(data CheckCanDeleteMonitorResponseData) *CheckCanDeleteMonitorResponse`
 
-NewCheckCanDeleteMonitorResponse instantiates a new CheckCanDeleteMonitorResponse object
+NewCheckCanDeleteMonitorResponse instantiates a new CheckCanDeleteMonitorResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewCheckCanDeleteMonitorResponseWithDefaults
 
 `func NewCheckCanDeleteMonitorResponseWithDefaults() *CheckCanDeleteMonitorResponse`
 
-NewCheckCanDeleteMonitorResponseWithDefaults instantiates a new CheckCanDeleteMonitorResponse object
+NewCheckCanDeleteMonitorResponseWithDefaults instantiates a new CheckCanDeleteMonitorResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

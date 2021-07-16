@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Created** | Pointer to **time.Time** | Timestamp of when the incident team was created. | [optional] [readonly] 
 **Modified** | Pointer to **time.Time** | Timestamp of when the incident team was modified. | [optional] [readonly] 
 **Name** | Pointer to **string** | Name of the incident team. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewIncidentTeamResponseAttributes() *IncidentTeamResponseAttributes`
 
-NewIncidentTeamResponseAttributes instantiates a new IncidentTeamResponseAttributes object
+NewIncidentTeamResponseAttributes instantiates a new IncidentTeamResponseAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIncidentTeamResponseAttributesWithDefaults
 
 `func NewIncidentTeamResponseAttributesWithDefaults() *IncidentTeamResponseAttributes`
 
-NewIncidentTeamResponseAttributesWithDefaults instantiates a new IncidentTeamResponseAttributes object
+NewIncidentTeamResponseAttributesWithDefaults instantiates a new IncidentTeamResponseAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreated
 

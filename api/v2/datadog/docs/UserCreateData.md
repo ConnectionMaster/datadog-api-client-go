@@ -3,29 +3,29 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | [**UserCreateAttributes**](UserCreateAttributes.md) |  | 
 **Relationships** | Pointer to [**UserRelationships**](UserRelationships.md) |  | [optional] 
-**Type** | [**UsersType**](UsersType.md) |  | [default to "users"]
+**Type** | [**UsersType**](UsersType.md) |  | [default to USERSTYPE_USERS]
 
 ## Methods
 
 ### NewUserCreateData
 
-`func NewUserCreateData(attributes UserCreateAttributes, type_ UsersType, ) *UserCreateData`
+`func NewUserCreateData(attributes UserCreateAttributes, type_ UsersType) *UserCreateData`
 
-NewUserCreateData instantiates a new UserCreateData object
+NewUserCreateData instantiates a new UserCreateData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUserCreateDataWithDefaults
 
 `func NewUserCreateDataWithDefaults() *UserCreateData`
 
-NewUserCreateDataWithDefaults instantiates a new UserCreateData object
+NewUserCreateDataWithDefaults instantiates a new UserCreateData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

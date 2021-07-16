@@ -5,7 +5,7 @@
 
 * `LOGS` (value: `"logs"`)
 
-* `ANALYZED_SPANS` (value: `"analyzed_spans"`)
+* `SPANS` (value: `"spans"`)
 
 * `NETWORK` (value: `"network"`)
 
@@ -14,6 +14,8 @@
 * `SECURITY_SIGNALS` (value: `"security_signals"`)
 
 * `PROFILES` (value: `"profiles"`)
+
+* `AUDIT` (value: `"audit"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

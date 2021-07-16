@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | Pointer to **map[string]interface{}** | JSON object of attributes from your log. | [optional] 
 **Host** | Pointer to **string** | Name of the machine from where the logs are being sent. | [optional] 
 **Message** | Pointer to **string** | The message [reserved attribute](https://docs.datadoghq.com/logs/log_collection/#reserved-attributes) of your log. By default, Datadog ingests the value of the message attribute as the body of the log entry. That value is then highlighted and displayed in the Logstream, where it is indexed for full text search. | [optional] 
@@ -18,18 +18,18 @@ Name | Type | Description | Notes
 
 `func NewLogAttributes() *LogAttributes`
 
-NewLogAttributes instantiates a new LogAttributes object
+NewLogAttributes instantiates a new LogAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogAttributesWithDefaults
 
 `func NewLogAttributesWithDefaults() *LogAttributes`
 
-NewLogAttributesWithDefaults instantiates a new LogAttributes object
+NewLogAttributesWithDefaults instantiates a new LogAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

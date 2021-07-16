@@ -3,7 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
+**Passed** | Pointer to **bool** | Describes if the test run has passed or failed. | [optional] 
 **Timings** | Pointer to [**SyntheticsTiming**](SyntheticsTiming.md) |  | [optional] 
 
 ## Methods
@@ -12,18 +13,43 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsAPITestResultShortResult() *SyntheticsAPITestResultShortResult`
 
-NewSyntheticsAPITestResultShortResult instantiates a new SyntheticsAPITestResultShortResult object
+NewSyntheticsAPITestResultShortResult instantiates a new SyntheticsAPITestResultShortResult object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsAPITestResultShortResultWithDefaults
 
 `func NewSyntheticsAPITestResultShortResultWithDefaults() *SyntheticsAPITestResultShortResult`
 
-NewSyntheticsAPITestResultShortResultWithDefaults instantiates a new SyntheticsAPITestResultShortResult object
+NewSyntheticsAPITestResultShortResultWithDefaults instantiates a new SyntheticsAPITestResultShortResult object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
+
+### GetPassed
+
+`func (o *SyntheticsAPITestResultShortResult) GetPassed() bool`
+
+GetPassed returns the Passed field if non-nil, zero value otherwise.
+
+### GetPassedOk
+
+`func (o *SyntheticsAPITestResultShortResult) GetPassedOk() (*bool, bool)`
+
+GetPassedOk returns a tuple with the Passed field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPassed
+
+`func (o *SyntheticsAPITestResultShortResult) SetPassed(v bool)`
+
+SetPassed sets Passed field to given value.
+
+### HasPassed
+
+`func (o *SyntheticsAPITestResultShortResult) HasPassed() bool`
+
+HasPassed returns a boolean if a field has been set.
 
 ### GetTimings
 

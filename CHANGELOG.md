@@ -1,5 +1,141 @@
 # CHANGELOG
 
+## 1.2.0 / 2021-07-09
+
+* [Added] Add support for `GET /api/v2/application_keys/{app_key_id}`. See [#1021](https://github.com/DataDog/datadog-api-client-go/pull/1021).
+* [Added] Add `meta` property with pagination info to SLOCorrectionList endpoint response. See [#1018](https://github.com/DataDog/datadog-api-client-go/pull/1018).
+* [Added] Add support for treemap widget. See [#1013](https://github.com/DataDog/datadog-api-client-go/pull/1013).
+* [Added] Add missing properties `query_index` and `tag_set` to `MetricsQueryMetadata`. See [#979](https://github.com/DataDog/datadog-api-client-go/pull/979).
+* [Fixed] Remove US only constraint for AWS tag filtering. See [#1007](https://github.com/DataDog/datadog-api-client-go/pull/1007).
+* [Fixed] Add BDD tests to synthetics. See [#1006](https://github.com/DataDog/datadog-api-client-go/pull/1006).
+* [Fixed] Fix response of security filter delete. See [#1002](https://github.com/DataDog/datadog-api-client-go/pull/1002).
+* [Fixed] Handle null in query metrics unit. See [#1001](https://github.com/DataDog/datadog-api-client-go/pull/1001).
+* [Changed] Remove Synthetics tick interval enum. See [#1005](https://github.com/DataDog/datadog-api-client-go/pull/1005).
+
+## 1.1.0 / 2021-06-16
+
+* [Added] Add missing fields `hasExtendedTitle`, `type`, `version` and `updateAuthorId` for Security Monitoring Rule endpoints. See [#998](https://github.com/DataDog/datadog-api-client-go/pull/998).
+* [Added] Dashboard RBAC role support. See [#993](https://github.com/DataDog/datadog-api-client-go/pull/993).
+* [Fixed] Fix go JSON struct. See [#992](https://github.com/DataDog/datadog-api-client-go/pull/992).
+
+## 1.0.0 / 2021-06-10
+
+* [Added] Add missing fields in usage billable summary keys. See [#987](https://github.com/DataDog/datadog-api-client-go/pull/987).
+* [Added] Add monitor name and priority options. See [#984](https://github.com/DataDog/datadog-api-client-go/pull/984).
+* [Added] Add endpoint to list Synthetics global variables. See [#965](https://github.com/DataDog/datadog-api-client-go/pull/965).
+* [Added] Add monitors search endpoints. See [#959](https://github.com/DataDog/datadog-api-client-go/pull/959).
+* [Added] Add CWS to usage metering endpoint. See [#964](https://github.com/DataDog/datadog-api-client-go/pull/964).
+* [Added] Add `tag_config_source` to usage attribution response. See [#952](https://github.com/DataDog/datadog-api-client-go/pull/952).
+* [Added] Add audit logs to usage endpoints. See [#978](https://github.com/DataDog/datadog-api-client-go/pull/978).
+* [Fixed] Make `assertions` field optional for multistep synthetics tests, and add `global` config variable type. See [#961](https://github.com/DataDog/datadog-api-client-go/pull/961).
+* [Fixed] Fix type of day/month response attribute in custom metrics usage. See [#981](https://github.com/DataDog/datadog-api-client-go/pull/981).
+* [Fixed] Properly mark monitor required fields. See [#950](https://github.com/DataDog/datadog-api-client-go/pull/950).
+* [Changed] Rename `compliance` to `CSPM` in usage endpoint. See [#978](https://github.com/DataDog/datadog-api-client-go/pull/978).
+* [Changed] Rename `incident_integration_metadata` to `incident_integrations` to match API. See [#944](https://github.com/DataDog/datadog-api-client-go/pull/944).
+
+## 1.0.0-beta.22 / 2021-05-17
+
+* [Added] Add endpoints to configure Security Filters. See [#938](https://github.com/DataDog/datadog-api-client-go/pull/938).
+* [Added] Add `active_child` nested downtime object to `Downtime` component for downtime APIs. See [#930](https://github.com/DataDog/datadog-api-client-go/pull/930).
+* [Changed] Change Dashboard WidgetCustomLink properties. See [#937](https://github.com/DataDog/datadog-api-client-go/pull/937).
+* [Changed] Make various fixes to synthetics models. See [#935](https://github.com/DataDog/datadog-api-client-go/pull/935).
+* [Changed] Update usage attribute endpoint metadata fields. See [#932](https://github.com/DataDog/datadog-api-client-go/pull/932).
+
+## 1.0.0-beta.21 / 2021-05-12
+
+* [Added] Notebooks Public API Documentation. See [#926](https://github.com/DataDog/datadog-api-client-go/pull/926).
+* [Added] Add `logs_by_retention` usage property and `GetUsageLogsByRetention` endpoint. See [#915](https://github.com/DataDog/datadog-api-client-go/pull/915).
+* [Added] Add anomaly detection method to `SecurityMonitoringRuleDetectionMethod` enum. See [#914](https://github.com/DataDog/datadog-api-client-go/pull/914).
+* [Added] Add `with_configured_alert_ids` parameter to get a SLO details endpoint. See [#910](https://github.com/DataDog/datadog-api-client-go/pull/910).
+* [Added] Add `setCookie`, `dnsServerPort`,  `allowFailure ` and `isCritical` fields for Synthetics tests. See [#903](https://github.com/DataDog/datadog-api-client-go/pull/903).
+* [Added] Add `metadata` property with pagination info to `SLOList` endpoint response. See [#899](https://github.com/DataDog/datadog-api-client-go/pull/899).
+* [Added] Add new properties to group widget, note widget and image widget. See [#895](https://github.com/DataDog/datadog-api-client-go/pull/895).
+* [Added] Add support for a `rate` metric type in manage metric tags v2 endpoint. See [#892](https://github.com/DataDog/datadog-api-client-go/pull/892).
+* [Fixed] Handle typed nils for go client. See [#927](https://github.com/DataDog/datadog-api-client-go/pull/927).
+* [Fixed] Remove default value of `is_column_break` layout property of dashboard. See [#925](https://github.com/DataDog/datadog-api-client-go/pull/925).
+* [Changed] Enumerate accepted values for fields parameter in usage attr requests. See [#919](https://github.com/DataDog/datadog-api-client-go/pull/919).
+* [Changed] Add frequency and remove request as required field from synthetics test. See [#916](https://github.com/DataDog/datadog-api-client-go/pull/916).
+
+## 1.0.0-beta.20 / 2021-04-27
+
+* [Added] Add support for ICMP Synthetics tests. See [#887](https://github.com/DataDog/datadog-api-client-go/pull/887).
+* [Added] Add vSphere usage information. See [#880](https://github.com/DataDog/datadog-api-client-go/pull/880).
+* [Added] Update properties for dashboard distribution widget. See [#877](https://github.com/DataDog/datadog-api-client-go/pull/877).
+* [Added] Mark metric volumes and ingested tags endpoints as stable. See [#872](https://github.com/DataDog/datadog-api-client-go/pull/872).
+* [Added] Add `filter[shared]` query parameter for searching dashboards. See [#860](https://github.com/DataDog/datadog-api-client-go/pull/860).
+* [Added] Add profiling product fields in usage metering endpoint. See [#859](https://github.com/DataDog/datadog-api-client-go/pull/859).
+* [Added] Add `title` and `background_color` properties to dashboard group widget. See [#858](https://github.com/DataDog/datadog-api-client-go/pull/858).
+* [Changed] Use new model for Go client API. See [#885](https://github.com/DataDog/datadog-api-client-go/pull/885).
+* [Removed] Remove deprecated Synthetics methods `CreateTest` and `UpdateTest`. See [#881](https://github.com/DataDog/datadog-api-client-go/pull/881).
+
+## 1.0.0-beta.19 / 2021-04-14
+
+* [Added] Add `reflow_type` property to dashboard object. See [#841](https://github.com/DataDog/datadog-api-client-go/pull/841).
+* [Added] Add security track and formulas and functions support for geomap dashboard widget. See [#837](https://github.com/DataDog/datadog-api-client-go/pull/837).
+* [Added] Generate intake endpoints. See [#834](https://github.com/DataDog/datadog-api-client-go/pull/834).
+* [Added] Add endpoint for listing all downtimes for the specified monitor. See [#828](https://github.com/DataDog/datadog-api-client-go/pull/828).
+* [Added] Add `modified_at` attribute to user response v2 schema. See [#817](https://github.com/DataDog/datadog-api-client-go/pull/817).
+* [Added] Add default environment loading in clients. See [#816](https://github.com/DataDog/datadog-api-client-go/pull/816).
+* [Added] Add `passed`, `noSavingResponseBody`, `noScreenshot`, and `disableCors` fields to Synthetics. See [#815](https://github.com/DataDog/datadog-api-client-go/pull/815).
+* [Added] Add compliance usage endpoint and compliance host statistics. See [#814](https://github.com/DataDog/datadog-api-client-go/pull/814).
+* [Added] Add tag filter options for `/api/v{1,2}/metrics`. See [#813](https://github.com/DataDog/datadog-api-client-go/pull/813).
+* [Added] Add usage fields for Heroku and OpenTelemetry. See [#810](https://github.com/DataDog/datadog-api-client-go/pull/810).
+* [Added] Add `global_time_target` field to SLO widget. See [#808](https://github.com/DataDog/datadog-api-client-go/pull/808).
+* [Added] Add method to export an API test in Synthetics. See [#807](https://github.com/DataDog/datadog-api-client-go/pull/807).
+* [Added] Add metadata to usage top average metrics response. See [#806](https://github.com/DataDog/datadog-api-client-go/pull/806).
+* [Added] Add median as valid aggregator for formulas and functions. See [#800](https://github.com/DataDog/datadog-api-client-go/pull/800).
+* [Fixed] Browser Test message required. See [#803](https://github.com/DataDog/datadog-api-client-go/pull/803).
+* [Changed] Return correct object in `GetBrowserTest` endpoint. See [#827](https://github.com/DataDog/datadog-api-client-go/pull/827).
+* [Changed] Add agent rules in security monitoring rules queries. See [#809](https://github.com/DataDog/datadog-api-client-go/pull/809).
+
+## 1.0.0-beta.18 / 2021-03-22
+
+* [Added] Add `legend_layout` and `legend_columns` to timeseries widget definition. See [#791](https://github.com/DataDog/datadog-api-client-go/pull/791).
+
+## 1.0.0-beta.17 / 2021-03-15
+
+* [Added] Add support for multistep tests in Synthetics. See [#775](https://github.com/DataDog/datadog-api-client-go/pull/775).
+* [Added] Add core web vitals to synthetics browser test results. See [#771](https://github.com/DataDog/datadog-api-client-go/pull/771).
+* [Added] Add v2 metric tags and metric volumes endpoints. See [#769](https://github.com/DataDog/datadog-api-client-go/pull/769).
+* [Added] Add new endpoints for browser and API tests in Synthetics. See [#762](https://github.com/DataDog/datadog-api-client-go/pull/762).
+* [Changed] Update response schema for service level objective operation `GetSLOHistory`. See [#784](https://github.com/DataDog/datadog-api-client-go/pull/784).
+* [Changed] Make query name required in formulas and functions queries. See [#774](https://github.com/DataDog/datadog-api-client-go/pull/774).
+
+## 1.0.0-beta.16 / 2021-03-02
+
+* [Added] Add groupby_simple_monitor option to monitors. See [#758](https://github.com/DataDog/datadog-api-client-go/pull/758).
+* [Added] Allow formula and functions in query value requests. See [#756](https://github.com/DataDog/datadog-api-client-go/pull/756).
+* [Added] Allow formula and functions in toplist requests. See [#753](https://github.com/DataDog/datadog-api-client-go/pull/753).
+* [Added] Add slack resource. See [#744](https://github.com/DataDog/datadog-api-client-go/pull/744).
+* [Added] Add detectionMethod and newValueOptions fields to security monitoring rules. See [#739](https://github.com/DataDog/datadog-api-client-go/pull/739).
+* [Added] Expose "event-v2 alert" monitor type. See [#738](https://github.com/DataDog/datadog-api-client-go/pull/738).
+* [Added] Add new US3 region. See [#737](https://github.com/DataDog/datadog-api-client-go/pull/737).
+* [Added] Add org_name field to usage attribution response. See [#736](https://github.com/DataDog/datadog-api-client-go/pull/736).
+* [Added] Add profile_metrics_query properties to dashboard widget requests. See [#728](https://github.com/DataDog/datadog-api-client-go/pull/728).
+* [Added] Add geomap widget to dashboards. See [#720](https://github.com/DataDog/datadog-api-client-go/pull/720).
+* [Added] Add v2 API for metric tag configuration. See [#718](https://github.com/DataDog/datadog-api-client-go/pull/718).
+* [Added] Add Lambda invocations usage to response. See [#716](https://github.com/DataDog/datadog-api-client-go/pull/716).
+* [Added] Remove unstable flag for logs apis. See [#709](https://github.com/DataDog/datadog-api-client-go/pull/709).
+* [Fixed] Add missing tlsVersion and minTlsVersion to Synthetics assertion types. See [#731](https://github.com/DataDog/datadog-api-client-go/pull/731).
+* [Fixed] Change analyzed_spans to spans in dashboard. See [#711](https://github.com/DataDog/datadog-api-client-go/pull/711).
+* [Changed] Rename objects throughout the code for consistency. See [#724](https://github.com/DataDog/datadog-api-client-go/pull/724).
+* [Changed] Rename objects for formula and functions to be more generic. See [#747](https://github.com/DataDog/datadog-api-client-go/pull/747).
+
+## v1.0.0-beta.15 / 2021-02-08
+
+* [Added] Add restricted roles to monitor update. See [#691](https://github.com/DataDog/datadog-api-client-go/pull/691).
+* [Added] Add endpoint for IoT billing usage. See [#684](https://github.com/DataDog/datadog-api-client-go/pull/684).
+* [Added] Add query parameters for SLO search endpoint. See [#682](https://github.com/DataDog/datadog-api-client-go/pull/682).
+* [Added] Add fields for formula and function query definition and widget formulas. See [#680](https://github.com/DataDog/datadog-api-client-go/pull/680).
+* [Added] Add global_time to time_window SLO widget. See [#675](https://github.com/DataDog/datadog-api-client-go/pull/675).
+* [Added] Update required fields in SLO correction create and update requests. See [#668](https://github.com/DataDog/datadog-api-client-go/pull/668).
+* [Fixed] Fix AWS tag filter delete request. See [#701](https://github.com/DataDog/datadog-api-client-go/pull/701).
+* [Fixed] Remove unnecessary field from TimeSeriesFormulaAndFunctionEventQuery. See [#700](https://github.com/DataDog/datadog-api-client-go/pull/700).
+* [Fixed] Fix unit format in SLO history response. See [#695](https://github.com/DataDog/datadog-api-client-go/pull/695).
+* [Fixed] Change group_by from object to list of objects. See [#694](https://github.com/DataDog/datadog-api-client-go/pull/694).
+* [Fixed] Fix location of monitor restricted roles. See [#687](https://github.com/DataDog/datadog-api-client-go/pull/687).
+* [Fixed] Fix paging parameter names for logs aggregate queries. See [#681](https://github.com/DataDog/datadog-api-client-go/pull/681).
+
 ## v1.0.0-beta.14 / 2021-01-19
 
 * [Added] Add log index creation. See [#662](https://github.com/DataDog/datadog-api-client-go/pull/662).

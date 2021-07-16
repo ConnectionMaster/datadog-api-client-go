@@ -3,29 +3,29 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Data** | [**[]IncidentTeamResponseData**](IncidentTeamResponseData.md) | An array of incident teams. | 
 **Included** | Pointer to [**[]IncidentTeamIncludedItems**](IncidentTeamIncludedItems.md) | Included related resources which the user requested. | [optional] [readonly] 
-**Meta** | Pointer to [**IncidentServicesResponseMeta**](IncidentServicesResponse_meta.md) |  | [optional] 
+**Meta** | Pointer to [**IncidentServicesResponseMeta**](IncidentServicesResponseMeta.md) |  | [optional] 
 
 ## Methods
 
 ### NewIncidentTeamsResponse
 
-`func NewIncidentTeamsResponse(data []IncidentTeamResponseData, ) *IncidentTeamsResponse`
+`func NewIncidentTeamsResponse(data []IncidentTeamResponseData) *IncidentTeamsResponse`
 
-NewIncidentTeamsResponse instantiates a new IncidentTeamsResponse object
+NewIncidentTeamsResponse instantiates a new IncidentTeamsResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIncidentTeamsResponseWithDefaults
 
 `func NewIncidentTeamsResponseWithDefaults() *IncidentTeamsResponse`
 
-NewIncidentTeamsResponseWithDefaults instantiates a new IncidentTeamsResponse object
+NewIncidentTeamsResponseWithDefaults instantiates a new IncidentTeamsResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **EventSize** | Pointer to [**WidgetEventSize**](WidgetEventSize.md) |  | [optional] 
 **Query** | **string** | Query to filter the event stream with. | 
 **TagsExecution** | Pointer to **string** | The execution method for multi-value filters. Can be either and or or. | [optional] 
@@ -11,26 +11,26 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**EventStreamWidgetDefinitionType**](EventStreamWidgetDefinitionType.md) |  | [default to "event_stream"]
+**Type** | [**EventStreamWidgetDefinitionType**](EventStreamWidgetDefinitionType.md) |  | [default to EVENTSTREAMWIDGETDEFINITIONTYPE_EVENT_STREAM]
 
 ## Methods
 
 ### NewEventStreamWidgetDefinition
 
-`func NewEventStreamWidgetDefinition(query string, type_ EventStreamWidgetDefinitionType, ) *EventStreamWidgetDefinition`
+`func NewEventStreamWidgetDefinition(query string, type_ EventStreamWidgetDefinitionType) *EventStreamWidgetDefinition`
 
-NewEventStreamWidgetDefinition instantiates a new EventStreamWidgetDefinition object
+NewEventStreamWidgetDefinition instantiates a new EventStreamWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewEventStreamWidgetDefinitionWithDefaults
 
 `func NewEventStreamWidgetDefinitionWithDefaults() *EventStreamWidgetDefinition`
 
-NewEventStreamWidgetDefinitionWithDefaults instantiates a new EventStreamWidgetDefinition object
+NewEventStreamWidgetDefinitionWithDefaults instantiates a new EventStreamWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetEventSize
 

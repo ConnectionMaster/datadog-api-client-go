@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AccountId** | **string** | Your AWS Account ID without dashes. | 
 **Services** | **[]string** | Array of services IDs set to enable automatic log collection. Discover the list of available services with the get list of AWS log ready services API endpoint. | 
 
@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 
 ### NewAWSLogsServicesRequest
 
-`func NewAWSLogsServicesRequest(accountId string, services []string, ) *AWSLogsServicesRequest`
+`func NewAWSLogsServicesRequest(accountId string, services []string) *AWSLogsServicesRequest`
 
-NewAWSLogsServicesRequest instantiates a new AWSLogsServicesRequest object
+NewAWSLogsServicesRequest instantiates a new AWSLogsServicesRequest object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewAWSLogsServicesRequestWithDefaults
 
 `func NewAWSLogsServicesRequestWithDefaults() *AWSLogsServicesRequest`
 
-NewAWSLogsServicesRequestWithDefaults instantiates a new AWSLogsServicesRequest object
+NewAWSLogsServicesRequestWithDefaults instantiates a new AWSLogsServicesRequest object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAccountId
 

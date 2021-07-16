@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **DeletedMonitorId** | Pointer to **int64** | ID of the deleted monitor. | [optional] 
 
 ## Methods
@@ -12,18 +12,18 @@ Name | Type | Description | Notes
 
 `func NewDeletedMonitor() *DeletedMonitor`
 
-NewDeletedMonitor instantiates a new DeletedMonitor object
+NewDeletedMonitor instantiates a new DeletedMonitor object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewDeletedMonitorWithDefaults
 
 `func NewDeletedMonitorWithDefaults() *DeletedMonitor`
 
-NewDeletedMonitorWithDefaults instantiates a new DeletedMonitor object
+NewDeletedMonitorWithDefaults instantiates a new DeletedMonitor object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDeletedMonitorId
 

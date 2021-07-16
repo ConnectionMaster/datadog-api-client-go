@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Usage** | Pointer to [**[]UsageSyntheticsAPIHour**](UsageSyntheticsAPIHour.md) | Get hourly usage for Synthetics API tests. | [optional] 
 
 ## Methods
@@ -12,18 +12,18 @@ Name | Type | Description | Notes
 
 `func NewUsageSyntheticsAPIResponse() *UsageSyntheticsAPIResponse`
 
-NewUsageSyntheticsAPIResponse instantiates a new UsageSyntheticsAPIResponse object
+NewUsageSyntheticsAPIResponse instantiates a new UsageSyntheticsAPIResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageSyntheticsAPIResponseWithDefaults
 
 `func NewUsageSyntheticsAPIResponseWithDefaults() *UsageSyntheticsAPIResponse`
 
-NewUsageSyntheticsAPIResponseWithDefaults instantiates a new UsageSyntheticsAPIResponse object
+NewUsageSyntheticsAPIResponseWithDefaults instantiates a new UsageSyntheticsAPIResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetUsage
 

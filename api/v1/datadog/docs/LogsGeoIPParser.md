@@ -3,31 +3,31 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **IsEnabled** | Pointer to **bool** | Whether or not the processor is enabled. | [optional] [default to false]
 **Name** | Pointer to **string** | Name of the processor. | [optional] 
 **Sources** | **[]string** | Array of source attributes. | [default to ["network.client.ip"]]
 **Target** | **string** | Name of the parent attribute that contains all the extracted details from the &#x60;sources&#x60;. | [default to "network.client.geoip"]
-**Type** | [**LogsGeoIPParserType**](LogsGeoIPParserType.md) |  | [default to "geo-ip-parser"]
+**Type** | [**LogsGeoIPParserType**](LogsGeoIPParserType.md) |  | [default to LOGSGEOIPPARSERTYPE_GEO_IP_PARSER]
 
 ## Methods
 
 ### NewLogsGeoIPParser
 
-`func NewLogsGeoIPParser(sources []string, target string, type_ LogsGeoIPParserType, ) *LogsGeoIPParser`
+`func NewLogsGeoIPParser(sources []string, target string, type_ LogsGeoIPParserType) *LogsGeoIPParser`
 
-NewLogsGeoIPParser instantiates a new LogsGeoIPParser object
+NewLogsGeoIPParser instantiates a new LogsGeoIPParser object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsGeoIPParserWithDefaults
 
 `func NewLogsGeoIPParserWithDefaults() *LogsGeoIPParser`
 
-NewLogsGeoIPParserWithDefaults instantiates a new LogsGeoIPParser object
+NewLogsGeoIPParserWithDefaults instantiates a new LogsGeoIPParser object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetIsEnabled
 

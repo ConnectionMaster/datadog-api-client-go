@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Permissions** | Pointer to [**RelationshipToPermissions**](RelationshipToPermissions.md) |  | [optional] 
 **Users** | Pointer to [**RelationshipToUsers**](RelationshipToUsers.md) |  | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewRoleRelationships() *RoleRelationships`
 
-NewRoleRelationships instantiates a new RoleRelationships object
+NewRoleRelationships instantiates a new RoleRelationships object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRoleRelationshipsWithDefaults
 
 `func NewRoleRelationshipsWithDefaults() *RoleRelationships`
 
-NewRoleRelationshipsWithDefaults instantiates a new RoleRelationships object
+NewRoleRelationshipsWithDefaults instantiates a new RoleRelationships object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetPermissions
 

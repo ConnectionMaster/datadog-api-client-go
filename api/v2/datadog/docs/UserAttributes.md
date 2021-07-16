@@ -3,12 +3,13 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CreatedAt** | Pointer to **time.Time** | Creation time of the user. | [optional] 
 **Disabled** | Pointer to **bool** | Whether the user is disabled. | [optional] 
 **Email** | Pointer to **string** | Email of the user. | [optional] 
 **Handle** | Pointer to **string** | Handle of the user. | [optional] 
 **Icon** | Pointer to **string** | URL of the user&#39;s icon. | [optional] 
+**ModifiedAt** | Pointer to **time.Time** | Time that the user was last modified. | [optional] 
 **Name** | Pointer to **string** | Name of the user. | [optional] 
 **Status** | Pointer to **string** | Status of the user. | [optional] 
 **Title** | Pointer to **string** | Title of the user. | [optional] 
@@ -20,18 +21,18 @@ Name | Type | Description | Notes
 
 `func NewUserAttributes() *UserAttributes`
 
-NewUserAttributes instantiates a new UserAttributes object
+NewUserAttributes instantiates a new UserAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUserAttributesWithDefaults
 
 `func NewUserAttributesWithDefaults() *UserAttributes`
 
-NewUserAttributesWithDefaults instantiates a new UserAttributes object
+NewUserAttributesWithDefaults instantiates a new UserAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreatedAt
 
@@ -157,6 +158,31 @@ SetIcon sets Icon field to given value.
 `func (o *UserAttributes) HasIcon() bool`
 
 HasIcon returns a boolean if a field has been set.
+
+### GetModifiedAt
+
+`func (o *UserAttributes) GetModifiedAt() time.Time`
+
+GetModifiedAt returns the ModifiedAt field if non-nil, zero value otherwise.
+
+### GetModifiedAtOk
+
+`func (o *UserAttributes) GetModifiedAtOk() (*time.Time, bool)`
+
+GetModifiedAtOk returns a tuple with the ModifiedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetModifiedAt
+
+`func (o *UserAttributes) SetModifiedAt(v time.Time)`
+
+SetModifiedAt sets ModifiedAt field to given value.
+
+### HasModifiedAt
+
+`func (o *UserAttributes) HasModifiedAt() bool`
+
+HasModifiedAt returns a boolean if a field has been set.
 
 ### GetName
 

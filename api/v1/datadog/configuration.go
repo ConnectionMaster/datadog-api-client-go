@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"runtime"
 	"strings"
 
@@ -116,6 +117,7 @@ func NewConfiguration() *Configuration {
 						DefaultValue: "datadoghq.com",
 						EnumValues: []string{
 							"datadoghq.com",
+							"us3.datadoghq.com",
 							"datadoghq.eu",
 							"ddog-gov.com",
 						},
@@ -140,107 +142,22 @@ func NewConfiguration() *Configuration {
 					},
 				},
 			},
+			{
+				URL:         "https://{subdomain}.{site}",
+				Description: "No description provided",
+				Variables: map[string]ServerVariable{
+					"site": ServerVariable{
+						Description:  "Any Datadog deployment.",
+						DefaultValue: "datadoghq.com",
+					},
+					"subdomain": ServerVariable{
+						Description:  "The subdomain where the API is deployed.",
+						DefaultValue: "api",
+					},
+				},
+			},
 		},
 		OperationServers: map[string]ServerConfigurations{
-			"AWSIntegrationApiService.CreateAWSTagFilter": {
-				{
-					URL:         "https://{subdomain}.{site}",
-					Description: "No description provided",
-					Variables: map[string]ServerVariable{
-						"site": ServerVariable{
-							Description:  "The regional site for our customers.",
-							DefaultValue: "datadoghq.com",
-							EnumValues: []string{
-								"datadoghq.com",
-							},
-						},
-						"subdomain": ServerVariable{
-							Description:  "The subdomain where the API is deployed.",
-							DefaultValue: "api",
-						},
-					},
-				},
-				{
-					URL:         "{protocol}://{name}",
-					Description: "No description provided",
-					Variables: map[string]ServerVariable{
-						"name": ServerVariable{
-							Description:  "Full site DNS name.",
-							DefaultValue: "api.datadoghq.com",
-						},
-						"protocol": ServerVariable{
-							Description:  "The protocol for accessing the API.",
-							DefaultValue: "https",
-						},
-					},
-				},
-			},
-			"AWSIntegrationApiService.DeleteAWSTagFilter": {
-				{
-					URL:         "https://{subdomain}.{site}",
-					Description: "No description provided",
-					Variables: map[string]ServerVariable{
-						"site": ServerVariable{
-							Description:  "The regional site for our customers.",
-							DefaultValue: "datadoghq.com",
-							EnumValues: []string{
-								"datadoghq.com",
-							},
-						},
-						"subdomain": ServerVariable{
-							Description:  "The subdomain where the API is deployed.",
-							DefaultValue: "api",
-						},
-					},
-				},
-				{
-					URL:         "{protocol}://{name}",
-					Description: "No description provided",
-					Variables: map[string]ServerVariable{
-						"name": ServerVariable{
-							Description:  "Full site DNS name.",
-							DefaultValue: "api.datadoghq.com",
-						},
-						"protocol": ServerVariable{
-							Description:  "The protocol for accessing the API.",
-							DefaultValue: "https",
-						},
-					},
-				},
-			},
-			"AWSIntegrationApiService.ListAWSTagFilters": {
-				{
-					URL:         "https://{subdomain}.{site}",
-					Description: "No description provided",
-					Variables: map[string]ServerVariable{
-						"site": ServerVariable{
-							Description:  "The regional site for our customers.",
-							DefaultValue: "datadoghq.com",
-							EnumValues: []string{
-								"datadoghq.com",
-							},
-						},
-						"subdomain": ServerVariable{
-							Description:  "The subdomain where the API is deployed.",
-							DefaultValue: "api",
-						},
-					},
-				},
-				{
-					URL:         "{protocol}://{name}",
-					Description: "No description provided",
-					Variables: map[string]ServerVariable{
-						"name": ServerVariable{
-							Description:  "Full site DNS name.",
-							DefaultValue: "api.datadoghq.com",
-						},
-						"protocol": ServerVariable{
-							Description:  "The protocol for accessing the API.",
-							DefaultValue: "https",
-						},
-					},
-				},
-			},
 			"IPRangesApiService.GetIPRanges": {
 				{
 					URL:         "https://{subdomain}.{site}",
@@ -251,6 +168,7 @@ func NewConfiguration() *Configuration {
 							DefaultValue: "datadoghq.com",
 							EnumValues: []string{
 								"datadoghq.com",
+								"us3.datadoghq.com",
 								"datadoghq.eu",
 								"ddog-gov.com",
 							},
@@ -275,15 +193,69 @@ func NewConfiguration() *Configuration {
 						},
 					},
 				},
+				{
+					URL:         "https://{subdomain}.datadoghq.com",
+					Description: "No description provided",
+					Variables: map[string]ServerVariable{
+						"subdomain": ServerVariable{
+							Description:  "The subdomain where the API is deployed.",
+							DefaultValue: "ip-ranges",
+						},
+					},
+				},
+			},
+			"LogsApiService.SubmitLog": {
+				{
+					URL:         "https://{subdomain}.{site}",
+					Description: "No description provided",
+					Variables: map[string]ServerVariable{
+						"site": ServerVariable{
+							Description:  "The regional site for our customers.",
+							DefaultValue: "datadoghq.com",
+							EnumValues: []string{
+								"datadoghq.com",
+								"us3.datadoghq.com",
+								"datadoghq.eu",
+								"ddog-gov.com",
+							},
+						},
+						"subdomain": ServerVariable{
+							Description:  "The subdomain where the API is deployed.",
+							DefaultValue: "http-intake.logs",
+						},
+					},
+				},
+				{
+					URL:         "{protocol}://{name}",
+					Description: "No description provided",
+					Variables: map[string]ServerVariable{
+						"name": ServerVariable{
+							Description:  "Full site DNS name.",
+							DefaultValue: "http-intake.logs.datadoghq.com",
+						},
+						"protocol": ServerVariable{
+							Description:  "The protocol for accessing the API.",
+							DefaultValue: "https",
+						},
+					},
+				},
+				{
+					URL:         "https://{subdomain}.{site}",
+					Description: "No description provided",
+					Variables: map[string]ServerVariable{
+						"site": ServerVariable{
+							Description:  "Any Datadog deployment.",
+							DefaultValue: "datadoghq.com",
+						},
+						"subdomain": ServerVariable{
+							Description:  "The subdomain where the API is deployed.",
+							DefaultValue: "http-intake.logs",
+						},
+					},
+				},
 			},
 		},
 		unstableOperations: map[string]bool{
-			"CreateLogsIndex":                  false,
-			"GetLogsIndex":                     false,
-			"GetLogsIndexOrder":                false,
-			"ListLogIndexes":                   false,
-			"UpdateLogsIndex":                  false,
-			"UpdateLogsIndexOrder":             false,
 			"CreateSLOCorrection":              false,
 			"DeleteSLOCorrection":              false,
 			"GetSLOCorrection":                 false,
@@ -462,4 +434,34 @@ func getUserAgent() string {
 		runtime.GOOS,
 		runtime.GOARCH,
 	)
+}
+
+// NewDefaultContext returns a new context setup with environment variables
+func NewDefaultContext(ctx context.Context) context.Context {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+
+	if site, ok := os.LookupEnv("DD_SITE"); ok {
+		ctx = context.WithValue(
+			ctx,
+			ContextServerVariables,
+			map[string]string{"site": site},
+		)
+	}
+
+	keys := make(map[string]APIKey)
+	if apiKey, ok := os.LookupEnv("DD_API_KEY"); ok {
+		keys["apiKeyAuth"] = APIKey{Key: apiKey}
+	}
+	if apiKey, ok := os.LookupEnv("DD_APP_KEY"); ok {
+		keys["appKeyAuth"] = APIKey{Key: apiKey}
+	}
+	ctx = context.WithValue(
+		ctx,
+		ContextAPIKeys,
+		keys,
+	)
+
+	return ctx
 }

@@ -3,9 +3,9 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Authentication** | Pointer to [**SyntheticsPrivateLocationSecretsAuthentication**](SyntheticsPrivateLocation_secrets_authentication.md) |  | [optional] 
-**ConfigDecryption** | Pointer to [**SyntheticsPrivateLocationSecretsConfigDecryption**](SyntheticsPrivateLocation_secrets_config_decryption.md) |  | [optional] 
+---- | ---- | ----------- | ------
+**Authentication** | Pointer to [**SyntheticsPrivateLocationSecretsAuthentication**](SyntheticsPrivateLocationSecretsAuthentication.md) |  | [optional] 
+**ConfigDecryption** | Pointer to [**SyntheticsPrivateLocationSecretsConfigDecryption**](SyntheticsPrivateLocationSecretsConfigDecryption.md) |  | [optional] 
 
 ## Methods
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsPrivateLocationSecrets() *SyntheticsPrivateLocationSecrets`
 
-NewSyntheticsPrivateLocationSecrets instantiates a new SyntheticsPrivateLocationSecrets object
+NewSyntheticsPrivateLocationSecrets instantiates a new SyntheticsPrivateLocationSecrets object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsPrivateLocationSecretsWithDefaults
 
 `func NewSyntheticsPrivateLocationSecretsWithDefaults() *SyntheticsPrivateLocationSecrets`
 
-NewSyntheticsPrivateLocationSecretsWithDefaults instantiates a new SyntheticsPrivateLocationSecrets object
+NewSyntheticsPrivateLocationSecretsWithDefaults instantiates a new SyntheticsPrivateLocationSecrets object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAuthentication
 

@@ -3,9 +3,11 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CustomLinks** | Pointer to [**[]WidgetCustomLink**](WidgetCustomLink.md) | List of custom links. | [optional] 
 **Events** | Pointer to [**[]WidgetEvent**](WidgetEvent.md) | List of widget events. | [optional] 
+**LegendColumns** | Pointer to [**[]TimeseriesWidgetLegendColumn**](TimeseriesWidgetLegendColumn.md) | Columns displayed in the legend. | [optional] 
+**LegendLayout** | Pointer to [**TimeseriesWidgetLegendLayout**](TimeseriesWidgetLegendLayout.md) |  | [optional] 
 **LegendSize** | Pointer to **string** | Available legend sizes for a widget. Should be one of \&quot;0\&quot;, \&quot;2\&quot;, \&quot;4\&quot;, \&quot;8\&quot;, \&quot;16\&quot;, or \&quot;auto\&quot;. | [optional] 
 **Markers** | Pointer to [**[]WidgetMarker**](WidgetMarker.md) | List of markers. | [optional] 
 **Requests** | [**[]TimeseriesWidgetRequest**](TimeseriesWidgetRequest.md) | List of timeseries widget requests. | 
@@ -15,27 +17,27 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | Title of your widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**TimeseriesWidgetDefinitionType**](TimeseriesWidgetDefinitionType.md) |  | [default to "timeseries"]
+**Type** | [**TimeseriesWidgetDefinitionType**](TimeseriesWidgetDefinitionType.md) |  | [default to TIMESERIESWIDGETDEFINITIONTYPE_TIMESERIES]
 **Yaxis** | Pointer to [**WidgetAxis**](WidgetAxis.md) |  | [optional] 
 
 ## Methods
 
 ### NewTimeseriesWidgetDefinition
 
-`func NewTimeseriesWidgetDefinition(requests []TimeseriesWidgetRequest, type_ TimeseriesWidgetDefinitionType, ) *TimeseriesWidgetDefinition`
+`func NewTimeseriesWidgetDefinition(requests []TimeseriesWidgetRequest, type_ TimeseriesWidgetDefinitionType) *TimeseriesWidgetDefinition`
 
-NewTimeseriesWidgetDefinition instantiates a new TimeseriesWidgetDefinition object
+NewTimeseriesWidgetDefinition instantiates a new TimeseriesWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewTimeseriesWidgetDefinitionWithDefaults
 
 `func NewTimeseriesWidgetDefinitionWithDefaults() *TimeseriesWidgetDefinition`
 
-NewTimeseriesWidgetDefinitionWithDefaults instantiates a new TimeseriesWidgetDefinition object
+NewTimeseriesWidgetDefinitionWithDefaults instantiates a new TimeseriesWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCustomLinks
 
@@ -86,6 +88,56 @@ SetEvents sets Events field to given value.
 `func (o *TimeseriesWidgetDefinition) HasEvents() bool`
 
 HasEvents returns a boolean if a field has been set.
+
+### GetLegendColumns
+
+`func (o *TimeseriesWidgetDefinition) GetLegendColumns() []TimeseriesWidgetLegendColumn`
+
+GetLegendColumns returns the LegendColumns field if non-nil, zero value otherwise.
+
+### GetLegendColumnsOk
+
+`func (o *TimeseriesWidgetDefinition) GetLegendColumnsOk() (*[]TimeseriesWidgetLegendColumn, bool)`
+
+GetLegendColumnsOk returns a tuple with the LegendColumns field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLegendColumns
+
+`func (o *TimeseriesWidgetDefinition) SetLegendColumns(v []TimeseriesWidgetLegendColumn)`
+
+SetLegendColumns sets LegendColumns field to given value.
+
+### HasLegendColumns
+
+`func (o *TimeseriesWidgetDefinition) HasLegendColumns() bool`
+
+HasLegendColumns returns a boolean if a field has been set.
+
+### GetLegendLayout
+
+`func (o *TimeseriesWidgetDefinition) GetLegendLayout() TimeseriesWidgetLegendLayout`
+
+GetLegendLayout returns the LegendLayout field if non-nil, zero value otherwise.
+
+### GetLegendLayoutOk
+
+`func (o *TimeseriesWidgetDefinition) GetLegendLayoutOk() (*TimeseriesWidgetLegendLayout, bool)`
+
+GetLegendLayoutOk returns a tuple with the LegendLayout field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLegendLayout
+
+`func (o *TimeseriesWidgetDefinition) SetLegendLayout(v TimeseriesWidgetLegendLayout)`
+
+SetLegendLayout sets LegendLayout field to given value.
+
+### HasLegendLayout
+
+`func (o *TimeseriesWidgetDefinition) HasLegendLayout() bool`
+
+HasLegendLayout returns a boolean if a field has been set.
 
 ### GetLegendSize
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **DailyLimit** | Pointer to **int64** | The number of log events you can send in this index per day before you are rate-limited. | [optional] 
 **ExclusionFilters** | Pointer to [**[]LogsExclusion**](LogsExclusion.md) | An array of exclusion objects. The logs are tested against the query of each filter, following the order of the array. Only the first matching active exclusion matters, others (if any) are ignored. | [optional] 
 **Filter** | [**LogsFilter**](LogsFilter.md) |  | 
@@ -15,20 +15,20 @@ Name | Type | Description | Notes
 
 ### NewLogsIndex
 
-`func NewLogsIndex(filter LogsFilter, name string, ) *LogsIndex`
+`func NewLogsIndex(filter LogsFilter, name string) *LogsIndex`
 
-NewLogsIndex instantiates a new LogsIndex object
+NewLogsIndex instantiates a new LogsIndex object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsIndexWithDefaults
 
 `func NewLogsIndexWithDefaults() *LogsIndex`
 
-NewLogsIndexWithDefaults instantiates a new LogsIndex object
+NewLogsIndexWithDefaults instantiates a new LogsIndex object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDailyLimit
 

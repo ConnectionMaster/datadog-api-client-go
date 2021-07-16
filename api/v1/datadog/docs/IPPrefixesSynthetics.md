@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **PrefixesIpv4** | Pointer to **[]string** | List of IPv4 prefixes. | [optional] 
 **PrefixesIpv4ByLocation** | Pointer to **map[string][]string** | List of IPv4 prefixes by location. | [optional] 
 **PrefixesIpv6** | Pointer to **[]string** | List of IPv6 prefixes. | [optional] 
@@ -15,18 +15,18 @@ Name | Type | Description | Notes
 
 `func NewIPPrefixesSynthetics() *IPPrefixesSynthetics`
 
-NewIPPrefixesSynthetics instantiates a new IPPrefixesSynthetics object
+NewIPPrefixesSynthetics instantiates a new IPPrefixesSynthetics object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIPPrefixesSyntheticsWithDefaults
 
 `func NewIPPrefixesSyntheticsWithDefaults() *IPPrefixesSynthetics`
 
-NewIPPrefixesSyntheticsWithDefaults instantiates a new IPPrefixesSynthetics object
+NewIPPrefixesSyntheticsWithDefaults instantiates a new IPPrefixesSynthetics object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetPrefixesIpv4
 

@@ -3,28 +3,28 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Id** | **string** | A unique identifier that represents the postmortem. | 
-**Type** | [**IncidentPostmortemType**](IncidentPostmortemType.md) |  | [default to "incident_postmortems"]
+**Type** | [**IncidentPostmortemType**](IncidentPostmortemType.md) |  | [default to INCIDENTPOSTMORTEMTYPE_INCIDENT_POSTMORTEMS]
 
 ## Methods
 
 ### NewRelationshipToIncidentPostmortemData
 
-`func NewRelationshipToIncidentPostmortemData(id string, type_ IncidentPostmortemType, ) *RelationshipToIncidentPostmortemData`
+`func NewRelationshipToIncidentPostmortemData(id string, type_ IncidentPostmortemType) *RelationshipToIncidentPostmortemData`
 
-NewRelationshipToIncidentPostmortemData instantiates a new RelationshipToIncidentPostmortemData object
+NewRelationshipToIncidentPostmortemData instantiates a new RelationshipToIncidentPostmortemData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRelationshipToIncidentPostmortemDataWithDefaults
 
 `func NewRelationshipToIncidentPostmortemDataWithDefaults() *RelationshipToIncidentPostmortemData`
 
-NewRelationshipToIncidentPostmortemDataWithDefaults instantiates a new RelationshipToIncidentPostmortemData object
+NewRelationshipToIncidentPostmortemDataWithDefaults instantiates a new RelationshipToIncidentPostmortemData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetId
 

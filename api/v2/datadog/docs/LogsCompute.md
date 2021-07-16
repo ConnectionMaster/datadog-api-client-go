@@ -3,30 +3,30 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Aggregation** | [**LogsAggregationFunction**](LogsAggregationFunction.md) |  | 
 **Interval** | Pointer to **string** | The time buckets&#39; size (only used for type&#x3D;timeseries) Defaults to a resolution of 150 points | [optional] 
 **Metric** | Pointer to **string** | The metric to use | [optional] 
-**Type** | Pointer to [**LogsComputeType**](LogsComputeType.md) |  | [optional] [default to "total"]
+**Type** | Pointer to [**LogsComputeType**](LogsComputeType.md) |  | [optional] [default to LOGSCOMPUTETYPE_TOTAL]
 
 ## Methods
 
 ### NewLogsCompute
 
-`func NewLogsCompute(aggregation LogsAggregationFunction, ) *LogsCompute`
+`func NewLogsCompute(aggregation LogsAggregationFunction) *LogsCompute`
 
-NewLogsCompute instantiates a new LogsCompute object
+NewLogsCompute instantiates a new LogsCompute object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsComputeWithDefaults
 
 `func NewLogsComputeWithDefaults() *LogsCompute`
 
-NewLogsComputeWithDefaults instantiates a new LogsCompute object
+NewLogsComputeWithDefaults instantiates a new LogsCompute object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAggregation
 

@@ -1,9 +1,9 @@
-# \LogsApi
+# LogsApi
 
 All URIs are relative to *https://api.datadoghq.com*
 
 Method | HTTP request | Description
-------------- | ------------- | -------------
+------ | ------------ | ------------
 [**AggregateLogs**](LogsApi.md#AggregateLogs) | **Post** /api/v2/logs/analytics/aggregate | Aggregate events
 [**ListLogs**](LogsApi.md#ListLogs) | **Post** /api/v2/logs/events/search | Search logs
 [**ListLogsGet**](LogsApi.md#ListLogsGet) | **Get** /api/v2/logs/events | Get a list of logs
@@ -12,11 +12,9 @@ Method | HTTP request | Description
 
 ## AggregateLogs
 
-> LogsAggregateResponse AggregateLogs(ctx).Body(body).Execute()
+> LogsAggregateResponse AggregateLogs(ctx, body)
 
-Aggregate events
-
-
+The API endpoint to aggregate events into buckets and compute metrics and timeseries.
 
 ### Example
 
@@ -32,47 +30,37 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     body := *datadog.NewLogsAggregateRequest() // LogsAggregateRequest | 
 
     configuration := datadog.NewConfiguration()
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsApi.AggregateLogs(ctx).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsApi.AggregateLogs(ctx, body)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsApi.AggregateLogs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsApi.AggregateLogs`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AggregateLogs`: LogsAggregateResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsApi.AggregateLogs:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsApi.AggregateLogs:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiAggregateLogsRequest struct via the builder pattern
+### Required Parameters
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**LogsAggregateRequest**](LogsAggregateRequest.md) |  | 
+---- | ---- | ------------ | ------
+**ctx** | **context.Context** | Context for authentication, logging, cancellation, deadlines, tracing, etc. |
+**body** | [**LogsAggregateRequest**](LogsAggregateRequest.md) |  | 
+
+
+### Optional Parameters
+
+This endpoint does not have optional parameters.
+
 
 ### Return type
 
@@ -94,11 +82,19 @@ Name | Type | Description  | Notes
 
 ## ListLogs
 
-> LogsListResponse ListLogs(ctx).Body(body).Execute()
+> LogsListResponse ListLogs(ctx, datadog.ListLogsOptionalParameters{})
 
-Search logs
+List endpoint returns logs that match a log search query.
+[Results are paginated][1].
 
+Use this endpoint to build complex logs filtering and search.
 
+**If you are considering archiving logs for your organization,
+consider use of the Datadog archive capabilities instead of the log list API.
+See [Datadog Logs Archive documentation][2].**
+
+[1]: /logs/guide/collect-multiple-logs-with-pagination
+[2]: https://docs.datadoghq.com/logs/archives
 
 ### Example
 
@@ -114,48 +110,41 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     body := *datadog.NewLogsListRequest() // LogsListRequest |  (optional)
+    optionalParams := datadog.ListLogsOptionalParameters{
+        Body: &body,
+    }
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("ListLogs", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsApi.ListLogs(ctx).Body(body).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsApi.ListLogs(ctx, optionalParams)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsApi.ListLogs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsApi.ListLogs`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListLogs`: LogsListResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsApi.ListLogs:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsApi.ListLogs:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListLogsRequest struct via the builder pattern
+### Optional Parameters
+
+
+Other parameters are passed through a pointer to a ListLogsOptionalParameters struct.
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**LogsListRequest**](LogsListRequest.md) |  | 
+---- | ---- | ------------ | ------
+**body** | [**LogsListRequest**](LogsListRequest.md) |  | 
 
 ### Return type
 
@@ -177,11 +166,19 @@ Name | Type | Description  | Notes
 
 ## ListLogsGet
 
-> LogsListResponse ListLogsGet(ctx).FilterQuery(filterQuery).FilterIndex(filterIndex).FilterFrom(filterFrom).FilterTo(filterTo).Sort(sort).PageCursor(pageCursor).PageLimit(pageLimit).Execute()
+> LogsListResponse ListLogsGet(ctx, datadog.ListLogsGetOptionalParameters{})
 
-Get a list of logs
+List endpoint returns logs that match a log search query.
+[Results are paginated][1].
 
+Use this endpoint to see your latest logs.
 
+**If you are considering archiving logs for your organization,
+consider use of the Datadog archive capabilities instead of the log list API.
+See [Datadog Logs Archive documentation][2].**
+
+[1]: /logs/guide/collect-multiple-logs-with-pagination
+[2]: https://docs.datadoghq.com/logs/archives
 
 ### Example
 
@@ -198,18 +195,7 @@ import (
 )
 
 func main() {
-    ctx := context.WithValue(
-        context.Background(),
-        datadog.ContextAPIKeys,
-        map[string]datadog.APIKey{
-            "apiKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_API_KEY"),
-            },
-            "appKeyAuth": {
-                Key: os.Getenv("DD_CLIENT_APP_KEY"),
-            },
-        },
-    )
+    ctx := datadog.NewDefaultContext(context.Background())
 
     filterQuery := "@datacenter:us @role:db" // string | Search query following logs syntax. (optional)
     filterIndex := "main" // string | For customers with multiple indexes, the indexes to search Defaults to '*' which means all indexes (optional)
@@ -218,40 +204,50 @@ func main() {
     sort := datadog.LogsSort("timestamp") // LogsSort | Order of logs in results. (optional)
     pageCursor := "eyJzdGFydEF0IjoiQVFBQUFYS2tMS3pPbm40NGV3QUFBQUJCV0V0clRFdDZVbG8zY3pCRmNsbHJiVmxDWlEifQ==" // string | List following results with a cursor provided in the previous query. (optional)
     pageLimit := int32(25) // int32 | Maximum number of logs in the response. (optional) (default to 10)
+    optionalParams := datadog.ListLogsGetOptionalParameters{
+        FilterQuery: &filterQuery,
+        FilterIndex: &filterIndex,
+        FilterFrom: &filterFrom,
+        FilterTo: &filterTo,
+        Sort: &sort,
+        PageCursor: &pageCursor,
+        PageLimit: &pageLimit,
+    }
 
     configuration := datadog.NewConfiguration()
-    configuration.SetUnstableOperationEnabled("ListLogsGet", true)
 
-    api_client := datadog.NewAPIClient(configuration)
-    resp, r, err := api_client.LogsApi.ListLogsGet(ctx).FilterQuery(filterQuery).FilterIndex(filterIndex).FilterFrom(filterFrom).FilterTo(filterTo).Sort(sort).PageCursor(pageCursor).PageLimit(pageLimit).Execute()
+    apiClient := datadog.NewAPIClient(configuration)
+    resp, r, err := apiClient.LogsApi.ListLogsGet(ctx, optionalParams)
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `LogsApi.ListLogsGet``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `LogsApi.ListLogsGet`: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListLogsGet`: LogsListResponse
-    response_content, _ := json.MarshalIndent(resp, "", "  ")
-    fmt.Fprintf(os.Stdout, "Response from LogsApi.ListLogsGet:\n%s\n", response_content)
+    responseContent, _ := json.MarshalIndent(resp, "", "  ")
+    fmt.Fprintf(os.Stdout, "Response from LogsApi.ListLogsGet:\n%s\n", responseContent)
 }
 ```
 
-### Path Parameters
+### Required Parameters
 
 
 
-### Other Parameters
 
-Other parameters are passed through a pointer to a apiListLogsGetRequest struct via the builder pattern
+### Optional Parameters
+
+
+Other parameters are passed through a pointer to a ListLogsGetOptionalParameters struct.
 
 
 Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **filterQuery** | **string** | Search query following logs syntax. | 
- **filterIndex** | **string** | For customers with multiple indexes, the indexes to search Defaults to &#39;*&#39; which means all indexes | 
- **filterFrom** | **time.Time** | Minimum timestamp for requested logs. | 
- **filterTo** | **time.Time** | Maximum timestamp for requested logs. | 
- **sort** | [**LogsSort**](LogsSort.md) | Order of logs in results. | 
- **pageCursor** | **string** | List following results with a cursor provided in the previous query. | 
- **pageLimit** | **int32** | Maximum number of logs in the response. | [default to 10]
+---- | ---- | ------------ | ------
+**filterQuery** | **string** | Search query following logs syntax. | 
+**filterIndex** | **string** | For customers with multiple indexes, the indexes to search Defaults to &#39;*&#39; which means all indexes | 
+**filterFrom** | **time.Time** | Minimum timestamp for requested logs. | 
+**filterTo** | **time.Time** | Maximum timestamp for requested logs. | 
+**sort** | [**LogsSort**](LogsSort.md) | Order of logs in results. | 
+**pageCursor** | **string** | List following results with a cursor provided in the previous query. | 
+**pageLimit** | **int32** | Maximum number of logs in the response. | [default to 10]
 
 ### Return type
 

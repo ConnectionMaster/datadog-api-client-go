@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Path** | **string** | The path to the value the log-based metric will be aggregated over. | 
 **TagName** | Pointer to **string** | Eventual name of the tag that gets created. By default, the path attribute is used as the tag name. | [optional] 
 
@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 
 ### NewLogsMetricGroupBy
 
-`func NewLogsMetricGroupBy(path string, ) *LogsMetricGroupBy`
+`func NewLogsMetricGroupBy(path string) *LogsMetricGroupBy`
 
-NewLogsMetricGroupBy instantiates a new LogsMetricGroupBy object
+NewLogsMetricGroupBy instantiates a new LogsMetricGroupBy object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsMetricGroupByWithDefaults
 
 `func NewLogsMetricGroupByWithDefaults() *LogsMetricGroupBy`
 
-NewLogsMetricGroupByWithDefaults instantiates a new LogsMetricGroupBy object
+NewLogsMetricGroupByWithDefaults instantiates a new LogsMetricGroupBy object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetPath
 

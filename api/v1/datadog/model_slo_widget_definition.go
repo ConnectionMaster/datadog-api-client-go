@@ -10,10 +10,13 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // SLOWidgetDefinition Use the SLO and uptime widget to track your SLOs (Service Level Objectives) and uptime on screenboards and timeboards.
 type SLOWidgetDefinition struct {
+	// Defined global time target.
+	GlobalTimeTarget *string `json:"global_time_target,omitempty"`
 	// Defined error budget.
 	ShowErrorBudget *bool `json:"show_error_budget,omitempty"`
 	// ID of the SLO displayed.
@@ -47,11 +50,43 @@ func NewSLOWidgetDefinition(type_ SLOWidgetDefinitionType, viewType string) *SLO
 // but it doesn't guarantee that properties required by API are set
 func NewSLOWidgetDefinitionWithDefaults() *SLOWidgetDefinition {
 	this := SLOWidgetDefinition{}
-	var type_ SLOWidgetDefinitionType = "slo"
+	var type_ SLOWidgetDefinitionType = SLOWIDGETDEFINITIONTYPE_SLO
 	this.Type = type_
 	var viewType string = "detail"
 	this.ViewType = viewType
 	return &this
+}
+
+// GetGlobalTimeTarget returns the GlobalTimeTarget field value if set, zero value otherwise.
+func (o *SLOWidgetDefinition) GetGlobalTimeTarget() string {
+	if o == nil || o.GlobalTimeTarget == nil {
+		var ret string
+		return ret
+	}
+	return *o.GlobalTimeTarget
+}
+
+// GetGlobalTimeTargetOk returns a tuple with the GlobalTimeTarget field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SLOWidgetDefinition) GetGlobalTimeTargetOk() (*string, bool) {
+	if o == nil || o.GlobalTimeTarget == nil {
+		return nil, false
+	}
+	return o.GlobalTimeTarget, true
+}
+
+// HasGlobalTimeTarget returns a boolean if a field has been set.
+func (o *SLOWidgetDefinition) HasGlobalTimeTarget() bool {
+	if o != nil && o.GlobalTimeTarget != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGlobalTimeTarget gets a reference to the given string and assigns it to the GlobalTimeTarget field.
+func (o *SLOWidgetDefinition) SetGlobalTimeTarget(v string) {
+	o.GlobalTimeTarget = &v
 }
 
 // GetShowErrorBudget returns the ShowErrorBudget field value if set, zero value otherwise.
@@ -328,6 +363,9 @@ func (o *SLOWidgetDefinition) SetViewType(v string) {
 
 func (o SLOWidgetDefinition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.GlobalTimeTarget != nil {
+		toSerialize["global_time_target"] = o.GlobalTimeTarget
+	}
 	if o.ShowErrorBudget != nil {
 		toSerialize["show_error_budget"] = o.ShowErrorBudget
 	}
@@ -356,6 +394,50 @@ func (o SLOWidgetDefinition) MarshalJSON() ([]byte, error) {
 		toSerialize["view_type"] = o.ViewType
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *SLOWidgetDefinition) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Type     *SLOWidgetDefinitionType `json:"type"`
+		ViewType *string                  `json:"view_type"`
+	}{}
+	all := struct {
+		GlobalTimeTarget *string                 `json:"global_time_target,omitempty"`
+		ShowErrorBudget  *bool                   `json:"show_error_budget,omitempty"`
+		SloId            *string                 `json:"slo_id,omitempty"`
+		TimeWindows      *[]WidgetTimeWindows    `json:"time_windows,omitempty"`
+		Title            *string                 `json:"title,omitempty"`
+		TitleAlign       *WidgetTextAlign        `json:"title_align,omitempty"`
+		TitleSize        *string                 `json:"title_size,omitempty"`
+		Type             SLOWidgetDefinitionType `json:"type"`
+		ViewMode         *WidgetViewMode         `json:"view_mode,omitempty"`
+		ViewType         string                  `json:"view_type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	if required.ViewType == nil {
+		return fmt.Errorf("Required field view_type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.GlobalTimeTarget = all.GlobalTimeTarget
+	o.ShowErrorBudget = all.ShowErrorBudget
+	o.SloId = all.SloId
+	o.TimeWindows = all.TimeWindows
+	o.Title = all.Title
+	o.TitleAlign = all.TitleAlign
+	o.TitleSize = all.TitleSize
+	o.Type = all.Type
+	o.ViewMode = all.ViewMode
+	o.ViewType = all.ViewType
+	return nil
 }
 
 type NullableSLOWidgetDefinition struct {

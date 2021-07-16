@@ -3,8 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**DisplayType** | Pointer to **string** | Combination of:   - A severity error, warning, ok, or info   - A line type: dashed, solid, or bold  | [optional] 
+---- | ---- | ----------- | ------
+**DisplayType** | Pointer to **string** | Combination of:   - A severity error, warning, ok, or info   - A line type: dashed, solid, or bold In this case of a Distribution widget, this can be set to be &#x60;x_axis_percentile&#x60;.  | [optional] 
 **Label** | Pointer to **string** | Label to display over the marker. | [optional] 
 **Time** | Pointer to **string** | Timestamp for the widget. | [optional] 
 **Value** | **string** | Value to apply. Can be a single value y &#x3D; 15 or a range of values 0 &lt; y &lt; 10. | 
@@ -13,20 +13,20 @@ Name | Type | Description | Notes
 
 ### NewWidgetMarker
 
-`func NewWidgetMarker(value string, ) *WidgetMarker`
+`func NewWidgetMarker(value string) *WidgetMarker`
 
-NewWidgetMarker instantiates a new WidgetMarker object
+NewWidgetMarker instantiates a new WidgetMarker object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewWidgetMarkerWithDefaults
 
 `func NewWidgetMarkerWithDefaults() *WidgetMarker`
 
-NewWidgetMarkerWithDefaults instantiates a new WidgetMarker object
+NewWidgetMarkerWithDefaults instantiates a new WidgetMarker object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDisplayType
 

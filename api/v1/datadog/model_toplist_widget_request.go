@@ -14,18 +14,25 @@ import (
 
 // ToplistWidgetRequest Updated top list widget.
 type ToplistWidgetRequest struct {
-	ApmQuery *LogQueryDefinition `json:"apm_query,omitempty"`
+	ApmQuery   *LogQueryDefinition `json:"apm_query,omitempty"`
+	AuditQuery *LogQueryDefinition `json:"audit_query,omitempty"`
 	// List of conditional formats.
 	ConditionalFormats *[]WidgetConditionalFormat `json:"conditional_formats,omitempty"`
 	EventQuery         *LogQueryDefinition        `json:"event_query,omitempty"`
-	LogQuery           *LogQueryDefinition        `json:"log_query,omitempty"`
-	NetworkQuery       *LogQueryDefinition        `json:"network_query,omitempty"`
-	ProcessQuery       *ProcessQueryDefinition    `json:"process_query,omitempty"`
+	// List of formulas that operate on queries. **This feature is currently in beta.**
+	Formulas            *[]WidgetFormula        `json:"formulas,omitempty"`
+	LogQuery            *LogQueryDefinition     `json:"log_query,omitempty"`
+	NetworkQuery        *LogQueryDefinition     `json:"network_query,omitempty"`
+	ProcessQuery        *ProcessQueryDefinition `json:"process_query,omitempty"`
+	ProfileMetricsQuery *LogQueryDefinition     `json:"profile_metrics_query,omitempty"`
 	// Widget query.
-	Q             *string             `json:"q,omitempty"`
-	RumQuery      *LogQueryDefinition `json:"rum_query,omitempty"`
-	SecurityQuery *LogQueryDefinition `json:"security_query,omitempty"`
-	Style         *WidgetRequestStyle `json:"style,omitempty"`
+	Q *string `json:"q,omitempty"`
+	// List of queries that can be returned directly or used in formulas. **This feature is currently in beta.**
+	Queries        *[]FormulaAndFunctionQueryDefinition `json:"queries,omitempty"`
+	ResponseFormat *FormulaAndFunctionResponseFormat    `json:"response_format,omitempty"`
+	RumQuery       *LogQueryDefinition                  `json:"rum_query,omitempty"`
+	SecurityQuery  *LogQueryDefinition                  `json:"security_query,omitempty"`
+	Style          *WidgetRequestStyle                  `json:"style,omitempty"`
 }
 
 // NewToplistWidgetRequest instantiates a new ToplistWidgetRequest object
@@ -75,6 +82,38 @@ func (o *ToplistWidgetRequest) HasApmQuery() bool {
 // SetApmQuery gets a reference to the given LogQueryDefinition and assigns it to the ApmQuery field.
 func (o *ToplistWidgetRequest) SetApmQuery(v LogQueryDefinition) {
 	o.ApmQuery = &v
+}
+
+// GetAuditQuery returns the AuditQuery field value if set, zero value otherwise.
+func (o *ToplistWidgetRequest) GetAuditQuery() LogQueryDefinition {
+	if o == nil || o.AuditQuery == nil {
+		var ret LogQueryDefinition
+		return ret
+	}
+	return *o.AuditQuery
+}
+
+// GetAuditQueryOk returns a tuple with the AuditQuery field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToplistWidgetRequest) GetAuditQueryOk() (*LogQueryDefinition, bool) {
+	if o == nil || o.AuditQuery == nil {
+		return nil, false
+	}
+	return o.AuditQuery, true
+}
+
+// HasAuditQuery returns a boolean if a field has been set.
+func (o *ToplistWidgetRequest) HasAuditQuery() bool {
+	if o != nil && o.AuditQuery != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuditQuery gets a reference to the given LogQueryDefinition and assigns it to the AuditQuery field.
+func (o *ToplistWidgetRequest) SetAuditQuery(v LogQueryDefinition) {
+	o.AuditQuery = &v
 }
 
 // GetConditionalFormats returns the ConditionalFormats field value if set, zero value otherwise.
@@ -139,6 +178,38 @@ func (o *ToplistWidgetRequest) HasEventQuery() bool {
 // SetEventQuery gets a reference to the given LogQueryDefinition and assigns it to the EventQuery field.
 func (o *ToplistWidgetRequest) SetEventQuery(v LogQueryDefinition) {
 	o.EventQuery = &v
+}
+
+// GetFormulas returns the Formulas field value if set, zero value otherwise.
+func (o *ToplistWidgetRequest) GetFormulas() []WidgetFormula {
+	if o == nil || o.Formulas == nil {
+		var ret []WidgetFormula
+		return ret
+	}
+	return *o.Formulas
+}
+
+// GetFormulasOk returns a tuple with the Formulas field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToplistWidgetRequest) GetFormulasOk() (*[]WidgetFormula, bool) {
+	if o == nil || o.Formulas == nil {
+		return nil, false
+	}
+	return o.Formulas, true
+}
+
+// HasFormulas returns a boolean if a field has been set.
+func (o *ToplistWidgetRequest) HasFormulas() bool {
+	if o != nil && o.Formulas != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFormulas gets a reference to the given []WidgetFormula and assigns it to the Formulas field.
+func (o *ToplistWidgetRequest) SetFormulas(v []WidgetFormula) {
+	o.Formulas = &v
 }
 
 // GetLogQuery returns the LogQuery field value if set, zero value otherwise.
@@ -237,6 +308,38 @@ func (o *ToplistWidgetRequest) SetProcessQuery(v ProcessQueryDefinition) {
 	o.ProcessQuery = &v
 }
 
+// GetProfileMetricsQuery returns the ProfileMetricsQuery field value if set, zero value otherwise.
+func (o *ToplistWidgetRequest) GetProfileMetricsQuery() LogQueryDefinition {
+	if o == nil || o.ProfileMetricsQuery == nil {
+		var ret LogQueryDefinition
+		return ret
+	}
+	return *o.ProfileMetricsQuery
+}
+
+// GetProfileMetricsQueryOk returns a tuple with the ProfileMetricsQuery field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToplistWidgetRequest) GetProfileMetricsQueryOk() (*LogQueryDefinition, bool) {
+	if o == nil || o.ProfileMetricsQuery == nil {
+		return nil, false
+	}
+	return o.ProfileMetricsQuery, true
+}
+
+// HasProfileMetricsQuery returns a boolean if a field has been set.
+func (o *ToplistWidgetRequest) HasProfileMetricsQuery() bool {
+	if o != nil && o.ProfileMetricsQuery != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProfileMetricsQuery gets a reference to the given LogQueryDefinition and assigns it to the ProfileMetricsQuery field.
+func (o *ToplistWidgetRequest) SetProfileMetricsQuery(v LogQueryDefinition) {
+	o.ProfileMetricsQuery = &v
+}
+
 // GetQ returns the Q field value if set, zero value otherwise.
 func (o *ToplistWidgetRequest) GetQ() string {
 	if o == nil || o.Q == nil {
@@ -267,6 +370,70 @@ func (o *ToplistWidgetRequest) HasQ() bool {
 // SetQ gets a reference to the given string and assigns it to the Q field.
 func (o *ToplistWidgetRequest) SetQ(v string) {
 	o.Q = &v
+}
+
+// GetQueries returns the Queries field value if set, zero value otherwise.
+func (o *ToplistWidgetRequest) GetQueries() []FormulaAndFunctionQueryDefinition {
+	if o == nil || o.Queries == nil {
+		var ret []FormulaAndFunctionQueryDefinition
+		return ret
+	}
+	return *o.Queries
+}
+
+// GetQueriesOk returns a tuple with the Queries field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToplistWidgetRequest) GetQueriesOk() (*[]FormulaAndFunctionQueryDefinition, bool) {
+	if o == nil || o.Queries == nil {
+		return nil, false
+	}
+	return o.Queries, true
+}
+
+// HasQueries returns a boolean if a field has been set.
+func (o *ToplistWidgetRequest) HasQueries() bool {
+	if o != nil && o.Queries != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQueries gets a reference to the given []FormulaAndFunctionQueryDefinition and assigns it to the Queries field.
+func (o *ToplistWidgetRequest) SetQueries(v []FormulaAndFunctionQueryDefinition) {
+	o.Queries = &v
+}
+
+// GetResponseFormat returns the ResponseFormat field value if set, zero value otherwise.
+func (o *ToplistWidgetRequest) GetResponseFormat() FormulaAndFunctionResponseFormat {
+	if o == nil || o.ResponseFormat == nil {
+		var ret FormulaAndFunctionResponseFormat
+		return ret
+	}
+	return *o.ResponseFormat
+}
+
+// GetResponseFormatOk returns a tuple with the ResponseFormat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ToplistWidgetRequest) GetResponseFormatOk() (*FormulaAndFunctionResponseFormat, bool) {
+	if o == nil || o.ResponseFormat == nil {
+		return nil, false
+	}
+	return o.ResponseFormat, true
+}
+
+// HasResponseFormat returns a boolean if a field has been set.
+func (o *ToplistWidgetRequest) HasResponseFormat() bool {
+	if o != nil && o.ResponseFormat != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseFormat gets a reference to the given FormulaAndFunctionResponseFormat and assigns it to the ResponseFormat field.
+func (o *ToplistWidgetRequest) SetResponseFormat(v FormulaAndFunctionResponseFormat) {
+	o.ResponseFormat = &v
 }
 
 // GetRumQuery returns the RumQuery field value if set, zero value otherwise.
@@ -370,11 +537,17 @@ func (o ToplistWidgetRequest) MarshalJSON() ([]byte, error) {
 	if o.ApmQuery != nil {
 		toSerialize["apm_query"] = o.ApmQuery
 	}
+	if o.AuditQuery != nil {
+		toSerialize["audit_query"] = o.AuditQuery
+	}
 	if o.ConditionalFormats != nil {
 		toSerialize["conditional_formats"] = o.ConditionalFormats
 	}
 	if o.EventQuery != nil {
 		toSerialize["event_query"] = o.EventQuery
+	}
+	if o.Formulas != nil {
+		toSerialize["formulas"] = o.Formulas
 	}
 	if o.LogQuery != nil {
 		toSerialize["log_query"] = o.LogQuery
@@ -385,8 +558,17 @@ func (o ToplistWidgetRequest) MarshalJSON() ([]byte, error) {
 	if o.ProcessQuery != nil {
 		toSerialize["process_query"] = o.ProcessQuery
 	}
+	if o.ProfileMetricsQuery != nil {
+		toSerialize["profile_metrics_query"] = o.ProfileMetricsQuery
+	}
 	if o.Q != nil {
 		toSerialize["q"] = o.Q
+	}
+	if o.Queries != nil {
+		toSerialize["queries"] = o.Queries
+	}
+	if o.ResponseFormat != nil {
+		toSerialize["response_format"] = o.ResponseFormat
 	}
 	if o.RumQuery != nil {
 		toSerialize["rum_query"] = o.RumQuery

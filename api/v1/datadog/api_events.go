@@ -9,6 +9,7 @@
 package datadog
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -24,14 +25,142 @@ var (
 // EventsApiService EventsApi service
 type EventsApiService service
 
-type ApiGetEventRequest struct {
+type apiCreateEventRequest struct {
+	ctx        _context.Context
+	ApiService *EventsApiService
+	body       *EventCreateRequest
+}
+
+/*
+ * CreateEvent Post an event
+ * This endpoint allows you to post events to the stream.
+Tag them, set priority and event aggregate them with other events.
+*/
+func (a *EventsApiService) CreateEvent(ctx _context.Context, body EventCreateRequest) (EventCreateResponse, *_nethttp.Response, error) {
+	req := apiCreateEventRequest{
+		ApiService: a,
+		ctx:        ctx,
+		body:       &body,
+	}
+
+	return req.ApiService.createEventExecute(req)
+}
+
+/*
+ * Execute executes the request
+ * @return EventCreateResponse
+ */
+func (a *EventsApiService) createEventExecute(r apiCreateEventRequest) (EventCreateResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  EventCreateResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.CreateEvent")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/events"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.body == nil {
+		return localVarReturnValue, nil, reportError("body is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+
+	// Set Operation-ID header for telemetry
+	localVarHeaderParams["DD-OPERATION-ID"] = "CreateEvent"
+
+	// body params
+	localVarPostBody = r.body
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiKeyAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["DD-API-KEY"] = key
+			}
+		}
+	}
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.CallAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v APIErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type apiGetEventRequest struct {
 	ctx        _context.Context
 	ApiService *EventsApiService
 	eventId    int64
-}
-
-func (r ApiGetEventRequest) Execute() (EventResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetEventExecute(r)
 }
 
 /*
@@ -40,23 +169,22 @@ func (r ApiGetEventRequest) Execute() (EventResponse, *_nethttp.Response, error)
 
 **Note**: If the event you’re querying contains markdown formatting of any kind,
 you may see characters such as `%`,`\`,`n` in your output.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param eventId The ID of the event.
- * @return ApiGetEventRequest
 */
-func (a *EventsApiService) GetEvent(ctx _context.Context, eventId int64) ApiGetEventRequest {
-	return ApiGetEventRequest{
+func (a *EventsApiService) GetEvent(ctx _context.Context, eventId int64) (EventResponse, *_nethttp.Response, error) {
+	req := apiGetEventRequest{
 		ApiService: a,
 		ctx:        ctx,
 		eventId:    eventId,
 	}
+
+	return req.ApiService.getEventExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return EventResponse
  */
-func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (EventResponse, *_nethttp.Response, error) {
+func (a *EventsApiService) getEventExecute(r apiGetEventRequest) (EventResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -127,18 +255,19 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (EventResponse,
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -182,44 +311,55 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (EventResponse,
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListEventsRequest struct {
-	ctx          _context.Context
-	ApiService   *EventsApiService
-	start        *int64
-	end          *int64
-	priority     *EventPriority
-	sources      *string
-	tags         *string
-	unaggregated *bool
+type apiListEventsRequest struct {
+	ctx              _context.Context
+	ApiService       *EventsApiService
+	start            *int64
+	end              *int64
+	priority         *EventPriority
+	sources          *string
+	tags             *string
+	unaggregated     *bool
+	excludeAggregate *bool
+	page             *int32
 }
 
-func (r ApiListEventsRequest) Start(start int64) ApiListEventsRequest {
-	r.start = &start
-	return r
-}
-func (r ApiListEventsRequest) End(end int64) ApiListEventsRequest {
-	r.end = &end
-	return r
-}
-func (r ApiListEventsRequest) Priority(priority EventPriority) ApiListEventsRequest {
-	r.priority = &priority
-	return r
-}
-func (r ApiListEventsRequest) Sources(sources string) ApiListEventsRequest {
-	r.sources = &sources
-	return r
-}
-func (r ApiListEventsRequest) Tags(tags string) ApiListEventsRequest {
-	r.tags = &tags
-	return r
-}
-func (r ApiListEventsRequest) Unaggregated(unaggregated bool) ApiListEventsRequest {
-	r.unaggregated = &unaggregated
-	return r
+type ListEventsOptionalParameters struct {
+	Priority         *EventPriority
+	Sources          *string
+	Tags             *string
+	Unaggregated     *bool
+	ExcludeAggregate *bool
+	Page             *int32
 }
 
-func (r ApiListEventsRequest) Execute() (EventListResponse, *_nethttp.Response, error) {
-	return r.ApiService.ListEventsExecute(r)
+func NewListEventsOptionalParameters() *ListEventsOptionalParameters {
+	this := ListEventsOptionalParameters{}
+	return &this
+}
+func (r *ListEventsOptionalParameters) WithPriority(priority EventPriority) *ListEventsOptionalParameters {
+	r.Priority = &priority
+	return r
+}
+func (r *ListEventsOptionalParameters) WithSources(sources string) *ListEventsOptionalParameters {
+	r.Sources = &sources
+	return r
+}
+func (r *ListEventsOptionalParameters) WithTags(tags string) *ListEventsOptionalParameters {
+	r.Tags = &tags
+	return r
+}
+func (r *ListEventsOptionalParameters) WithUnaggregated(unaggregated bool) *ListEventsOptionalParameters {
+	r.Unaggregated = &unaggregated
+	return r
+}
+func (r *ListEventsOptionalParameters) WithExcludeAggregate(excludeAggregate bool) *ListEventsOptionalParameters {
+	r.ExcludeAggregate = &excludeAggregate
+	return r
+}
+func (r *ListEventsOptionalParameters) WithPage(page int32) *ListEventsOptionalParameters {
+	r.Page = &page
+	return r
 }
 
 /*
@@ -232,22 +372,38 @@ you may see characters such as `%`,`\`,`n` in your output.
 
 - This endpoint returns a maximum of `1000` most recent results. To return additional results,
 identify the last timestamp of the last result and set that as the `end` query time to
-paginate the results.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiListEventsRequest
+paginate the results. You can also use the page parameter to specify which set of `1000` results to return.
 */
-func (a *EventsApiService) ListEvents(ctx _context.Context) ApiListEventsRequest {
-	return ApiListEventsRequest{
+func (a *EventsApiService) ListEvents(ctx _context.Context, start int64, end int64, o ...ListEventsOptionalParameters) (EventListResponse, *_nethttp.Response, error) {
+	req := apiListEventsRequest{
 		ApiService: a,
 		ctx:        ctx,
+		start:      &start,
+		end:        &end,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue EventListResponse
+		return localVarReturnValue, nil, reportError("only one argument of type ListEventsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.priority = o[0].Priority
+		req.sources = o[0].Sources
+		req.tags = o[0].Tags
+		req.unaggregated = o[0].Unaggregated
+		req.excludeAggregate = o[0].ExcludeAggregate
+		req.page = o[0].Page
+	}
+
+	return req.ApiService.listEventsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return EventListResponse
  */
-func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (EventListResponse, *_nethttp.Response, error) {
+func (a *EventsApiService) listEventsExecute(r apiListEventsRequest) (EventListResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -287,6 +443,12 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (EventListR
 	}
 	if r.unaggregated != nil {
 		localVarQueryParams.Add("unaggregated", parameterToString(*r.unaggregated, ""))
+	}
+	if r.excludeAggregate != nil {
+		localVarQueryParams.Add("exclude_aggregate", parameterToString(*r.excludeAggregate, ""))
+	}
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -337,18 +499,19 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (EventListR
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

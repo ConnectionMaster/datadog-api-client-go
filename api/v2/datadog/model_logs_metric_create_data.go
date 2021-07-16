@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // LogsMetricCreateData The new log-based metric properties.
@@ -37,7 +38,7 @@ func NewLogsMetricCreateData(attributes LogsMetricCreateAttributes, id string, t
 // but it doesn't guarantee that properties required by API are set
 func NewLogsMetricCreateDataWithDefaults() *LogsMetricCreateData {
 	this := LogsMetricCreateData{}
-	var type_ LogsMetricType = "logs_metrics"
+	var type_ LogsMetricType = LOGSMETRICTYPE_LOGS_METRICS
 	this.Type = type_
 	return &this
 }
@@ -126,6 +127,40 @@ func (o LogsMetricCreateData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *LogsMetricCreateData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Attributes *LogsMetricCreateAttributes `json:"attributes"`
+		Id         *string                     `json:"id"`
+		Type       *LogsMetricType             `json:"type"`
+	}{}
+	all := struct {
+		Attributes LogsMetricCreateAttributes `json:"attributes"`
+		Id         string                     `json:"id"`
+		Type       LogsMetricType             `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Attributes == nil {
+		return fmt.Errorf("Required field attributes missing")
+	}
+	if required.Id == nil {
+		return fmt.Errorf("Required field id missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Id = all.Id
+	o.Type = all.Type
+	return nil
 }
 
 type NullableLogsMetricCreateData struct {

@@ -3,13 +3,14 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Aggregator** | Pointer to [**WidgetAggregator**](WidgetAggregator.md) |  | [optional] 
 **ApmQuery** | Pointer to [**LogQueryDefinition**](LogQueryDefinition.md) |  | [optional] 
 **EventQuery** | Pointer to [**LogQueryDefinition**](LogQueryDefinition.md) |  | [optional] 
 **LogQuery** | Pointer to [**LogQueryDefinition**](LogQueryDefinition.md) |  | [optional] 
 **NetworkQuery** | Pointer to [**LogQueryDefinition**](LogQueryDefinition.md) |  | [optional] 
 **ProcessQuery** | Pointer to [**ProcessQueryDefinition**](ProcessQueryDefinition.md) |  | [optional] 
+**ProfileMetricsQuery** | Pointer to [**LogQueryDefinition**](LogQueryDefinition.md) |  | [optional] 
 **Q** | Pointer to **string** | Query definition. | [optional] 
 **RumQuery** | Pointer to [**LogQueryDefinition**](LogQueryDefinition.md) |  | [optional] 
 **SecurityQuery** | Pointer to [**LogQueryDefinition**](LogQueryDefinition.md) |  | [optional] 
@@ -20,18 +21,18 @@ Name | Type | Description | Notes
 
 `func NewScatterPlotRequest() *ScatterPlotRequest`
 
-NewScatterPlotRequest instantiates a new ScatterPlotRequest object
+NewScatterPlotRequest instantiates a new ScatterPlotRequest object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewScatterPlotRequestWithDefaults
 
 `func NewScatterPlotRequestWithDefaults() *ScatterPlotRequest`
 
-NewScatterPlotRequestWithDefaults instantiates a new ScatterPlotRequest object
+NewScatterPlotRequestWithDefaults instantiates a new ScatterPlotRequest object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAggregator
 
@@ -182,6 +183,31 @@ SetProcessQuery sets ProcessQuery field to given value.
 `func (o *ScatterPlotRequest) HasProcessQuery() bool`
 
 HasProcessQuery returns a boolean if a field has been set.
+
+### GetProfileMetricsQuery
+
+`func (o *ScatterPlotRequest) GetProfileMetricsQuery() LogQueryDefinition`
+
+GetProfileMetricsQuery returns the ProfileMetricsQuery field if non-nil, zero value otherwise.
+
+### GetProfileMetricsQueryOk
+
+`func (o *ScatterPlotRequest) GetProfileMetricsQueryOk() (*LogQueryDefinition, bool)`
+
+GetProfileMetricsQueryOk returns a tuple with the ProfileMetricsQuery field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetProfileMetricsQuery
+
+`func (o *ScatterPlotRequest) SetProfileMetricsQuery(v LogQueryDefinition)`
+
+SetProfileMetricsQuery sets ProfileMetricsQuery field to given value.
+
+### HasProfileMetricsQuery
+
+`func (o *ScatterPlotRequest) HasProfileMetricsQuery() bool`
+
+HasProfileMetricsQuery returns a boolean if a field has been set.
 
 ### GetQ
 

@@ -3,16 +3,20 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AcceptSelfSigned** | Pointer to **bool** | For SSL test, whether or not the test should allow self signed certificates. | [optional] 
 **AllowInsecure** | Pointer to **bool** | Allows loading insecure content for an HTTP request. | [optional] 
 **DeviceIds** | Pointer to [**[]SyntheticsDeviceID**](SyntheticsDeviceID.md) | For browser test, array with the different device IDs used to run the test. | [optional] 
+**DisableCors** | Pointer to **bool** | Whether or not to disable CORS mechanism. | [optional] 
 **FollowRedirects** | Pointer to **bool** | For API HTTP test, whether or not the test should follow redirects. | [optional] 
 **MinFailureDuration** | Pointer to **int64** | Minimum amount of time in failure required to trigger an alert. | [optional] 
 **MinLocationFailed** | Pointer to **int64** | Minimum number of locations in failure required to trigger an alert. | [optional] 
-**MonitorOptions** | Pointer to [**SyntheticsTestOptionsMonitorOptions**](SyntheticsTestOptions_monitor_options.md) |  | [optional] 
+**MonitorName** | Pointer to **string** | The monitor name is used for the alert title as well as for all monitor dashboard widgets and SLOs. | [optional] 
+**MonitorOptions** | Pointer to [**SyntheticsTestOptionsMonitorOptions**](SyntheticsTestOptionsMonitorOptions.md) |  | [optional] 
+**MonitorPriority** | Pointer to **int32** | Integer from 1 (high) to 5 (low) indicating alert severity. | [optional] 
+**NoScreenshot** | Pointer to **bool** | Prevents saving screenshots of the steps. | [optional] 
 **Retry** | Pointer to [**SyntheticsTestOptionsRetry**](SyntheticsTestOptionsRetry.md) |  | [optional] 
-**TickEvery** | Pointer to [**SyntheticsTickInterval**](SyntheticsTickInterval.md) |  | [optional] 
+**TickEvery** | Pointer to **int64** | The frequency at which to run the Synthetic test (in seconds). | [optional] 
 
 ## Methods
 
@@ -20,18 +24,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsTestOptions() *SyntheticsTestOptions`
 
-NewSyntheticsTestOptions instantiates a new SyntheticsTestOptions object
+NewSyntheticsTestOptions instantiates a new SyntheticsTestOptions object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsTestOptionsWithDefaults
 
 `func NewSyntheticsTestOptionsWithDefaults() *SyntheticsTestOptions`
 
-NewSyntheticsTestOptionsWithDefaults instantiates a new SyntheticsTestOptions object
+NewSyntheticsTestOptionsWithDefaults instantiates a new SyntheticsTestOptions object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAcceptSelfSigned
 
@@ -108,6 +112,31 @@ SetDeviceIds sets DeviceIds field to given value.
 
 HasDeviceIds returns a boolean if a field has been set.
 
+### GetDisableCors
+
+`func (o *SyntheticsTestOptions) GetDisableCors() bool`
+
+GetDisableCors returns the DisableCors field if non-nil, zero value otherwise.
+
+### GetDisableCorsOk
+
+`func (o *SyntheticsTestOptions) GetDisableCorsOk() (*bool, bool)`
+
+GetDisableCorsOk returns a tuple with the DisableCors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDisableCors
+
+`func (o *SyntheticsTestOptions) SetDisableCors(v bool)`
+
+SetDisableCors sets DisableCors field to given value.
+
+### HasDisableCors
+
+`func (o *SyntheticsTestOptions) HasDisableCors() bool`
+
+HasDisableCors returns a boolean if a field has been set.
+
 ### GetFollowRedirects
 
 `func (o *SyntheticsTestOptions) GetFollowRedirects() bool`
@@ -183,6 +212,31 @@ SetMinLocationFailed sets MinLocationFailed field to given value.
 
 HasMinLocationFailed returns a boolean if a field has been set.
 
+### GetMonitorName
+
+`func (o *SyntheticsTestOptions) GetMonitorName() string`
+
+GetMonitorName returns the MonitorName field if non-nil, zero value otherwise.
+
+### GetMonitorNameOk
+
+`func (o *SyntheticsTestOptions) GetMonitorNameOk() (*string, bool)`
+
+GetMonitorNameOk returns a tuple with the MonitorName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMonitorName
+
+`func (o *SyntheticsTestOptions) SetMonitorName(v string)`
+
+SetMonitorName sets MonitorName field to given value.
+
+### HasMonitorName
+
+`func (o *SyntheticsTestOptions) HasMonitorName() bool`
+
+HasMonitorName returns a boolean if a field has been set.
+
 ### GetMonitorOptions
 
 `func (o *SyntheticsTestOptions) GetMonitorOptions() SyntheticsTestOptionsMonitorOptions`
@@ -207,6 +261,56 @@ SetMonitorOptions sets MonitorOptions field to given value.
 `func (o *SyntheticsTestOptions) HasMonitorOptions() bool`
 
 HasMonitorOptions returns a boolean if a field has been set.
+
+### GetMonitorPriority
+
+`func (o *SyntheticsTestOptions) GetMonitorPriority() int32`
+
+GetMonitorPriority returns the MonitorPriority field if non-nil, zero value otherwise.
+
+### GetMonitorPriorityOk
+
+`func (o *SyntheticsTestOptions) GetMonitorPriorityOk() (*int32, bool)`
+
+GetMonitorPriorityOk returns a tuple with the MonitorPriority field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMonitorPriority
+
+`func (o *SyntheticsTestOptions) SetMonitorPriority(v int32)`
+
+SetMonitorPriority sets MonitorPriority field to given value.
+
+### HasMonitorPriority
+
+`func (o *SyntheticsTestOptions) HasMonitorPriority() bool`
+
+HasMonitorPriority returns a boolean if a field has been set.
+
+### GetNoScreenshot
+
+`func (o *SyntheticsTestOptions) GetNoScreenshot() bool`
+
+GetNoScreenshot returns the NoScreenshot field if non-nil, zero value otherwise.
+
+### GetNoScreenshotOk
+
+`func (o *SyntheticsTestOptions) GetNoScreenshotOk() (*bool, bool)`
+
+GetNoScreenshotOk returns a tuple with the NoScreenshot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNoScreenshot
+
+`func (o *SyntheticsTestOptions) SetNoScreenshot(v bool)`
+
+SetNoScreenshot sets NoScreenshot field to given value.
+
+### HasNoScreenshot
+
+`func (o *SyntheticsTestOptions) HasNoScreenshot() bool`
+
+HasNoScreenshot returns a boolean if a field has been set.
 
 ### GetRetry
 
@@ -235,20 +339,20 @@ HasRetry returns a boolean if a field has been set.
 
 ### GetTickEvery
 
-`func (o *SyntheticsTestOptions) GetTickEvery() SyntheticsTickInterval`
+`func (o *SyntheticsTestOptions) GetTickEvery() int64`
 
 GetTickEvery returns the TickEvery field if non-nil, zero value otherwise.
 
 ### GetTickEveryOk
 
-`func (o *SyntheticsTestOptions) GetTickEveryOk() (*SyntheticsTickInterval, bool)`
+`func (o *SyntheticsTestOptions) GetTickEveryOk() (*int64, bool)`
 
 GetTickEveryOk returns a tuple with the TickEvery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTickEvery
 
-`func (o *SyntheticsTestOptions) SetTickEvery(v SyntheticsTickInterval)`
+`func (o *SyntheticsTestOptions) SetTickEvery(v int64)`
 
 SetTickEvery sets TickEvery field to given value.
 

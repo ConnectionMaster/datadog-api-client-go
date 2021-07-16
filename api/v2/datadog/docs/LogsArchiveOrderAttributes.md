@@ -3,27 +3,27 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **ArchiveIds** | **[]string** | An ordered array of &#x60;&lt;ARCHIVE_ID&gt;&#x60; strings, the order of archive IDs in the array define the overall archives order for Datadog. | 
 
 ## Methods
 
 ### NewLogsArchiveOrderAttributes
 
-`func NewLogsArchiveOrderAttributes(archiveIds []string, ) *LogsArchiveOrderAttributes`
+`func NewLogsArchiveOrderAttributes(archiveIds []string) *LogsArchiveOrderAttributes`
 
-NewLogsArchiveOrderAttributes instantiates a new LogsArchiveOrderAttributes object
+NewLogsArchiveOrderAttributes instantiates a new LogsArchiveOrderAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsArchiveOrderAttributesWithDefaults
 
 `func NewLogsArchiveOrderAttributesWithDefaults() *LogsArchiveOrderAttributes`
 
-NewLogsArchiveOrderAttributesWithDefaults instantiates a new LogsArchiveOrderAttributes object
+NewLogsArchiveOrderAttributesWithDefaults instantiates a new LogsArchiveOrderAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetArchiveIds
 

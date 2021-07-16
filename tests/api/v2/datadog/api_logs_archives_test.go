@@ -19,6 +19,8 @@ import (
 // This test uses mocking because: 1) it relies on private data. 2) It relies on external services
 
 func TestLogsArchivesCreate(t *testing.T) {
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 	includeTags := true
 	testCases := []struct {
 		archiveType string
@@ -104,8 +106,7 @@ func TestLogsArchivesCreate(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.archiveType, func(t *testing.T) {
-			ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
-			defer finish()
+			ctx := WithClient(WithFakeAuth(ctx))
 
 			client := Client(ctx)
 			assert := tests.Assert(ctx, t)
@@ -120,7 +121,7 @@ func TestLogsArchivesCreate(t *testing.T) {
 			gock.New(URL).Post("/api/v2/logs/config/archives").MatchType("json").JSON(tc.archive).Reply(200).Type("json").BodyString(outputArchiveStr)
 			defer gock.Off()
 
-			result, httpresp, err := client.LogsArchivesApi.CreateLogsArchive(ctx).Body(tc.archive).Execute()
+			result, httpresp, err := client.LogsArchivesApi.CreateLogsArchive(ctx, tc.archive)
 			assert.NoError(err)
 			assert.Equal(httpresp.StatusCode, 200)
 			assert.Equal(result, *outputArchive.Get())
@@ -129,8 +130,9 @@ func TestLogsArchivesCreate(t *testing.T) {
 }
 
 func TestLogsArchivesUpdate(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	client := Client(ctx)
 	archiveType := "s3"
@@ -164,14 +166,15 @@ func TestLogsArchivesUpdate(t *testing.T) {
 	id := "FOObartotO"
 	gock.New(URL).Put(fmt.Sprintf("/api/v2/logs/config/archives/%s", id)).MatchType("json").JSON(inputArchive).Reply(200).Type("json").BodyString(outputArchiveStr)
 	defer gock.Off()
-	result, httpresp, err := client.LogsArchivesApi.UpdateLogsArchive(ctx, id).Body(inputArchive).Execute()
+	result, httpresp, err := client.LogsArchivesApi.UpdateLogsArchive(ctx, id, inputArchive)
 	assert.Equal(httpresp.StatusCode, 200)
 	assert.Equal(result, *outputArchive.Get())
 }
 
 func TestLogsArchivesGetByID(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	client := Client(ctx)
 	id := "FOObartotO"
@@ -184,14 +187,15 @@ func TestLogsArchivesGetByID(t *testing.T) {
 	assert.NoError(err)
 	gock.New(URL).Get(fmt.Sprintf("/api/v2/logs/config/archives/%s", id)).Reply(200).Type("json").BodyString(outputArchiveStr)
 	defer gock.Off()
-	result, httpresp, err := client.LogsArchivesApi.GetLogsArchive(ctx, id).Execute()
+	result, httpresp, err := client.LogsArchivesApi.GetLogsArchive(ctx, id)
 	assert.Equal(httpresp.StatusCode, 200)
 	assert.Equal(result, *outputArchive.Get())
 }
 
 func TestLogsArchivesDelete(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 	id := "FOObartotO"
 	client := Client(ctx)
@@ -199,14 +203,15 @@ func TestLogsArchivesDelete(t *testing.T) {
 	assert.NoError(err)
 	gock.New(URL).Delete(fmt.Sprintf("/api/v2/logs/config/archives/%s", id)).Reply(204)
 	defer gock.Off()
-	httpresp, err := client.LogsArchivesApi.DeleteLogsArchive(ctx, id).Execute()
+	httpresp, err := client.LogsArchivesApi.DeleteLogsArchive(ctx, id)
 	assert.NoError(err)
 	assert.Equal(httpresp.StatusCode, 204)
 }
 
 func TestLogsArchivesGetAll(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	client := Client(ctx)
 	assert := tests.Assert(ctx, t)
 	action := "getall"
@@ -218,7 +223,7 @@ func TestLogsArchivesGetAll(t *testing.T) {
 	assert.NoError(err)
 	gock.New(URL).Get("/api/v2/logs/config/archives").Reply(200).Type("json").JSON(outputArchivesStr)
 	defer gock.Off()
-	result, httpresp, err := client.LogsArchivesApi.ListLogsArchives(ctx).Execute()
+	result, httpresp, err := client.LogsArchivesApi.ListLogsArchives(ctx)
 	assert.NoError(err)
 	assert.Equal(httpresp.StatusCode, 200)
 	assert.True(len(*result.Data) > 0)
@@ -226,8 +231,9 @@ func TestLogsArchivesGetAll(t *testing.T) {
 }
 
 func TestGetLogsArchiveOrder(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	client := Client(ctx)
 	assert := tests.Assert(ctx, t)
 
@@ -240,7 +246,7 @@ func TestGetLogsArchiveOrder(t *testing.T) {
 	assert.NoError(err)
 	gock.New(URL).Get("/api/v2/logs/config/archive-order").Reply(200).Type("json").JSON(outputArchiveOrderStr)
 	defer gock.Off()
-	result, httpresp, err := client.LogsArchivesApi.GetLogsArchiveOrder(ctx).Execute()
+	result, httpresp, err := client.LogsArchivesApi.GetLogsArchiveOrder(ctx)
 	assert.NoError(err)
 	assert.Equal(httpresp.StatusCode, 200)
 	assert.Equal(*outputArchiveOrder.Get(), result)
@@ -248,8 +254,9 @@ func TestGetLogsArchiveOrder(t *testing.T) {
 }
 
 func TestUpdateLogsArchiveOrder(t *testing.T) {
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	ctx = WithClient(WithFakeAuth(ctx))
 	client := Client(ctx)
 	assert := tests.Assert(ctx, t)
 	input := createUpdatedLogsArchiveOrder(t)
@@ -263,7 +270,7 @@ func TestUpdateLogsArchiveOrder(t *testing.T) {
 	assert.NoError(err)
 	gock.New(URL).Put("/api/v2/logs/config/archive-order").Reply(200).Type("json").JSON(outputArchiveOrderStr)
 	defer gock.Off()
-	result, httpresp, err := client.LogsArchivesApi.UpdateLogsArchiveOrder(ctx).Body(*input).Execute()
+	result, httpresp, err := client.LogsArchivesApi.UpdateLogsArchiveOrder(ctx, *input)
 	assert.NoError(err)
 	assert.Equal(httpresp.StatusCode, 200)
 	assert.Equal(*outputArchiveOrder.Get(), result)

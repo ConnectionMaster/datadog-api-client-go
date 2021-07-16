@@ -19,20 +19,26 @@ type FormulaAndFunctionEventsDataSource string
 // List of FormulaAndFunctionEventsDataSource
 const (
 	FORMULAANDFUNCTIONEVENTSDATASOURCE_LOGS             FormulaAndFunctionEventsDataSource = "logs"
-	FORMULAANDFUNCTIONEVENTSDATASOURCE_ANALYZED_SPANS   FormulaAndFunctionEventsDataSource = "analyzed_spans"
+	FORMULAANDFUNCTIONEVENTSDATASOURCE_SPANS            FormulaAndFunctionEventsDataSource = "spans"
 	FORMULAANDFUNCTIONEVENTSDATASOURCE_NETWORK          FormulaAndFunctionEventsDataSource = "network"
 	FORMULAANDFUNCTIONEVENTSDATASOURCE_RUM              FormulaAndFunctionEventsDataSource = "rum"
 	FORMULAANDFUNCTIONEVENTSDATASOURCE_SECURITY_SIGNALS FormulaAndFunctionEventsDataSource = "security_signals"
 	FORMULAANDFUNCTIONEVENTSDATASOURCE_PROFILES         FormulaAndFunctionEventsDataSource = "profiles"
+	FORMULAANDFUNCTIONEVENTSDATASOURCE_AUDIT            FormulaAndFunctionEventsDataSource = "audit"
 )
 
 var allowedFormulaAndFunctionEventsDataSourceEnumValues = []FormulaAndFunctionEventsDataSource{
 	"logs",
-	"analyzed_spans",
+	"spans",
 	"network",
 	"rum",
 	"security_signals",
 	"profiles",
+	"audit",
+}
+
+func (w *FormulaAndFunctionEventsDataSource) GetAllowedValues() []FormulaAndFunctionEventsDataSource {
+	return allowedFormulaAndFunctionEventsDataSourceEnumValues
 }
 
 func (v *FormulaAndFunctionEventsDataSource) UnmarshalJSON(src []byte) error {

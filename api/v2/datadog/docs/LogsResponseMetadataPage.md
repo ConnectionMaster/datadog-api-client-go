@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **After** | Pointer to **string** | The cursor to use to get the next results, if any. To make the next request, use the same. parameters with the addition of the &#x60;page[cursor]&#x60;. | [optional] 
 
 ## Methods
@@ -12,18 +12,18 @@ Name | Type | Description | Notes
 
 `func NewLogsResponseMetadataPage() *LogsResponseMetadataPage`
 
-NewLogsResponseMetadataPage instantiates a new LogsResponseMetadataPage object
+NewLogsResponseMetadataPage instantiates a new LogsResponseMetadataPage object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsResponseMetadataPageWithDefaults
 
 `func NewLogsResponseMetadataPageWithDefaults() *LogsResponseMetadataPage`
 
-NewLogsResponseMetadataPageWithDefaults instantiates a new LogsResponseMetadataPage object
+NewLogsResponseMetadataPageWithDefaults instantiates a new LogsResponseMetadataPage object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAfter
 

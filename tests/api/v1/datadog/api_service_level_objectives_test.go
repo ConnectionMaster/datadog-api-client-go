@@ -1,7 +1,7 @@
 /*
- * Unless explicitly stated otherwise all files in this repository are licensed under the Apache-2.0 License.
- * This product includes software developed at Datadog (https://www.datadoghq.com/).
- * Copyright 2019-Present Datadog, Inc.
+* Unless explicitly stated otherwise all files in this repository are licensed under the Apache-2.0 License.
+* This product includes software developed at Datadog (https://www.datadoghq.com/).
+* Copyright 2019-Present Datadog, Inc.
  */
 
 package test
@@ -9,7 +9,6 @@ package test
 import (
 	"context"
 	"fmt"
-	"log"
 	"testing"
 
 	"github.com/DataDog/datadog-api-client-go/api/v1/datadog"
@@ -21,8 +20,8 @@ import (
 func getTestServiceCheckMonitor(ctx context.Context, t *testing.T) datadog.Monitor {
 	return datadog.Monitor{
 		Name:    tests.UniqueEntityName(ctx, t),
-		Type:    datadog.MONITORTYPE_SERVICE_CHECK.Ptr(),
-		Query:   datadog.PtrString("\"datadog.agent.check_status\".over(\"database\").last(2).count_by_status()"),
+		Type:    datadog.MONITORTYPE_SERVICE_CHECK,
+		Query:   "\"datadog.agent.check_status\".over(\"database\").last(2).count_by_status()",
 		Message: datadog.PtrString("some message Notify: @hipchat-channel"),
 		Tags: &[]string{
 			"test",
@@ -73,35 +72,37 @@ func isSLOIDPresent(sloID string, slos []datadog.ServiceLevelObjective) error {
 }
 
 func TestSLOMonitorLifecycle(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
 	// Create monitor to reference in the SLO
 	testServiceCheckMonitor := getTestServiceCheckMonitor(ctx, t)
-	monitor, httpresp, err := Client(ctx).MonitorsApi.CreateMonitor(ctx).Body(testServiceCheckMonitor).Execute()
+	monitor, httpresp, err := Client(ctx).MonitorsApi.CreateMonitor(ctx, testServiceCheckMonitor)
 	if err != nil {
 		t.Fatalf("Error creating Monitor %v: Response %s: %v", testServiceCheckMonitor, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
-	defer deleteMonitor(ctx, monitor.GetId())
+	defer deleteMonitor(ctx, t, monitor.GetId())
 	assert.Equal(200, httpresp.StatusCode)
 
 	testMonitorSLO := getTestMonitorSLO(ctx, t)
 	testMonitorSLO.MonitorIds = &[]int64{*monitor.Id}
 
 	// Create SLO
-	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testMonitorSLO).Execute()
+	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx, testMonitorSLO)
 	if err != nil {
 		t.Fatalf("Error creating SLO %v: Response %s: %v", testMonitorSLO, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	slo := sloResp.GetData()[0]
-	defer deleteSLOIfExists(ctx, slo.GetId())
+	defer deleteSLOIfExists(ctx, t, slo.GetId())
 	assert.Equal(200, httpresp.StatusCode)
 	assert.Equal(testMonitorSLO.GetName(), slo.GetName())
 
 	// Edit SLO
 	slo.SetDescription("Updated description")
-	sloResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.UpdateSLO(ctx, slo.GetId()).Body(slo).Execute()
+	sloResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.UpdateSLO(ctx, slo.GetId(), slo)
 	if err != nil {
 		t.Fatalf("Error updating SLO %v: Response %s: %v", slo, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -111,7 +112,7 @@ func TestSLOMonitorLifecycle(t *testing.T) {
 
 	// Check that the SLO can be deleted
 	var canDeleteResp datadog.CheckCanDeleteSLOResponse
-	canDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx).Ids(slo2.GetId()).Execute()
+	canDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx, slo2.GetId())
 	if err != nil {
 		t.Fatalf("Error checking that SLO %s can be deleted: Response %s: %v", slo.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -121,7 +122,7 @@ func TestSLOMonitorLifecycle(t *testing.T) {
 
 	// Get SLO
 	var sloGetResp datadog.SLOResponse
-	sloGetResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLO(ctx, slo2.GetId()).Execute()
+	sloGetResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLO(ctx, slo2.GetId())
 	if err != nil {
 		t.Fatalf("Error getting SLO %s: Response %s: %v", slo2.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -132,8 +133,7 @@ func TestSLOMonitorLifecycle(t *testing.T) {
 	// Get SLO history
 	Client(ctx).GetConfig().SetUnstableOperationEnabled("GetSLOHistory", true)
 	now := tests.ClockFromContext(ctx).Now().Unix()
-	_, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLOHistory(ctx, slo3.GetId()).
-		FromTs(now - 11).ToTs(now - 1).Execute()
+	_, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLOHistory(ctx, slo3.GetId(), now-11, now-1)
 	// the contents of history really depend on the org that this test is running in, so we just ensure
 	// that the structure deserialized properly and no error was returned
 	if err != nil {
@@ -143,7 +143,7 @@ func TestSLOMonitorLifecycle(t *testing.T) {
 
 	// Delete SLO
 	var sloDeleteResp datadog.SLODeleteResponse
-	sloDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, slo3.GetId()).Execute()
+	sloDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, slo3.GetId())
 	if err != nil {
 		t.Fatalf("Error deleting SLO %s: Response %s: %v", slo3.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -152,24 +152,26 @@ func TestSLOMonitorLifecycle(t *testing.T) {
 }
 
 func TestSLOEventLifecycle(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
 	// Create SLO
 	testEventSLO := getTestEventSLO(ctx, t)
-	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testEventSLO).Execute()
+	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx, testEventSLO)
 	if err != nil {
 		t.Fatalf("Error creating SLO %v: Response %s: %v", testEventSLO, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	slo := sloResp.GetData()[0]
-	defer deleteSLOIfExists(ctx, slo.GetId())
+	defer deleteSLOIfExists(ctx, t, slo.GetId())
 	assert.Equal(200, httpresp.StatusCode)
 	assert.Equal(testEventSLO.GetName(), slo.GetName())
 
 	// Edit SLO
 	slo.SetDescription("Updated description")
-	sloResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.UpdateSLO(ctx, slo.GetId()).Body(slo).Execute()
+	sloResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.UpdateSLO(ctx, slo.GetId(), slo)
 	if err != nil {
 		t.Fatalf("Error updating SLO %v: Response %s: %v", slo, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -179,7 +181,7 @@ func TestSLOEventLifecycle(t *testing.T) {
 
 	// Check that the SLO can be deleted
 	var canDeleteResp datadog.CheckCanDeleteSLOResponse
-	canDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx).Ids(slo2.GetId()).Execute()
+	canDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx, slo2.GetId())
 	if err != nil {
 		t.Fatalf("Error checking that SLO %s can be deleted: Response %s: %v", slo.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -189,7 +191,7 @@ func TestSLOEventLifecycle(t *testing.T) {
 
 	// Get SLO
 	var sloGetResp datadog.SLOResponse
-	sloGetResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLO(ctx, slo2.GetId()).Execute()
+	sloGetResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLO(ctx, slo2.GetId())
 	if err != nil {
 		t.Fatalf("Error getting SLO %s: Response %s: %v", slo2.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -200,8 +202,7 @@ func TestSLOEventLifecycle(t *testing.T) {
 	// Get SLO history
 	Client(ctx).GetConfig().SetUnstableOperationEnabled("GetSLOHistory", true)
 	now := tests.ClockFromContext(ctx).Now().Unix()
-	_, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLOHistory(ctx, slo3.GetId()).
-		FromTs(now - 11).ToTs(now - 1).Execute()
+	_, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.GetSLOHistory(ctx, slo3.GetId(), now-11, now-1)
 	// the contents of history really depend on the org that this test is running in, so we just ensure
 	// that the structure deserialized properly and no error was returned
 	if err != nil {
@@ -211,7 +212,7 @@ func TestSLOEventLifecycle(t *testing.T) {
 
 	// Delete SLO
 	var sloDeleteResp datadog.SLODeleteResponse
-	sloDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, slo3.GetId()).Execute()
+	sloDeleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, slo3.GetId())
 	if err != nil {
 		t.Fatalf("Error deleting SLO %s: Response %s: %v", slo3.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -220,45 +221,47 @@ func TestSLOEventLifecycle(t *testing.T) {
 }
 
 func TestSLOMultipleInstances(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
 	// Create monitor to reference in the monitor SLO
 	testServiceCheckMonitor := getTestServiceCheckMonitor(ctx, t)
-	monitor, httpresp, err := Client(ctx).MonitorsApi.CreateMonitor(ctx).Body(testServiceCheckMonitor).Execute()
+	monitor, httpresp, err := Client(ctx).MonitorsApi.CreateMonitor(ctx, testServiceCheckMonitor)
 	if err != nil {
 		t.Fatalf("Error creating Monitor %v: Response %s: %v", testServiceCheckMonitor, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
-	defer deleteMonitor(ctx, monitor.GetId())
+	defer deleteMonitor(ctx, t, monitor.GetId())
 	assert.Equal(200, httpresp.StatusCode)
 
 	testMonitorSLO := getTestMonitorSLO(ctx, t)
 	testMonitorSLO.MonitorIds = &[]int64{*monitor.Id}
 
 	// Create monitor SLO
-	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testMonitorSLO).Execute()
+	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx, testMonitorSLO)
 	if err != nil {
 		t.Fatalf("Error creating SLO %v: Response %s: %v", testMonitorSLO, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	monitorSLO := sloResp.GetData()[0]
-	defer deleteSLOIfExists(ctx, monitorSLO.GetId())
+	defer deleteSLOIfExists(ctx, t, monitorSLO.GetId())
 	assert.Equal(200, httpresp.StatusCode)
 
 	// Create event SLO
 	testEventSLO := getTestEventSLO(ctx, t)
-	sloResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testEventSLO).Execute()
+	sloResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx, testEventSLO)
 	if err != nil {
 		t.Fatalf("Error creating SLO %v: Response %s: %v", testMonitorSLO, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	eventSLO := sloResp.GetData()[0]
-	defer deleteSLOIfExists(ctx, eventSLO.GetId())
+	defer deleteSLOIfExists(ctx, t, eventSLO.GetId())
 	assert.Equal(200, httpresp.StatusCode)
 
 	// Get multiple SLOs
 	var slosResp datadog.SLOListResponse
-	slosResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.ListSLOs(ctx).
-		Ids(fmt.Sprintf("%s,%s", monitorSLO.GetId(), eventSLO.GetId())).Execute()
+	slosResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.ListSLOs(ctx, *datadog.NewListSLOsOptionalParameters().
+		WithIds(fmt.Sprintf("%s,%s", monitorSLO.GetId(), eventSLO.GetId())))
 	if err != nil {
 		t.Fatalf("Error getting SLOs: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -269,10 +272,10 @@ func TestSLOMultipleInstances(t *testing.T) {
 
 	// Use bulk delete operation to delete the event SLO
 	var deleteResp datadog.SLOBulkDeleteResponse
-	deleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.DeleteSLOTimeframeInBulk(ctx).
-		Body(map[string][]datadog.SLOTimeframe{
+	deleteResp, httpresp, err = Client(ctx).ServiceLevelObjectivesApi.DeleteSLOTimeframeInBulk(ctx,
+		map[string][]datadog.SLOTimeframe{
 			eventSLO.GetId(): {datadog.SLOTIMEFRAME_SEVEN_DAYS},
-		}).Execute()
+		})
 
 	if err != nil {
 		t.Fatalf("Error bulk deleting SLOs: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
@@ -284,8 +287,8 @@ func TestSLOMultipleInstances(t *testing.T) {
 }
 
 func TestSLOCreateErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -301,7 +304,7 @@ func TestSLOCreateErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(datadog.ServiceLevelObjectiveRequest{}).Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx, datadog.ServiceLevelObjectiveRequest{})
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -311,8 +314,8 @@ func TestSLOCreateErrors(t *testing.T) {
 }
 
 func TestSLOListErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -330,7 +333,7 @@ func TestSLOListErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.ListSLOs(ctx).Ids(tc.Ids).Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.ListSLOs(ctx, *datadog.NewListSLOsOptionalParameters().WithIds(tc.Ids))
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -340,8 +343,8 @@ func TestSLOListErrors(t *testing.T) {
 }
 
 func TestSLOUpdateErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -373,7 +376,7 @@ func TestSLOUpdateErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.UpdateSLO(ctx, "id").Body(tc.Body).Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.UpdateSLO(ctx, "id", tc.Body)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -383,8 +386,8 @@ func TestSLOUpdateErrors(t *testing.T) {
 }
 
 func TestSLOGetErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -400,7 +403,7 @@ func TestSLOGetErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.GetSLO(ctx, "id").Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.GetSLO(ctx, "id")
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -410,8 +413,8 @@ func TestSLOGetErrors(t *testing.T) {
 }
 
 func TestSLODeleteErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -427,7 +430,7 @@ func TestSLODeleteErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, "id").Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, "id")
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -437,9 +440,10 @@ func TestSLODeleteErrors(t *testing.T) {
 }
 
 func TestSLODelete409Error(t *testing.T) {
-	// Setup the Client we'll use to interact with the Test account
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	// Setup the Client we'll use to interact with the Test account
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 
 	// Mocked as the feature is in a broken state right now
@@ -454,12 +458,12 @@ func TestSLODelete409Error(t *testing.T) {
 
 	// FIXME: Make it an integration test when feature is fixed
 	//// Create SLO and reference it in a dashboard to trigger 409
-	//sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testEventSLO).Execute()
+	//sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testEventSLO)
 	//if err != nil {
 	//	t.Fatalf("Error creating SLO %v: Response %s: %v", testMonitorSLO, err.(datadog.GenericOpenAPIError).Body(), err)
 	//}
 	//slo := sloResp.GetData()[0]
-	//defer deleteSLOIfExists(ctx, slo.GetId())
+	//defer deleteSLOIfExists(ctx, t, slo.GetId())
 	//assert.Equal(200, httpresp.StatusCode)
 	//
 	//// SLO Widget
@@ -478,14 +482,14 @@ func TestSLODelete409Error(t *testing.T) {
 	//dashboard.SetLayoutType(datadog.DASHBOARDLAYOUTTYPE_ORDERED)
 	//dashboard.SetWidgets(orderedWidgetList)
 	//dashboard.SetTitle("Go Client Test SLO Widget Dashboard")
-	//createdDashboard, httpresp, err := Client(ctx).DashboardsApi.CreateDashboard(ctx).Body(dashboard).Execute()
+	//createdDashboard, httpresp, err := Client(ctx).DashboardsApi.CreateDashboard(ctx).Body(dashboard)
 	//if err != nil {
 	//	t.Fatalf("Error creating dashboard: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	//}
 	//defer deleteDashboard(createdDashboard.GetId())
 	//assert.Equal(200, httpresp.StatusCode)
 
-	_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, "id").Execute()
+	_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, "id")
 	assert.Equal(409, httpresp.StatusCode)
 	apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.SLODeleteResponse)
 	assert.True(ok)
@@ -493,19 +497,21 @@ func TestSLODelete409Error(t *testing.T) {
 }
 
 func TestSLOHistoryGetErrors(t *testing.T) {
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 	// Setup the Client we'll use to interact with the Test account
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
 	testEventSLO := getTestEventSLO(ctx, t)
-	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testEventSLO).Execute()
+	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx, testEventSLO)
 	if err != nil {
 		t.Fatalf("Error creating SLO %v: Response %s: %v", testEventSLO, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	assert.GreaterOrEqual(len(sloResp.GetData()), 1)
 	slo := sloResp.GetData()[0]
-	defer deleteSLOIfExists(ctx, slo.GetId())
+	defer deleteSLOIfExists(ctx, t, slo.GetId())
 	assert.Equal(200, httpresp.StatusCode)
 
 	testCases := map[string]struct {
@@ -525,7 +531,7 @@ func TestSLOHistoryGetErrors(t *testing.T) {
 			assert := tests.Assert(ctx, t)
 			Client(ctx).GetConfig().SetUnstableOperationEnabled("GetSLOHistory", true)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.GetSLOHistory(ctx, tc.ID).FromTs(123).ToTs(12).Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.GetSLOHistory(ctx, tc.ID, 123, 12)
 			assert.Error(err)
 			assert.NotNil(httpresp, err)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
@@ -537,8 +543,8 @@ func TestSLOHistoryGetErrors(t *testing.T) {
 }
 
 func TestSLOCanDeleteErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -554,7 +560,7 @@ func TestSLOCanDeleteErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx).Ids("").Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx, "")
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -564,9 +570,10 @@ func TestSLOCanDeleteErrors(t *testing.T) {
 }
 
 func TestSLOCanDelete409Error(t *testing.T) {
-	// Setup the Client we'll use to interact with the Test account
-	ctx, finish := WithClient(WithFakeAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
 	defer finish()
+	// Setup the Client we'll use to interact with the Test account
+	ctx = WithClient(WithFakeAuth(ctx))
 	assert := tests.Assert(ctx, t)
 
 	// Mocked as the feature is in a broken state right now
@@ -580,7 +587,7 @@ func TestSLOCanDelete409Error(t *testing.T) {
 	gock.New(URL).Get("/api/v1/slo/can_delete").Reply(409).JSON(res)
 	defer gock.Off()
 
-	_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx).Ids("id").Execute()
+	_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CheckCanDeleteSLO(ctx, "id")
 	assert.Equal(409, httpresp.StatusCode)
 	apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.CheckCanDeleteSLOResponse)
 	assert.True(ok)
@@ -588,8 +595,8 @@ func TestSLOCanDelete409Error(t *testing.T) {
 }
 
 func TestSLOBulkDeleteErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	testCases := map[string]struct {
 		Ctx                func(context.Context) context.Context
@@ -605,7 +612,7 @@ func TestSLOBulkDeleteErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLOTimeframeInBulk(ctx).Body(map[string][]datadog.SLOTimeframe{}).Execute()
+			_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLOTimeframeInBulk(ctx, map[string][]datadog.SLOTimeframe{})
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)
 			assert.True(ok)
@@ -614,16 +621,18 @@ func TestSLOBulkDeleteErrors(t *testing.T) {
 	}
 }
 
-func deleteSLOIfExists(ctx context.Context, sloID string) {
-	_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, sloID).Execute()
+func deleteSLOIfExists(ctx context.Context, t *testing.T, sloID string) {
+	_, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.DeleteSLO(ctx, sloID)
 	if err != nil && httpresp.StatusCode != 404 {
-		log.Printf("Deleting SLO: %v failed with %v, Another test may have already deleted this SLO: %v",
+		t.Logf("Deleting SLO: %v failed with %v, Another test may have already deleted this SLO: %v",
 			sloID, httpresp.StatusCode, err)
 	}
 }
 
 func TestSLOCorrectionsLifecycle(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -635,14 +644,14 @@ func TestSLOCorrectionsLifecycle(t *testing.T) {
 
 	// Create SLO
 	testEventSLO := getTestEventSLO(ctx, t)
-	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx).Body(testEventSLO).Execute()
+	sloResp, httpresp, err := Client(ctx).ServiceLevelObjectivesApi.CreateSLO(ctx, testEventSLO)
 	if err != nil {
 		t.Fatalf("Error creating SLO %v: Response %s: %v", testEventSLO, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	slo := sloResp.GetData()[0]
-	defer deleteSLOIfExists(ctx, slo.GetId())
+	defer deleteSLOIfExists(ctx, t, slo.GetId())
 
-	testSLOCorrectionCreateData := datadog.NewSLOCorrectionCreateRequestData()
+	testSLOCorrectionCreateData := datadog.NewSLOCorrectionCreateData()
 	now := tests.ClockFromContext(ctx).Now().Unix()
 	testTimezone := "UTC"
 	testStart := now
@@ -660,15 +669,15 @@ func TestSLOCorrectionsLifecycle(t *testing.T) {
 		Data: testSLOCorrectionCreateData,
 	}
 
-	sloCorrectionResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.CreateSLOCorrection(ctx).Body(testSLOCorrectionCreate).Execute()
+	sloCorrectionResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.CreateSLOCorrection(ctx, testSLOCorrectionCreate)
 	if err != nil {
 		t.Fatalf("Error creating SLO Correction %v: Response %s: %v", testSLOCorrectionCreate, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	assert.Equal(200, httpresp.StatusCode)
 	sloCorrection := sloCorrectionResp.GetData()
-	defer deleteSLOCorrectionIfExists(ctx, sloCorrection.GetId())
+	defer deleteSLOCorrectionIfExists(ctx, t, sloCorrection.GetId())
 
-	sloCorrectionListResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.ListSLOCorrection(ctx).Execute()
+	sloCorrectionListResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.ListSLOCorrection(ctx)
 	if err != nil {
 		t.Fatalf("Error getting SLO corrections: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -677,7 +686,7 @@ func TestSLOCorrectionsLifecycle(t *testing.T) {
 	sloCorrections := sloCorrectionListResp.GetData()
 	assert.NoError(isSLOCorrecionIDPresent(sloCorrection.GetId(), sloCorrections))
 
-	sloCorrectionGetResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.GetSLOCorrection(ctx, sloCorrection.GetId()).Execute()
+	sloCorrectionGetResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.GetSLOCorrection(ctx, sloCorrection.GetId())
 	if err != nil {
 		t.Fatalf("Error getting SLO correction %s: Response %s: %v", sloCorrection.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -688,7 +697,7 @@ func TestSLOCorrectionsLifecycle(t *testing.T) {
 	assert.Equal(sloCorrectionAttributes.GetTimezone(), testTimezone)
 	assert.Equal(sloCorrectionAttributes.GetCategory(), testCategory)
 
-	testSLOCorrectionUpdateData := datadog.NewSLOCorrectionUpdateRequestData()
+	testSLOCorrectionUpdateData := datadog.NewSLOCorrectionUpdateData()
 	testCategory = datadog.SLOCORRECTIONCATEGORY_OTHER
 	testSLOCorrectionUpdateAttributes := datadog.SLOCorrectionUpdateRequestAttributes{
 		Timezone: &testTimezone,
@@ -701,7 +710,7 @@ func TestSLOCorrectionsLifecycle(t *testing.T) {
 		Data: testSLOCorrectionUpdateData,
 	}
 
-	sloCorrectionUpdateResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.UpdateSLOCorrection(ctx, sloCorrection.GetId()).Body(testSLOCorrectionUpdate).Execute()
+	sloCorrectionUpdateResp, httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.UpdateSLOCorrection(ctx, sloCorrection.GetId(), testSLOCorrectionUpdate)
 	if err != nil {
 		t.Fatalf("Error updating SLO correction %v: Response %s: %v", testSLOCorrectionUpdate, err.(datadog.GenericOpenAPIError).Body(), err)
 	}
@@ -710,22 +719,22 @@ func TestSLOCorrectionsLifecycle(t *testing.T) {
 	sloCorrectionAttributes = sloCorrectionUpdateData.GetAttributes()
 	assert.Equal(sloCorrectionAttributes.GetCategory(), testCategory)
 
-	httpresp, err = Client(ctx).ServiceLevelObjectiveCorrectionsApi.DeleteSLOCorrection(ctx, sloCorrection.GetId()).Execute()
+	httpresp, err = Client(ctx).ServiceLevelObjectiveCorrectionsApi.DeleteSLOCorrection(ctx, sloCorrection.GetId())
 	if err != nil {
 		t.Fatalf("Error deleting SLO correction %s: Response %s: %v", sloCorrection.GetId(), err.(datadog.GenericOpenAPIError).Body(), err)
 	}
 	assert.Equal(204, httpresp.StatusCode)
 }
 
-func deleteSLOCorrectionIfExists(ctx context.Context, sloCorrectionID string) {
-	httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.DeleteSLOCorrection(ctx, sloCorrectionID).Execute()
+func deleteSLOCorrectionIfExists(ctx context.Context, t *testing.T, sloCorrectionID string) {
+	httpresp, err := Client(ctx).ServiceLevelObjectiveCorrectionsApi.DeleteSLOCorrection(ctx, sloCorrectionID)
 	if err != nil && httpresp.StatusCode != 404 {
-		log.Printf("Deleting SLO correction: %v failed with %v, Another test may have already deleted this SLO correction: %v",
-			sloCorrectionID, httpresp.StatusCode, err)
+		//t.Logf("Deleting SLO correction: %v failed with %v, Another test may have already deleted this SLO correction: %v",
+		//	sloCorrectionID, httpresp.StatusCode, err)
 	}
 }
 
-func isSLOCorrecionIDPresent(sloCorrectionID string, sloCorrections []datadog.SLOCorrectionListResponseData) error {
+func isSLOCorrecionIDPresent(sloCorrectionID string, sloCorrections []datadog.SLOCorrection) error {
 	for _, sloCorrection := range sloCorrections {
 		if sloCorrection.GetId() == sloCorrectionID {
 			return nil

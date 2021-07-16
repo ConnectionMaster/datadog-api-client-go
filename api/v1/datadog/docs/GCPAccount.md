@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AuthProviderX509CertUrl** | Pointer to **string** | Should be &#x60;https://www.googleapis.com/oauth2/v1/certs&#x60;. | [optional] 
 **AuthUri** | Pointer to **string** | Should be &#x60;https://accounts.google.com/o/oauth2/auth&#x60;. | [optional] 
 **Automute** | Pointer to **bool** | Silence monitors for expected GCE instance shutdowns. | [optional] 
@@ -24,18 +24,18 @@ Name | Type | Description | Notes
 
 `func NewGCPAccount() *GCPAccount`
 
-NewGCPAccount instantiates a new GCPAccount object
+NewGCPAccount instantiates a new GCPAccount object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewGCPAccountWithDefaults
 
 `func NewGCPAccountWithDefaults() *GCPAccount`
 
-NewGCPAccountWithDefaults instantiates a new GCPAccount object
+NewGCPAccountWithDefaults instantiates a new GCPAccount object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAuthProviderX509CertUrl
 

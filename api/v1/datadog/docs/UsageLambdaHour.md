@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **FuncCount** | Pointer to **int64** | Contains the number of different functions for each region and AWS account. | [optional] 
 **Hour** | Pointer to **time.Time** | The hour for the usage. | [optional] 
 **InvocationsSum** | Pointer to **int64** | Contains the sum of invocations of all functions. | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewUsageLambdaHour() *UsageLambdaHour`
 
-NewUsageLambdaHour instantiates a new UsageLambdaHour object
+NewUsageLambdaHour instantiates a new UsageLambdaHour object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageLambdaHourWithDefaults
 
 `func NewUsageLambdaHourWithDefaults() *UsageLambdaHour`
 
-NewUsageLambdaHourWithDefaults instantiates a new UsageLambdaHour object
+NewUsageLambdaHourWithDefaults instantiates a new UsageLambdaHour object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetFuncCount
 

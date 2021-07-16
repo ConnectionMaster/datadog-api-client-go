@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Created** | Pointer to **time.Time** | Timestamp when the incident was created. | [optional] [readonly] 
 **CustomerImpactDuration** | Pointer to **int64** | Length of the incident&#39;s customer impact in seconds. Equals the difference between &#x60;customer_impact_start&#x60; and &#x60;customer_impact_end&#x60;. | [optional] [readonly] 
 **CustomerImpactEnd** | Pointer to **NullableTime** | Timestamp when customers were no longer impacted by the incident. | [optional] 
@@ -27,20 +27,20 @@ Name | Type | Description | Notes
 
 ### NewIncidentResponseAttributes
 
-`func NewIncidentResponseAttributes(title string, ) *IncidentResponseAttributes`
+`func NewIncidentResponseAttributes(title string) *IncidentResponseAttributes`
 
-NewIncidentResponseAttributes instantiates a new IncidentResponseAttributes object
+NewIncidentResponseAttributes instantiates a new IncidentResponseAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIncidentResponseAttributesWithDefaults
 
 `func NewIncidentResponseAttributesWithDefaults() *IncidentResponseAttributes`
 
-NewIncidentResponseAttributesWithDefaults instantiates a new IncidentResponseAttributes object
+NewIncidentResponseAttributesWithDefaults instantiates a new IncidentResponseAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreated
 

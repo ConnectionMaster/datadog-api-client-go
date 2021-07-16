@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Code** | Pointer to **string** | Code identifying the error | [optional] 
 **Details** | Pointer to [**[]LogsAPIError**](LogsAPIError.md) | Additional error details | [optional] 
 **Message** | Pointer to **string** | Error message | [optional] 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewLogsAPIError() *LogsAPIError`
 
-NewLogsAPIError instantiates a new LogsAPIError object
+NewLogsAPIError instantiates a new LogsAPIError object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsAPIErrorWithDefaults
 
 `func NewLogsAPIErrorWithDefaults() *LogsAPIError`
 
-NewLogsAPIErrorWithDefaults instantiates a new LogsAPIError object
+NewLogsAPIErrorWithDefaults instantiates a new LogsAPIError object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCode
 

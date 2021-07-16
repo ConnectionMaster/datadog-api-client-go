@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Aliases** | Pointer to **[]string** | Host aliases collected by Datadog. | [optional] 
 **Apps** | Pointer to **[]string** | The Datadog integrations reporting metrics for the host. | [optional] 
 **AwsName** | Pointer to **string** | AWS name of your host. | [optional] 
@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **Id** | Pointer to **int64** | The host ID. | [optional] 
 **IsMuted** | Pointer to **bool** | If a host is muted or unmuted. | [optional] 
 **LastReportedTime** | Pointer to **int64** | Last time the host reported a metric data point. | [optional] 
-**Meta** | Pointer to [**HostMeta**](Host_meta.md) |  | [optional] 
-**Metrics** | Pointer to [**HostMetrics**](Host_metrics.md) |  | [optional] 
+**Meta** | Pointer to [**HostMeta**](HostMeta.md) |  | [optional] 
+**Metrics** | Pointer to [**HostMetrics**](HostMetrics.md) |  | [optional] 
 **MuteTimeout** | Pointer to **int64** | Timeout of the mute applied to your host. | [optional] 
 **Name** | Pointer to **string** | The host name. | [optional] 
 **Sources** | Pointer to **[]string** | Source or cloud provider associated with your host. | [optional] 
@@ -25,18 +25,18 @@ Name | Type | Description | Notes
 
 `func NewHost() *Host`
 
-NewHost instantiates a new Host object
+NewHost instantiates a new Host object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewHostWithDefaults
 
 `func NewHostWithDefaults() *Host`
 
-NewHostWithDefaults instantiates a new Host object
+NewHostWithDefaults instantiates a new Host object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAliases
 

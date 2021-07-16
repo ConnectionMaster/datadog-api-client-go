@@ -3,33 +3,33 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AlertId** | **string** | ID of the alert to use in the widget. | 
 **Time** | Pointer to [**WidgetTime**](WidgetTime.md) |  | [optional] 
 **Title** | Pointer to **string** | The title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**AlertGraphWidgetDefinitionType**](AlertGraphWidgetDefinitionType.md) |  | [default to "alert_graph"]
+**Type** | [**AlertGraphWidgetDefinitionType**](AlertGraphWidgetDefinitionType.md) |  | [default to ALERTGRAPHWIDGETDEFINITIONTYPE_ALERT_GRAPH]
 **VizType** | [**WidgetVizType**](WidgetVizType.md) |  | 
 
 ## Methods
 
 ### NewAlertGraphWidgetDefinition
 
-`func NewAlertGraphWidgetDefinition(alertId string, type_ AlertGraphWidgetDefinitionType, vizType WidgetVizType, ) *AlertGraphWidgetDefinition`
+`func NewAlertGraphWidgetDefinition(alertId string, type_ AlertGraphWidgetDefinitionType, vizType WidgetVizType) *AlertGraphWidgetDefinition`
 
-NewAlertGraphWidgetDefinition instantiates a new AlertGraphWidgetDefinition object
+NewAlertGraphWidgetDefinition instantiates a new AlertGraphWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewAlertGraphWidgetDefinitionWithDefaults
 
 `func NewAlertGraphWidgetDefinitionWithDefaults() *AlertGraphWidgetDefinition`
 
-NewAlertGraphWidgetDefinitionWithDefaults instantiates a new AlertGraphWidgetDefinition object
+NewAlertGraphWidgetDefinitionWithDefaults instantiates a new AlertGraphWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAlertId
 

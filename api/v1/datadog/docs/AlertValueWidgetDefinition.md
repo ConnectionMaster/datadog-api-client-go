@@ -3,34 +3,34 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AlertId** | **string** | ID of the alert to use in the widget. | 
 **Precision** | Pointer to **int64** | Number of decimal to show. If not defined, will use the raw value. | [optional] 
 **TextAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of value in the widget. | [optional] 
-**Type** | [**AlertValueWidgetDefinitionType**](AlertValueWidgetDefinitionType.md) |  | [default to "alert_value"]
+**Type** | [**AlertValueWidgetDefinitionType**](AlertValueWidgetDefinitionType.md) |  | [default to ALERTVALUEWIDGETDEFINITIONTYPE_ALERT_VALUE]
 **Unit** | Pointer to **string** | Unit to display with the value. | [optional] 
 
 ## Methods
 
 ### NewAlertValueWidgetDefinition
 
-`func NewAlertValueWidgetDefinition(alertId string, type_ AlertValueWidgetDefinitionType, ) *AlertValueWidgetDefinition`
+`func NewAlertValueWidgetDefinition(alertId string, type_ AlertValueWidgetDefinitionType) *AlertValueWidgetDefinition`
 
-NewAlertValueWidgetDefinition instantiates a new AlertValueWidgetDefinition object
+NewAlertValueWidgetDefinition instantiates a new AlertValueWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewAlertValueWidgetDefinitionWithDefaults
 
 `func NewAlertValueWidgetDefinitionWithDefaults() *AlertValueWidgetDefinition`
 
-NewAlertValueWidgetDefinitionWithDefaults instantiates a new AlertValueWidgetDefinition object
+NewAlertValueWidgetDefinitionWithDefaults instantiates a new AlertValueWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAlertId
 

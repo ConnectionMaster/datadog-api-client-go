@@ -3,27 +3,27 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Errors** | **[]string** | Array of errors returned by the API. | 
 
 ## Methods
 
 ### NewAPIErrorResponse
 
-`func NewAPIErrorResponse(errors []string, ) *APIErrorResponse`
+`func NewAPIErrorResponse(errors []string) *APIErrorResponse`
 
-NewAPIErrorResponse instantiates a new APIErrorResponse object
+NewAPIErrorResponse instantiates a new APIErrorResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewAPIErrorResponseWithDefaults
 
 `func NewAPIErrorResponseWithDefaults() *APIErrorResponse`
 
-NewAPIErrorResponseWithDefaults instantiates a new APIErrorResponse object
+NewAPIErrorResponseWithDefaults instantiates a new APIErrorResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetErrors
 

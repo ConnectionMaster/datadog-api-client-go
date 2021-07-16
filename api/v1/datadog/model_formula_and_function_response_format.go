@@ -13,7 +13,7 @@ import (
 	"fmt"
 )
 
-// FormulaAndFunctionResponseFormat Timeseries or Scalar response. This feature is currently in beta.
+// FormulaAndFunctionResponseFormat Timeseries or Scalar response. **This feature is currently in beta.**
 type FormulaAndFunctionResponseFormat string
 
 // List of FormulaAndFunctionResponseFormat
@@ -25,6 +25,10 @@ const (
 var allowedFormulaAndFunctionResponseFormatEnumValues = []FormulaAndFunctionResponseFormat{
 	"timeseries",
 	"scalar",
+}
+
+func (w *FormulaAndFunctionResponseFormat) GetAllowedValues() []FormulaAndFunctionResponseFormat {
+	return allowedFormulaAndFunctionResponseFormatEnumValues
 }
 
 func (v *FormulaAndFunctionResponseFormat) UnmarshalJSON(src []byte) error {

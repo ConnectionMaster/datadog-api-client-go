@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Author** | Pointer to [**Creator**](Creator.md) |  | [optional] 
 **Created** | Pointer to **time.Time** | Date of creation of the dashboard. | [optional] [readonly] 
 **Icon** | Pointer to **string** | URL to the icon of the dashboard. | [optional] [readonly] 
@@ -21,20 +21,20 @@ Name | Type | Description | Notes
 
 ### NewDashboardListItem
 
-`func NewDashboardListItem(id string, type_ DashboardType, ) *DashboardListItem`
+`func NewDashboardListItem(id string, type_ DashboardType) *DashboardListItem`
 
-NewDashboardListItem instantiates a new DashboardListItem object
+NewDashboardListItem instantiates a new DashboardListItem object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewDashboardListItemWithDefaults
 
 `func NewDashboardListItemWithDefaults() *DashboardListItem`
 
-NewDashboardListItemWithDefaults instantiates a new DashboardListItem object
+NewDashboardListItemWithDefaults instantiates a new DashboardListItem object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAuthor
 

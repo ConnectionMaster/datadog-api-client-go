@@ -20,6 +20,8 @@ type UsageSummaryDateOrg struct {
 	ApmAzureAppServiceHostTop99p *int64 `json:"apm_azure_app_service_host_top99p,omitempty"`
 	// Shows the 99th percentile of all distinct APM hosts over all hours in the current date for the given org.
 	ApmHostTop99p *int64 `json:"apm_host_top99p,omitempty"`
+	// Shows the sum of all audit logs lines indexed over all hours in the current date for the given org.
+	AuditLogsLinesIndexedSum *int64 `json:"audit_logs_lines_indexed_sum,omitempty"`
 	// Shows the 99th percentile of all AWS hosts over all hours in the current date for the given org.
 	AwsHostTop99p *int64 `json:"aws_host_top99p,omitempty"`
 	// Shows the sum of all AWS Lambda invocations over all hours in the current date for the given org.
@@ -34,14 +36,26 @@ type UsageSummaryDateOrg struct {
 	ContainerAvg *int64 `json:"container_avg,omitempty"`
 	// Shows the high-water mark of all distinct containers over all hours in the current date for the given org.
 	ContainerHwm *int64 `json:"container_hwm,omitempty"`
+	// Shows the average number of Cloud Security Posture Management containers over all hours in the current date for the given org.
+	CspmContainerAvg *int64 `json:"cspm_container_avg,omitempty"`
+	// Shows the high-water mark of Cloud Security Posture Management containers over all hours in the current date for the given org.
+	CspmContainerHwm *int64 `json:"cspm_container_hwm,omitempty"`
+	// Shows the 99th percentile of all Cloud Security Posture Management hosts over all hours in the current date for the given org.
+	CspmHostTop99p *int64 `json:"cspm_host_top99p,omitempty"`
 	// Shows the average number of distinct custom metrics over all hours in the current date for the given org.
 	CustomTsAvg *int64 `json:"custom_ts_avg,omitempty"`
+	// Shows the average of all distinct Cloud Workload Security containers over all hours in the current date for the given org.
+	CwsContainerCountAvg *int64 `json:"cws_container_count_avg,omitempty"`
+	// Shows the 99th percentile of all Cloud Workload Security hosts over all hours in the current date for the given org.
+	CwsHostTop99p *int64 `json:"cws_host_top99p,omitempty"`
 	// The average task count for Fargate.
 	FargateTasksCountAvg *int64 `json:"fargate_tasks_count_avg,omitempty"`
 	// Shows the high-water mark of all Fargate tasks over all hours in the current date for the given org.
 	FargateTasksCountHwm *int64 `json:"fargate_tasks_count_hwm,omitempty"`
 	// Shows the 99th percentile of all GCP hosts over all hours in the current date for the given org.
 	GcpHostTop99p *int64 `json:"gcp_host_top99p,omitempty"`
+	// Shows the 99th percentile of all Heroku dynos over all hours in the current date for the given org.
+	HerokuHostTop99p *int64 `json:"heroku_host_top99p,omitempty"`
 	// The organization id.
 	Id *string `json:"id,omitempty"`
 	// Shows the high-water mark of incident management monthly active users over all hours in the current date for the given org.
@@ -68,6 +82,8 @@ type UsageSummaryDateOrg struct {
 	NetflowIndexedEventsCountSum *int64 `json:"netflow_indexed_events_count_sum,omitempty"`
 	// Shows the 99th percentile of all distinct Networks hosts over all hours in the current date for the given org.
 	NpmHostTop99p *int64 `json:"npm_host_top99p,omitempty"`
+	// Shows the 99th percentile of all hosts reported by the Datadog exporter for the OpenTelemetry Collector over all hours in the current date for the given org.
+	OpentelemetryHostTop99p *int64 `json:"opentelemetry_host_top99p,omitempty"`
 	// Shows the 99th percentile of all profiled hosts over all hours in the current date for the given org.
 	ProfilingHostTop99p *int64 `json:"profiling_host_top99p,omitempty"`
 	// The organization public id.
@@ -84,6 +100,8 @@ type UsageSummaryDateOrg struct {
 	TraceSearchIndexedEventsCountSum *int64 `json:"trace_search_indexed_events_count_sum,omitempty"`
 	// Shows the sum of all tracing without limits bytes ingested over all hours in the current date for the given org.
 	TwolIngestedEventsBytesSum *int64 `json:"twol_ingested_events_bytes_sum,omitempty"`
+	// Shows the 99th percentile of all vSphere hosts over all hours in the current date for the given org.
+	VsphereHostTop99p *int64 `json:"vsphere_host_top99p,omitempty"`
 }
 
 // NewUsageSummaryDateOrg instantiates a new UsageSummaryDateOrg object
@@ -197,6 +215,38 @@ func (o *UsageSummaryDateOrg) HasApmHostTop99p() bool {
 // SetApmHostTop99p gets a reference to the given int64 and assigns it to the ApmHostTop99p field.
 func (o *UsageSummaryDateOrg) SetApmHostTop99p(v int64) {
 	o.ApmHostTop99p = &v
+}
+
+// GetAuditLogsLinesIndexedSum returns the AuditLogsLinesIndexedSum field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetAuditLogsLinesIndexedSum() int64 {
+	if o == nil || o.AuditLogsLinesIndexedSum == nil {
+		var ret int64
+		return ret
+	}
+	return *o.AuditLogsLinesIndexedSum
+}
+
+// GetAuditLogsLinesIndexedSumOk returns a tuple with the AuditLogsLinesIndexedSum field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetAuditLogsLinesIndexedSumOk() (*int64, bool) {
+	if o == nil || o.AuditLogsLinesIndexedSum == nil {
+		return nil, false
+	}
+	return o.AuditLogsLinesIndexedSum, true
+}
+
+// HasAuditLogsLinesIndexedSum returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasAuditLogsLinesIndexedSum() bool {
+	if o != nil && o.AuditLogsLinesIndexedSum != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAuditLogsLinesIndexedSum gets a reference to the given int64 and assigns it to the AuditLogsLinesIndexedSum field.
+func (o *UsageSummaryDateOrg) SetAuditLogsLinesIndexedSum(v int64) {
+	o.AuditLogsLinesIndexedSum = &v
 }
 
 // GetAwsHostTop99p returns the AwsHostTop99p field value if set, zero value otherwise.
@@ -423,6 +473,102 @@ func (o *UsageSummaryDateOrg) SetContainerHwm(v int64) {
 	o.ContainerHwm = &v
 }
 
+// GetCspmContainerAvg returns the CspmContainerAvg field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetCspmContainerAvg() int64 {
+	if o == nil || o.CspmContainerAvg == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CspmContainerAvg
+}
+
+// GetCspmContainerAvgOk returns a tuple with the CspmContainerAvg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetCspmContainerAvgOk() (*int64, bool) {
+	if o == nil || o.CspmContainerAvg == nil {
+		return nil, false
+	}
+	return o.CspmContainerAvg, true
+}
+
+// HasCspmContainerAvg returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasCspmContainerAvg() bool {
+	if o != nil && o.CspmContainerAvg != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCspmContainerAvg gets a reference to the given int64 and assigns it to the CspmContainerAvg field.
+func (o *UsageSummaryDateOrg) SetCspmContainerAvg(v int64) {
+	o.CspmContainerAvg = &v
+}
+
+// GetCspmContainerHwm returns the CspmContainerHwm field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetCspmContainerHwm() int64 {
+	if o == nil || o.CspmContainerHwm == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CspmContainerHwm
+}
+
+// GetCspmContainerHwmOk returns a tuple with the CspmContainerHwm field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetCspmContainerHwmOk() (*int64, bool) {
+	if o == nil || o.CspmContainerHwm == nil {
+		return nil, false
+	}
+	return o.CspmContainerHwm, true
+}
+
+// HasCspmContainerHwm returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasCspmContainerHwm() bool {
+	if o != nil && o.CspmContainerHwm != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCspmContainerHwm gets a reference to the given int64 and assigns it to the CspmContainerHwm field.
+func (o *UsageSummaryDateOrg) SetCspmContainerHwm(v int64) {
+	o.CspmContainerHwm = &v
+}
+
+// GetCspmHostTop99p returns the CspmHostTop99p field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetCspmHostTop99p() int64 {
+	if o == nil || o.CspmHostTop99p == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CspmHostTop99p
+}
+
+// GetCspmHostTop99pOk returns a tuple with the CspmHostTop99p field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetCspmHostTop99pOk() (*int64, bool) {
+	if o == nil || o.CspmHostTop99p == nil {
+		return nil, false
+	}
+	return o.CspmHostTop99p, true
+}
+
+// HasCspmHostTop99p returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasCspmHostTop99p() bool {
+	if o != nil && o.CspmHostTop99p != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCspmHostTop99p gets a reference to the given int64 and assigns it to the CspmHostTop99p field.
+func (o *UsageSummaryDateOrg) SetCspmHostTop99p(v int64) {
+	o.CspmHostTop99p = &v
+}
+
 // GetCustomTsAvg returns the CustomTsAvg field value if set, zero value otherwise.
 func (o *UsageSummaryDateOrg) GetCustomTsAvg() int64 {
 	if o == nil || o.CustomTsAvg == nil {
@@ -453,6 +599,70 @@ func (o *UsageSummaryDateOrg) HasCustomTsAvg() bool {
 // SetCustomTsAvg gets a reference to the given int64 and assigns it to the CustomTsAvg field.
 func (o *UsageSummaryDateOrg) SetCustomTsAvg(v int64) {
 	o.CustomTsAvg = &v
+}
+
+// GetCwsContainerCountAvg returns the CwsContainerCountAvg field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetCwsContainerCountAvg() int64 {
+	if o == nil || o.CwsContainerCountAvg == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CwsContainerCountAvg
+}
+
+// GetCwsContainerCountAvgOk returns a tuple with the CwsContainerCountAvg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetCwsContainerCountAvgOk() (*int64, bool) {
+	if o == nil || o.CwsContainerCountAvg == nil {
+		return nil, false
+	}
+	return o.CwsContainerCountAvg, true
+}
+
+// HasCwsContainerCountAvg returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasCwsContainerCountAvg() bool {
+	if o != nil && o.CwsContainerCountAvg != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCwsContainerCountAvg gets a reference to the given int64 and assigns it to the CwsContainerCountAvg field.
+func (o *UsageSummaryDateOrg) SetCwsContainerCountAvg(v int64) {
+	o.CwsContainerCountAvg = &v
+}
+
+// GetCwsHostTop99p returns the CwsHostTop99p field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetCwsHostTop99p() int64 {
+	if o == nil || o.CwsHostTop99p == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CwsHostTop99p
+}
+
+// GetCwsHostTop99pOk returns a tuple with the CwsHostTop99p field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetCwsHostTop99pOk() (*int64, bool) {
+	if o == nil || o.CwsHostTop99p == nil {
+		return nil, false
+	}
+	return o.CwsHostTop99p, true
+}
+
+// HasCwsHostTop99p returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasCwsHostTop99p() bool {
+	if o != nil && o.CwsHostTop99p != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCwsHostTop99p gets a reference to the given int64 and assigns it to the CwsHostTop99p field.
+func (o *UsageSummaryDateOrg) SetCwsHostTop99p(v int64) {
+	o.CwsHostTop99p = &v
 }
 
 // GetFargateTasksCountAvg returns the FargateTasksCountAvg field value if set, zero value otherwise.
@@ -549,6 +759,38 @@ func (o *UsageSummaryDateOrg) HasGcpHostTop99p() bool {
 // SetGcpHostTop99p gets a reference to the given int64 and assigns it to the GcpHostTop99p field.
 func (o *UsageSummaryDateOrg) SetGcpHostTop99p(v int64) {
 	o.GcpHostTop99p = &v
+}
+
+// GetHerokuHostTop99p returns the HerokuHostTop99p field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetHerokuHostTop99p() int64 {
+	if o == nil || o.HerokuHostTop99p == nil {
+		var ret int64
+		return ret
+	}
+	return *o.HerokuHostTop99p
+}
+
+// GetHerokuHostTop99pOk returns a tuple with the HerokuHostTop99p field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetHerokuHostTop99pOk() (*int64, bool) {
+	if o == nil || o.HerokuHostTop99p == nil {
+		return nil, false
+	}
+	return o.HerokuHostTop99p, true
+}
+
+// HasHerokuHostTop99p returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasHerokuHostTop99p() bool {
+	if o != nil && o.HerokuHostTop99p != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHerokuHostTop99p gets a reference to the given int64 and assigns it to the HerokuHostTop99p field.
+func (o *UsageSummaryDateOrg) SetHerokuHostTop99p(v int64) {
+	o.HerokuHostTop99p = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -967,6 +1209,38 @@ func (o *UsageSummaryDateOrg) SetNpmHostTop99p(v int64) {
 	o.NpmHostTop99p = &v
 }
 
+// GetOpentelemetryHostTop99p returns the OpentelemetryHostTop99p field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetOpentelemetryHostTop99p() int64 {
+	if o == nil || o.OpentelemetryHostTop99p == nil {
+		var ret int64
+		return ret
+	}
+	return *o.OpentelemetryHostTop99p
+}
+
+// GetOpentelemetryHostTop99pOk returns a tuple with the OpentelemetryHostTop99p field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetOpentelemetryHostTop99pOk() (*int64, bool) {
+	if o == nil || o.OpentelemetryHostTop99p == nil {
+		return nil, false
+	}
+	return o.OpentelemetryHostTop99p, true
+}
+
+// HasOpentelemetryHostTop99p returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasOpentelemetryHostTop99p() bool {
+	if o != nil && o.OpentelemetryHostTop99p != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOpentelemetryHostTop99p gets a reference to the given int64 and assigns it to the OpentelemetryHostTop99p field.
+func (o *UsageSummaryDateOrg) SetOpentelemetryHostTop99p(v int64) {
+	o.OpentelemetryHostTop99p = &v
+}
+
 // GetProfilingHostTop99p returns the ProfilingHostTop99p field value if set, zero value otherwise.
 func (o *UsageSummaryDateOrg) GetProfilingHostTop99p() int64 {
 	if o == nil || o.ProfilingHostTop99p == nil {
@@ -1223,6 +1497,38 @@ func (o *UsageSummaryDateOrg) SetTwolIngestedEventsBytesSum(v int64) {
 	o.TwolIngestedEventsBytesSum = &v
 }
 
+// GetVsphereHostTop99p returns the VsphereHostTop99p field value if set, zero value otherwise.
+func (o *UsageSummaryDateOrg) GetVsphereHostTop99p() int64 {
+	if o == nil || o.VsphereHostTop99p == nil {
+		var ret int64
+		return ret
+	}
+	return *o.VsphereHostTop99p
+}
+
+// GetVsphereHostTop99pOk returns a tuple with the VsphereHostTop99p field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageSummaryDateOrg) GetVsphereHostTop99pOk() (*int64, bool) {
+	if o == nil || o.VsphereHostTop99p == nil {
+		return nil, false
+	}
+	return o.VsphereHostTop99p, true
+}
+
+// HasVsphereHostTop99p returns a boolean if a field has been set.
+func (o *UsageSummaryDateOrg) HasVsphereHostTop99p() bool {
+	if o != nil && o.VsphereHostTop99p != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVsphereHostTop99p gets a reference to the given int64 and assigns it to the VsphereHostTop99p field.
+func (o *UsageSummaryDateOrg) SetVsphereHostTop99p(v int64) {
+	o.VsphereHostTop99p = &v
+}
+
 func (o UsageSummaryDateOrg) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AgentHostTop99p != nil {
@@ -1233,6 +1539,9 @@ func (o UsageSummaryDateOrg) MarshalJSON() ([]byte, error) {
 	}
 	if o.ApmHostTop99p != nil {
 		toSerialize["apm_host_top99p"] = o.ApmHostTop99p
+	}
+	if o.AuditLogsLinesIndexedSum != nil {
+		toSerialize["audit_logs_lines_indexed_sum"] = o.AuditLogsLinesIndexedSum
 	}
 	if o.AwsHostTop99p != nil {
 		toSerialize["aws_host_top99p"] = o.AwsHostTop99p
@@ -1255,8 +1564,23 @@ func (o UsageSummaryDateOrg) MarshalJSON() ([]byte, error) {
 	if o.ContainerHwm != nil {
 		toSerialize["container_hwm"] = o.ContainerHwm
 	}
+	if o.CspmContainerAvg != nil {
+		toSerialize["cspm_container_avg"] = o.CspmContainerAvg
+	}
+	if o.CspmContainerHwm != nil {
+		toSerialize["cspm_container_hwm"] = o.CspmContainerHwm
+	}
+	if o.CspmHostTop99p != nil {
+		toSerialize["cspm_host_top99p"] = o.CspmHostTop99p
+	}
 	if o.CustomTsAvg != nil {
 		toSerialize["custom_ts_avg"] = o.CustomTsAvg
+	}
+	if o.CwsContainerCountAvg != nil {
+		toSerialize["cws_container_count_avg"] = o.CwsContainerCountAvg
+	}
+	if o.CwsHostTop99p != nil {
+		toSerialize["cws_host_top99p"] = o.CwsHostTop99p
 	}
 	if o.FargateTasksCountAvg != nil {
 		toSerialize["fargate_tasks_count_avg"] = o.FargateTasksCountAvg
@@ -1266,6 +1590,9 @@ func (o UsageSummaryDateOrg) MarshalJSON() ([]byte, error) {
 	}
 	if o.GcpHostTop99p != nil {
 		toSerialize["gcp_host_top99p"] = o.GcpHostTop99p
+	}
+	if o.HerokuHostTop99p != nil {
+		toSerialize["heroku_host_top99p"] = o.HerokuHostTop99p
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
@@ -1306,6 +1633,9 @@ func (o UsageSummaryDateOrg) MarshalJSON() ([]byte, error) {
 	if o.NpmHostTop99p != nil {
 		toSerialize["npm_host_top99p"] = o.NpmHostTop99p
 	}
+	if o.OpentelemetryHostTop99p != nil {
+		toSerialize["opentelemetry_host_top99p"] = o.OpentelemetryHostTop99p
+	}
 	if o.ProfilingHostTop99p != nil {
 		toSerialize["profiling_host_top99p"] = o.ProfilingHostTop99p
 	}
@@ -1329,6 +1659,9 @@ func (o UsageSummaryDateOrg) MarshalJSON() ([]byte, error) {
 	}
 	if o.TwolIngestedEventsBytesSum != nil {
 		toSerialize["twol_ingested_events_bytes_sum"] = o.TwolIngestedEventsBytesSum
+	}
+	if o.VsphereHostTop99p != nil {
+		toSerialize["vsphere_host_top99p"] = o.VsphereHostTop99p
 	}
 	return json.Marshal(toSerialize)
 }

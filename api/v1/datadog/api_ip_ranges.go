@@ -9,6 +9,7 @@
 package datadog
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -23,33 +24,29 @@ var (
 // IPRangesApiService IPRangesApi service
 type IPRangesApiService service
 
-type ApiGetIPRangesRequest struct {
+type apiGetIPRangesRequest struct {
 	ctx        _context.Context
 	ApiService *IPRangesApiService
-}
-
-func (r ApiGetIPRangesRequest) Execute() (IPRanges, *_nethttp.Response, error) {
-	return r.ApiService.GetIPRangesExecute(r)
 }
 
 /*
  * GetIPRanges List IP Ranges
  * Get information about Datadog IP ranges.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiGetIPRangesRequest
  */
-func (a *IPRangesApiService) GetIPRanges(ctx _context.Context) ApiGetIPRangesRequest {
-	return ApiGetIPRangesRequest{
+func (a *IPRangesApiService) GetIPRanges(ctx _context.Context) (IPRanges, *_nethttp.Response, error) {
+	req := apiGetIPRangesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
+
+	return req.ApiService.getIPRangesExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return IPRanges
  */
-func (a *IPRangesApiService) GetIPRangesExecute(r ApiGetIPRangesRequest) (IPRanges, *_nethttp.Response, error) {
+func (a *IPRangesApiService) getIPRangesExecute(r apiGetIPRangesRequest) (IPRanges, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -91,18 +88,19 @@ func (a *IPRangesApiService) GetIPRangesExecute(r ApiGetIPRangesRequest) (IPRang
 	// Set Operation-ID header for telemetry
 	localVarHeaderParams["DD-OPERATION-ID"] = "GetIPRanges"
 
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

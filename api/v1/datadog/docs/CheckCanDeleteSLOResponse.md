@@ -3,8 +3,8 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Data** | Pointer to [**CheckCanDeleteSLOResponseData**](CheckCanDeleteSLOResponse_data.md) |  | [optional] 
+---- | ---- | ----------- | ------
+**Data** | Pointer to [**CheckCanDeleteSLOResponseData**](CheckCanDeleteSLOResponseData.md) |  | [optional] 
 **Errors** | Pointer to **map[string]string** | A mapping of SLO id to it&#39;s current usages. | [optional] 
 
 ## Methods
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewCheckCanDeleteSLOResponse() *CheckCanDeleteSLOResponse`
 
-NewCheckCanDeleteSLOResponse instantiates a new CheckCanDeleteSLOResponse object
+NewCheckCanDeleteSLOResponse instantiates a new CheckCanDeleteSLOResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewCheckCanDeleteSLOResponseWithDefaults
 
 `func NewCheckCanDeleteSLOResponseWithDefaults() *CheckCanDeleteSLOResponse`
 
-NewCheckCanDeleteSLOResponseWithDefaults instantiates a new CheckCanDeleteSLOResponse object
+NewCheckCanDeleteSLOResponseWithDefaults instantiates a new CheckCanDeleteSLOResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

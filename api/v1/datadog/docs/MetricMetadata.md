@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Description** | Pointer to **string** | Metric description. | [optional] 
 **Integration** | Pointer to **string** | Name of the integration that sent the metric if applicable. | [optional] [readonly] 
 **PerUnit** | Pointer to **string** | Per unit of the metric such as &#x60;second&#x60; in &#x60;bytes per second&#x60;. | [optional] 
@@ -18,18 +18,18 @@ Name | Type | Description | Notes
 
 `func NewMetricMetadata() *MetricMetadata`
 
-NewMetricMetadata instantiates a new MetricMetadata object
+NewMetricMetadata instantiates a new MetricMetadata object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewMetricMetadataWithDefaults
 
 `func NewMetricMetadataWithDefaults() *MetricMetadata`
 
-NewMetricMetadataWithDefaults instantiates a new MetricMetadata object
+NewMetricMetadataWithDefaults instantiates a new MetricMetadata object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDescription
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **By** | Pointer to **map[string]string** | The key, value pairs for each group by | [optional] 
 **Computes** | Pointer to [**map[string]LogsAggregateBucketValue**](LogsAggregateBucketValue.md) | A map of the metric name -&gt; value for regular compute or list of values for a timeseries | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewLogsAggregateBucket() *LogsAggregateBucket`
 
-NewLogsAggregateBucket instantiates a new LogsAggregateBucket object
+NewLogsAggregateBucket instantiates a new LogsAggregateBucket object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsAggregateBucketWithDefaults
 
 `func NewLogsAggregateBucketWithDefaults() *LogsAggregateBucket`
 
-NewLogsAggregateBucketWithDefaults instantiates a new LogsAggregateBucket object
+NewLogsAggregateBucketWithDefaults instantiates a new LogsAggregateBucket object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetBy
 

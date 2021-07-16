@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // RoleUpdateResponseData Role object returned by the API.
@@ -36,7 +37,7 @@ func NewRoleUpdateResponseData(type_ RolesType) *RoleUpdateResponseData {
 // but it doesn't guarantee that properties required by API are set
 func NewRoleUpdateResponseDataWithDefaults() *RoleUpdateResponseData {
 	this := RoleUpdateResponseData{}
-	var type_ RolesType = "roles"
+	var type_ RolesType = ROLESTYPE_ROLES
 	this.Type = type_
 	return &this
 }
@@ -176,6 +177,34 @@ func (o RoleUpdateResponseData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *RoleUpdateResponseData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Type *RolesType `json:"type"`
+	}{}
+	all := struct {
+		Attributes    *RoleUpdateAttributes      `json:"attributes,omitempty"`
+		Id            *string                    `json:"id,omitempty"`
+		Relationships *RoleResponseRelationships `json:"relationships,omitempty"`
+		Type          RolesType                  `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Id = all.Id
+	o.Relationships = all.Relationships
+	o.Type = all.Type
+	return nil
 }
 
 type NullableRoleUpdateResponseData struct {

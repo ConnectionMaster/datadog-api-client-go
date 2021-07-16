@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **PrefixesIpv4** | Pointer to **[]string** | List of IPv4 prefixes. | [optional] 
 **PrefixesIpv6** | Pointer to **[]string** | List of IPv6 prefixes. | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewIPPrefixesLogs() *IPPrefixesLogs`
 
-NewIPPrefixesLogs instantiates a new IPPrefixesLogs object
+NewIPPrefixesLogs instantiates a new IPPrefixesLogs object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIPPrefixesLogsWithDefaults
 
 `func NewIPPrefixesLogsWithDefaults() *IPPrefixesLogs`
 
-NewIPPrefixesLogsWithDefaults instantiates a new IPPrefixesLogs object
+NewIPPrefixesLogsWithDefaults instantiates a new IPPrefixesLogs object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetPrefixesIpv4
 

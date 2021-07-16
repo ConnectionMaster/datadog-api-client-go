@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Cursor** | Pointer to **string** | A list of results using the cursor provided in the previous query. | [optional] 
 **Limit** | Pointer to **int32** | The maximum number of security signals in the response. | [optional] [default to 10]
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewSecurityMonitoringSignalListRequestPage() *SecurityMonitoringSignalListRequestPage`
 
-NewSecurityMonitoringSignalListRequestPage instantiates a new SecurityMonitoringSignalListRequestPage object
+NewSecurityMonitoringSignalListRequestPage instantiates a new SecurityMonitoringSignalListRequestPage object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSecurityMonitoringSignalListRequestPageWithDefaults
 
 `func NewSecurityMonitoringSignalListRequestPageWithDefaults() *SecurityMonitoringSignalListRequestPage`
 
-NewSecurityMonitoringSignalListRequestPageWithDefaults instantiates a new SecurityMonitoringSignalListRequestPage object
+NewSecurityMonitoringSignalListRequestPageWithDefaults instantiates a new SecurityMonitoringSignalListRequestPage object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCursor
 

@@ -10,21 +10,22 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // SyntheticsGlobalVariableParseTestOptions Parser options to use for retrieving a Synthetics global variable from a Synthetics Test. Used in conjunction with `parse_test_public_id`.
 type SyntheticsGlobalVariableParseTestOptions struct {
 	// When type is `http_header`, name of the header to use to extract the value.
-	Field  *string                                        `json:"field,omitempty"`
-	Parser SyntheticsGlobalVariableParseTestOptionsParser `json:"parser"`
-	Type   SyntheticsGlobalVariableParseTestOptionsType   `json:"type"`
+	Field  *string                                      `json:"field,omitempty"`
+	Parser SyntheticsVariableParser                     `json:"parser"`
+	Type   SyntheticsGlobalVariableParseTestOptionsType `json:"type"`
 }
 
 // NewSyntheticsGlobalVariableParseTestOptions instantiates a new SyntheticsGlobalVariableParseTestOptions object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSyntheticsGlobalVariableParseTestOptions(parser SyntheticsGlobalVariableParseTestOptionsParser, type_ SyntheticsGlobalVariableParseTestOptionsType) *SyntheticsGlobalVariableParseTestOptions {
+func NewSyntheticsGlobalVariableParseTestOptions(parser SyntheticsVariableParser, type_ SyntheticsGlobalVariableParseTestOptionsType) *SyntheticsGlobalVariableParseTestOptions {
 	this := SyntheticsGlobalVariableParseTestOptions{}
 	this.Parser = parser
 	this.Type = type_
@@ -72,9 +73,9 @@ func (o *SyntheticsGlobalVariableParseTestOptions) SetField(v string) {
 }
 
 // GetParser returns the Parser field value
-func (o *SyntheticsGlobalVariableParseTestOptions) GetParser() SyntheticsGlobalVariableParseTestOptionsParser {
+func (o *SyntheticsGlobalVariableParseTestOptions) GetParser() SyntheticsVariableParser {
 	if o == nil {
-		var ret SyntheticsGlobalVariableParseTestOptionsParser
+		var ret SyntheticsVariableParser
 		return ret
 	}
 
@@ -83,7 +84,7 @@ func (o *SyntheticsGlobalVariableParseTestOptions) GetParser() SyntheticsGlobalV
 
 // GetParserOk returns a tuple with the Parser field value
 // and a boolean to check if the value has been set.
-func (o *SyntheticsGlobalVariableParseTestOptions) GetParserOk() (*SyntheticsGlobalVariableParseTestOptionsParser, bool) {
+func (o *SyntheticsGlobalVariableParseTestOptions) GetParserOk() (*SyntheticsVariableParser, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +92,7 @@ func (o *SyntheticsGlobalVariableParseTestOptions) GetParserOk() (*SyntheticsGlo
 }
 
 // SetParser sets field value
-func (o *SyntheticsGlobalVariableParseTestOptions) SetParser(v SyntheticsGlobalVariableParseTestOptionsParser) {
+func (o *SyntheticsGlobalVariableParseTestOptions) SetParser(v SyntheticsVariableParser) {
 	o.Parser = v
 }
 
@@ -131,6 +132,36 @@ func (o SyntheticsGlobalVariableParseTestOptions) MarshalJSON() ([]byte, error) 
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *SyntheticsGlobalVariableParseTestOptions) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Parser *SyntheticsVariableParser                     `json:"parser"`
+		Type   *SyntheticsGlobalVariableParseTestOptionsType `json:"type"`
+	}{}
+	all := struct {
+		Field  *string                                      `json:"field,omitempty"`
+		Parser SyntheticsVariableParser                     `json:"parser"`
+		Type   SyntheticsGlobalVariableParseTestOptionsType `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Parser == nil {
+		return fmt.Errorf("Required field parser missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Field = all.Field
+	o.Parser = all.Parser
+	o.Type = all.Type
+	return nil
 }
 
 type NullableSyntheticsGlobalVariableParseTestOptions struct {

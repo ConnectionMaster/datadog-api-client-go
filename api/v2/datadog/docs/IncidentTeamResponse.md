@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Data** | [**IncidentTeamResponseData**](IncidentTeamResponseData.md) |  | 
 **Included** | Pointer to [**[]IncidentTeamIncludedItems**](IncidentTeamIncludedItems.md) | Included objects from relationships. | [optional] [readonly] 
 
@@ -11,20 +11,20 @@ Name | Type | Description | Notes
 
 ### NewIncidentTeamResponse
 
-`func NewIncidentTeamResponse(data IncidentTeamResponseData, ) *IncidentTeamResponse`
+`func NewIncidentTeamResponse(data IncidentTeamResponseData) *IncidentTeamResponse`
 
-NewIncidentTeamResponse instantiates a new IncidentTeamResponse object
+NewIncidentTeamResponse instantiates a new IncidentTeamResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewIncidentTeamResponseWithDefaults
 
 `func NewIncidentTeamResponseWithDefaults() *IncidentTeamResponse`
 
-NewIncidentTeamResponseWithDefaults instantiates a new IncidentTeamResponse object
+NewIncidentTeamResponseWithDefaults instantiates a new IncidentTeamResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

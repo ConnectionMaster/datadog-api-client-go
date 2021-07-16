@@ -3,11 +3,11 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | Pointer to [**PartialApplicationKeyAttributes**](PartialApplicationKeyAttributes.md) |  | [optional] 
 **Id** | Pointer to **string** | ID of the application key. | [optional] 
 **Relationships** | Pointer to [**ApplicationKeyRelationships**](ApplicationKeyRelationships.md) |  | [optional] 
-**Type** | Pointer to [**ApplicationKeysType**](ApplicationKeysType.md) |  | [optional] [default to "application_keys"]
+**Type** | Pointer to [**ApplicationKeysType**](ApplicationKeysType.md) |  | [optional] [default to APPLICATIONKEYSTYPE_APPLICATION_KEYS]
 
 ## Methods
 
@@ -15,18 +15,18 @@ Name | Type | Description | Notes
 
 `func NewPartialApplicationKey() *PartialApplicationKey`
 
-NewPartialApplicationKey instantiates a new PartialApplicationKey object
+NewPartialApplicationKey instantiates a new PartialApplicationKey object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewPartialApplicationKeyWithDefaults
 
 `func NewPartialApplicationKeyWithDefaults() *PartialApplicationKey`
 
-NewPartialApplicationKeyWithDefaults instantiates a new PartialApplicationKey object
+NewPartialApplicationKeyWithDefaults instantiates a new PartialApplicationKey object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

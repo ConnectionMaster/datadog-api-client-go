@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CreatedAt** | Pointer to **time.Time** | Creation time of the organization. | [optional] 
 **Description** | Pointer to **string** | Description of the organization. | [optional] 
 **Disabled** | Pointer to **bool** | Whether or not the organization is disabled. | [optional] 
@@ -19,18 +19,18 @@ Name | Type | Description | Notes
 
 `func NewOrganizationAttributes() *OrganizationAttributes`
 
-NewOrganizationAttributes instantiates a new OrganizationAttributes object
+NewOrganizationAttributes instantiates a new OrganizationAttributes object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewOrganizationAttributesWithDefaults
 
 `func NewOrganizationAttributesWithDefaults() *OrganizationAttributes`
 
-NewOrganizationAttributesWithDefaults instantiates a new OrganizationAttributes object
+NewOrganizationAttributesWithDefaults instantiates a new OrganizationAttributes object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreatedAt
 

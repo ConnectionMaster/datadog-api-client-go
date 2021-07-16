@@ -3,17 +3,17 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Cipher** | Pointer to **string** | Cipher used for the connection. | [optional] 
 **Exponent** | Pointer to **float64** | Exponent associated to the certificate. | [optional] 
 **ExtKeyUsage** | Pointer to **[]string** | Array of extensions and details used for the certificate. | [optional] 
 **Fingerprint** | Pointer to **string** | MD5 digest of the DER-encoded Certificate information. | [optional] 
 **Fingerprint256** | Pointer to **string** | SHA-1 digest of the DER-encoded Certificate information. | [optional] 
-**Issuer** | Pointer to [**SyntheticsSSLCertificateIssuer**](SyntheticsSSLCertificate_issuer.md) |  | [optional] 
+**Issuer** | Pointer to [**SyntheticsSSLCertificateIssuer**](SyntheticsSSLCertificateIssuer.md) |  | [optional] 
 **Modulus** | Pointer to **string** | Modulus associated to the SSL certificate private key. | [optional] 
 **Protocol** | Pointer to **string** | TLS protocol used for the test. | [optional] 
 **SerialNumber** | Pointer to **string** | Serial Number assigned by Symantec to the SSL certificate. | [optional] 
-**Subject** | Pointer to [**SyntheticsSSLCertificateSubject**](SyntheticsSSLCertificate_subject.md) |  | [optional] 
+**Subject** | Pointer to [**SyntheticsSSLCertificateSubject**](SyntheticsSSLCertificateSubject.md) |  | [optional] 
 **ValidFrom** | Pointer to **time.Time** | Date from which the SSL certificate is valid. | [optional] 
 **ValidTo** | Pointer to **time.Time** | Date until which the SSL certificate is valid. | [optional] 
 
@@ -23,18 +23,18 @@ Name | Type | Description | Notes
 
 `func NewSyntheticsSSLCertificate() *SyntheticsSSLCertificate`
 
-NewSyntheticsSSLCertificate instantiates a new SyntheticsSSLCertificate object
+NewSyntheticsSSLCertificate instantiates a new SyntheticsSSLCertificate object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsSSLCertificateWithDefaults
 
 `func NewSyntheticsSSLCertificateWithDefaults() *SyntheticsSSLCertificate`
 
-NewSyntheticsSSLCertificateWithDefaults instantiates a new SyntheticsSSLCertificate object
+NewSyntheticsSSLCertificateWithDefaults instantiates a new SyntheticsSSLCertificate object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCipher
 

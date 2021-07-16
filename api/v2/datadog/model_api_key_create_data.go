@@ -10,6 +10,7 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // APIKeyCreateData Object used to create an API key.
@@ -34,7 +35,7 @@ func NewAPIKeyCreateData(attributes APIKeyCreateAttributes, type_ APIKeysType) *
 // but it doesn't guarantee that properties required by API are set
 func NewAPIKeyCreateDataWithDefaults() *APIKeyCreateData {
 	this := APIKeyCreateData{}
-	var type_ APIKeysType = "api_keys"
+	var type_ APIKeysType = APIKEYSTYPE_API_KEYS
 	this.Type = type_
 	return &this
 }
@@ -96,6 +97,34 @@ func (o APIKeyCreateData) MarshalJSON() ([]byte, error) {
 		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *APIKeyCreateData) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Attributes *APIKeyCreateAttributes `json:"attributes"`
+		Type       *APIKeysType            `json:"type"`
+	}{}
+	all := struct {
+		Attributes APIKeyCreateAttributes `json:"attributes"`
+		Type       APIKeysType            `json:"type"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Attributes == nil {
+		return fmt.Errorf("Required field attributes missing")
+	}
+	if required.Type == nil {
+		return fmt.Errorf("Required field type missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.Attributes = all.Attributes
+	o.Type = all.Type
+	return nil
 }
 
 type NullableAPIKeyCreateData struct {

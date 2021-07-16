@@ -3,29 +3,29 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | [**LogsMetricCreateAttributes**](LogsMetricCreateAttributes.md) |  | 
 **Id** | **string** | The name of the log-based metric. | 
-**Type** | [**LogsMetricType**](LogsMetricType.md) |  | [default to "logs_metrics"]
+**Type** | [**LogsMetricType**](LogsMetricType.md) |  | [default to LOGSMETRICTYPE_LOGS_METRICS]
 
 ## Methods
 
 ### NewLogsMetricCreateData
 
-`func NewLogsMetricCreateData(attributes LogsMetricCreateAttributes, id string, type_ LogsMetricType, ) *LogsMetricCreateData`
+`func NewLogsMetricCreateData(attributes LogsMetricCreateAttributes, id string, type_ LogsMetricType) *LogsMetricCreateData`
 
-NewLogsMetricCreateData instantiates a new LogsMetricCreateData object
+NewLogsMetricCreateData instantiates a new LogsMetricCreateData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsMetricCreateDataWithDefaults
 
 `func NewLogsMetricCreateDataWithDefaults() *LogsMetricCreateData`
 
-NewLogsMetricCreateDataWithDefaults instantiates a new LogsMetricCreateData object
+NewLogsMetricCreateDataWithDefaults instantiates a new LogsMetricCreateData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

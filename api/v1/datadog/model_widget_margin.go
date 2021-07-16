@@ -13,18 +13,28 @@ import (
 	"fmt"
 )
 
-// WidgetMargin Size of the margins around the image.
+// WidgetMargin Size of the margins around the image. **Note**: `small` and `large` values are deprecated.
 type WidgetMargin string
 
 // List of WidgetMargin
 const (
+	WIDGETMARGIN_SM    WidgetMargin = "sm"
+	WIDGETMARGIN_MD    WidgetMargin = "md"
+	WIDGETMARGIN_LG    WidgetMargin = "lg"
 	WIDGETMARGIN_SMALL WidgetMargin = "small"
 	WIDGETMARGIN_LARGE WidgetMargin = "large"
 )
 
 var allowedWidgetMarginEnumValues = []WidgetMargin{
+	"sm",
+	"md",
+	"lg",
 	"small",
 	"large",
+}
+
+func (w *WidgetMargin) GetAllowedValues() []WidgetMargin {
+	return allowedWidgetMarginEnumValues
 }
 
 func (v *WidgetMargin) UnmarshalJSON(src []byte) error {

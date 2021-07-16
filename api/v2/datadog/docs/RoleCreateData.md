@@ -3,29 +3,29 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | [**RoleCreateAttributes**](RoleCreateAttributes.md) |  | 
 **Relationships** | Pointer to [**RoleRelationships**](RoleRelationships.md) |  | [optional] 
-**Type** | Pointer to [**RolesType**](RolesType.md) |  | [optional] [default to "roles"]
+**Type** | Pointer to [**RolesType**](RolesType.md) |  | [optional] [default to ROLESTYPE_ROLES]
 
 ## Methods
 
 ### NewRoleCreateData
 
-`func NewRoleCreateData(attributes RoleCreateAttributes, ) *RoleCreateData`
+`func NewRoleCreateData(attributes RoleCreateAttributes) *RoleCreateData`
 
-NewRoleCreateData instantiates a new RoleCreateData object
+NewRoleCreateData instantiates a new RoleCreateData object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewRoleCreateDataWithDefaults
 
 `func NewRoleCreateDataWithDefaults() *RoleCreateData`
 
-NewRoleCreateDataWithDefaults instantiates a new RoleCreateData object
+NewRoleCreateDataWithDefaults instantiates a new RoleCreateData object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

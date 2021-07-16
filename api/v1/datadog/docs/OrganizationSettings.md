@@ -3,17 +3,17 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **PrivateWidgetShare** | Pointer to **bool** | Whether or not the organization users can share widgets outside of Datadog. | [optional] 
-**Saml** | Pointer to [**OrganizationSettingsSaml**](Organization_settings_saml.md) |  | [optional] 
-**SamlAutocreateAccessRole** | Pointer to [**AccessRole**](AccessRole.md) |  | [optional] [default to "st"]
-**SamlAutocreateUsersDomains** | Pointer to [**OrganizationSettingsSamlAutocreateUsersDomains**](Organization_settings_saml_autocreate_users_domains.md) |  | [optional] 
+**Saml** | Pointer to [**OrganizationSettingsSaml**](OrganizationSettingsSaml.md) |  | [optional] 
+**SamlAutocreateAccessRole** | Pointer to [**AccessRole**](AccessRole.md) |  | [optional] [default to ACCESSROLE_STANDARD]
+**SamlAutocreateUsersDomains** | Pointer to [**OrganizationSettingsSamlAutocreateUsersDomains**](OrganizationSettingsSamlAutocreateUsersDomains.md) |  | [optional] 
 **SamlCanBeEnabled** | Pointer to **bool** | Whether or not SAML can be enabled for this organization. | [optional] 
 **SamlIdpEndpoint** | Pointer to **string** | Identity provider endpoint for SAML authentication. | [optional] 
-**SamlIdpInitiatedLogin** | Pointer to [**OrganizationSettingsSamlIdpInitiatedLogin**](Organization_settings_saml_idp_initiated_login.md) |  | [optional] 
+**SamlIdpInitiatedLogin** | Pointer to [**OrganizationSettingsSamlIdpInitiatedLogin**](OrganizationSettingsSamlIdpInitiatedLogin.md) |  | [optional] 
 **SamlIdpMetadataUploaded** | Pointer to **bool** | Whether or not a SAML identity provider metadata file was provided to the Datadog organization. | [optional] 
 **SamlLoginUrl** | Pointer to **string** | URL for SAML logging. | [optional] 
-**SamlStrictMode** | Pointer to [**OrganizationSettingsSamlStrictMode**](Organization_settings_saml_strict_mode.md) |  | [optional] 
+**SamlStrictMode** | Pointer to [**OrganizationSettingsSamlStrictMode**](OrganizationSettingsSamlStrictMode.md) |  | [optional] 
 
 ## Methods
 
@@ -21,18 +21,18 @@ Name | Type | Description | Notes
 
 `func NewOrganizationSettings() *OrganizationSettings`
 
-NewOrganizationSettings instantiates a new OrganizationSettings object
+NewOrganizationSettings instantiates a new OrganizationSettings object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewOrganizationSettingsWithDefaults
 
 `func NewOrganizationSettingsWithDefaults() *OrganizationSettings`
 
-NewOrganizationSettingsWithDefaults instantiates a new OrganizationSettings object
+NewOrganizationSettingsWithDefaults instantiates a new OrganizationSettings object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetPrivateWidgetShare
 

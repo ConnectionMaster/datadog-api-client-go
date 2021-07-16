@@ -11,7 +11,9 @@ import (
 )
 
 func TestLogsList(t *testing.T) {
-	ctx, finish := WithRecorder(WithTestAuth(context.Background()), t)
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
+	ctx, finish = WithRecorder(WithTestAuth(ctx), t)
 	defer finish()
 	assert := tests.Assert(ctx, t)
 
@@ -60,7 +62,7 @@ func TestLogsList(t *testing.T) {
 
 	// Make sure that both log items are indexed
 	err = tests.Retry(time.Duration(5)*time.Second, 30, func() bool {
-		logsResponse, httpresp, err = Client(ctx).LogsApi.ListLogs(ctx).Body(logsRequest).Execute()
+		logsResponse, httpresp, err = Client(ctx).LogsApi.ListLogs(ctx, logsRequest)
 		if err != nil {
 			t.Fatalf("Error listing logs: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 		}
@@ -74,7 +76,7 @@ func TestLogsList(t *testing.T) {
 	logsRequest.SetLimit(1)
 
 	err = tests.Retry(time.Duration(5)*time.Second, 30, func() bool {
-		logsResponse, httpresp, err = Client(ctx).LogsApi.ListLogs(ctx).Body(logsRequest).Execute()
+		logsResponse, httpresp, err = Client(ctx).LogsApi.ListLogs(ctx, logsRequest)
 		if err != nil {
 			t.Fatalf("Error listing logs: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 		}
@@ -98,7 +100,7 @@ func TestLogsList(t *testing.T) {
 
 	assert.Equal(200, httpresp.StatusCode)
 	err = tests.Retry(time.Duration(5)*time.Second, 30, func() bool {
-		logsResponse, httpresp, err = Client(ctx).LogsApi.ListLogs(ctx).Body(logsRequest).Execute()
+		logsResponse, httpresp, err = Client(ctx).LogsApi.ListLogs(ctx, logsRequest)
 		if err != nil {
 			t.Fatalf("Error listing logs: Response %s: %v", err.(datadog.GenericOpenAPIError).Body(), err)
 		}
@@ -116,8 +118,8 @@ func TestLogsList(t *testing.T) {
 }
 
 func TestLogsListErrors(t *testing.T) {
-	ctx, close := tests.WithTestSpan(context.Background(), t)
-	defer close()
+	ctx, finish := tests.WithTestSpan(context.Background(), t)
+	defer finish()
 
 	req := *datadog.NewLogsListRequestWithDefaults()
 	req.SetStartAt("notanid")
@@ -136,7 +138,7 @@ func TestLogsListErrors(t *testing.T) {
 			defer finish()
 			assert := tests.Assert(ctx, t)
 
-			_, httpresp, err := Client(ctx).LogsApi.ListLogs(ctx).Body(tc.Body).Execute()
+			_, httpresp, err := Client(ctx).LogsApi.ListLogs(ctx, tc.Body)
 			assert.Equal(tc.ExpectedStatusCode, httpresp.StatusCode)
 			if tc.ExpectedStatusCode == 403 {
 				apiError, ok := err.(datadog.GenericOpenAPIError).Model().(datadog.APIErrorResponse)

@@ -3,10 +3,10 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Data** | Pointer to [**[]SecurityMonitoringSignal**](SecurityMonitoringSignal.md) | An array of security signals matching the request. | [optional] 
-**Links** | Pointer to [**SecurityMonitoringSignalsListResponseLinks**](SecurityMonitoringSignalsListResponse_links.md) |  | [optional] 
-**Meta** | Pointer to [**SecurityMonitoringSignalsListResponseMeta**](SecurityMonitoringSignalsListResponse_meta.md) |  | [optional] 
+**Links** | Pointer to [**SecurityMonitoringSignalsListResponseLinks**](SecurityMonitoringSignalsListResponseLinks.md) |  | [optional] 
+**Meta** | Pointer to [**SecurityMonitoringSignalsListResponseMeta**](SecurityMonitoringSignalsListResponseMeta.md) |  | [optional] 
 
 ## Methods
 
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewSecurityMonitoringSignalsListResponse() *SecurityMonitoringSignalsListResponse`
 
-NewSecurityMonitoringSignalsListResponse instantiates a new SecurityMonitoringSignalsListResponse object
+NewSecurityMonitoringSignalsListResponse instantiates a new SecurityMonitoringSignalsListResponse object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSecurityMonitoringSignalsListResponseWithDefaults
 
 `func NewSecurityMonitoringSignalsListResponseWithDefaults() *SecurityMonitoringSignalsListResponse`
 
-NewSecurityMonitoringSignalsListResponseWithDefaults instantiates a new SecurityMonitoringSignalsListResponse object
+NewSecurityMonitoringSignalsListResponseWithDefaults instantiates a new SecurityMonitoringSignalsListResponse object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetData
 

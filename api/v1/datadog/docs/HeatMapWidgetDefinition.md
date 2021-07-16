@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **CustomLinks** | Pointer to [**[]WidgetCustomLink**](WidgetCustomLink.md) | List of custom links. | [optional] 
 **Events** | Pointer to [**[]WidgetEvent**](WidgetEvent.md) | List of widget events. | [optional] 
 **LegendSize** | Pointer to **string** | Available legend sizes for a widget. Should be one of \&quot;0\&quot;, \&quot;2\&quot;, \&quot;4\&quot;, \&quot;8\&quot;, \&quot;16\&quot;, or \&quot;auto\&quot;. | [optional] 
@@ -13,27 +13,27 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | Title of the widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**HeatMapWidgetDefinitionType**](HeatMapWidgetDefinitionType.md) |  | [default to "heatmap"]
+**Type** | [**HeatMapWidgetDefinitionType**](HeatMapWidgetDefinitionType.md) |  | [default to HEATMAPWIDGETDEFINITIONTYPE_HEATMAP]
 **Yaxis** | Pointer to [**WidgetAxis**](WidgetAxis.md) |  | [optional] 
 
 ## Methods
 
 ### NewHeatMapWidgetDefinition
 
-`func NewHeatMapWidgetDefinition(requests []HeatMapWidgetRequest, type_ HeatMapWidgetDefinitionType, ) *HeatMapWidgetDefinition`
+`func NewHeatMapWidgetDefinition(requests []HeatMapWidgetRequest, type_ HeatMapWidgetDefinitionType) *HeatMapWidgetDefinition`
 
-NewHeatMapWidgetDefinition instantiates a new HeatMapWidgetDefinition object
+NewHeatMapWidgetDefinition instantiates a new HeatMapWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewHeatMapWidgetDefinitionWithDefaults
 
 `func NewHeatMapWidgetDefinitionWithDefaults() *HeatMapWidgetDefinition`
 
-NewHeatMapWidgetDefinitionWithDefaults instantiates a new HeatMapWidgetDefinition object
+NewHeatMapWidgetDefinitionWithDefaults instantiates a new HeatMapWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCustomLinks
 

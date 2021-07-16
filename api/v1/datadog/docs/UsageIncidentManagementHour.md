@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Hour** | Pointer to **time.Time** | The hour for the usage. | [optional] 
 **MonthlyActiveUsers** | Pointer to **int64** | Contains the total number monthly active users from the start of the given hour&#39;s month until the given hour. | [optional] 
 
@@ -13,18 +13,18 @@ Name | Type | Description | Notes
 
 `func NewUsageIncidentManagementHour() *UsageIncidentManagementHour`
 
-NewUsageIncidentManagementHour instantiates a new UsageIncidentManagementHour object
+NewUsageIncidentManagementHour instantiates a new UsageIncidentManagementHour object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageIncidentManagementHourWithDefaults
 
 `func NewUsageIncidentManagementHourWithDefaults() *UsageIncidentManagementHour`
 
-NewUsageIncidentManagementHourWithDefaults instantiates a new UsageIncidentManagementHour object
+NewUsageIncidentManagementHourWithDefaults instantiates a new UsageIncidentManagementHour object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetHour
 

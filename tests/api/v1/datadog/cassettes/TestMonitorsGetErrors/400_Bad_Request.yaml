@@ -10,32 +10,28 @@ interactions:
       Dd-Operation-Id:
       - GetMonitor
       User-Agent:
-      - datadog-api-client-go/1.0.0-beta.2 (go go1.14; os darwin; arch amd64)
+      - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.7; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "8257371293975455948"
+      - "6421067788087653460"
       X-Datadog-Sampling-Priority:
       - "1"
       X-Datadog-Trace-Id:
-      - "1250433964531597345"
-    url: https://api.datadoghq.com/api/v1/monitor/18411374?group_states=notagroupstate
+      - "2145419965791398623"
+    url: https://api.datadoghq.com/api/v1/monitor/33661497?group_states=notagroupstate
     method: GET
   response:
-    body: '{"errors":["Invalid group_state filters."]}'
+    body: '{"errors": ["Invalid group_state filters."]}'
     headers:
       Cache-Control:
       - no-cache
       Connection:
       - keep-alive
       Content-Length:
-      - "43"
-      Content-Security-Policy:
-      - frame-ancestors 'self'; report-uri https://api.datadoghq.com/csp-report
+      - "44"
       Content-Type:
       - application/json
       Date:
-      - Tue, 12 May 2020 13:32:55 GMT
-      Dd-Pool:
-      - dogweb
+      - Mon, 12 Apr 2021 09:53:43 GMT
       Pragma:
       - no-cache
       Strict-Transport-Security:
@@ -43,7 +39,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2492943"
+      - "35.4287331"
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
@@ -51,9 +47,9 @@ interactions:
       X-Ratelimit-Period:
       - "10"
       X-Ratelimit-Remaining:
-      - "2999"
+      - "2997"
       X-Ratelimit-Reset:
-      - "5"
+      - "7"
     status: 400 Bad Request
     code: 400
     duration: ""

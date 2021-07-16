@@ -11,16 +11,16 @@ interactions:
       Content-Type:
       - application/json
       Dd-Operation-Id:
-      - CreateTest
+      - CreateSyntheticsAPITest
       User-Agent:
-      - datadog-api-client-go/1.0.0-beta.8+dev (go go1.14.3; os darwin; arch amd64)
+      - datadog-api-client-go/1.0.0-beta.19+dev (go go1.15.3; os darwin; arch amd64)
       X-Datadog-Parent-Id:
-      - "5187586747624019080"
+      - "3422390174573819185"
       X-Datadog-Sampling-Priority:
       - "1"
       X-Datadog-Trace-Id:
-      - "5913510359742058277"
-    url: https://api.datadoghq.com/api/v1/synthetics/tests
+      - "1511197953692016421"
+    url: https://api.datadoghq.com/api/v1/synthetics/tests/api
     method: POST
   response:
     body: '{"errors": ["Required parameter ''type'' is missing"]}'
@@ -34,9 +34,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 24 Jul 2020 09:33:44 GMT
-      Dd-Pool:
-      - dogweb
+      - Tue, 13 Apr 2021 18:57:11 GMT
       Pragma:
       - no-cache
       Strict-Transport-Security:
@@ -44,7 +42,7 @@ interactions:
       X-Content-Type-Options:
       - nosniff
       X-Dd-Version:
-      - "35.2781966"
+      - "35.4302636"
       X-Frame-Options:
       - SAMEORIGIN
       X-Ratelimit-Limit:
@@ -52,9 +50,9 @@ interactions:
       X-Ratelimit-Period:
       - "60"
       X-Ratelimit-Remaining:
-      - "112"
+      - "119"
       X-Ratelimit-Reset:
-      - "16"
+      - "49"
     status: 400 Bad Request
     code: 400
     duration: ""

@@ -62,6 +62,8 @@ type APIClient struct {
 
 	LogsMetricsApi *LogsMetricsApiService
 
+	MetricsApi *MetricsApiService
+
 	ProcessesApi *ProcessesApiService
 
 	RolesApi *RolesApiService
@@ -95,6 +97,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.LogsApi = (*LogsApiService)(&c.common)
 	c.LogsArchivesApi = (*LogsArchivesApiService)(&c.common)
 	c.LogsMetricsApi = (*LogsMetricsApiService)(&c.common)
+	c.MetricsApi = (*MetricsApiService)(&c.common)
 	c.ProcessesApi = (*ProcessesApiService)(&c.common)
 	c.RolesApi = (*RolesApiService)(&c.common)
 	c.SecurityMonitoringApi = (*SecurityMonitoringApiService)(&c.common)
@@ -188,8 +191,8 @@ func parameterToJson(obj interface{}) (string, error) {
 	return string(jsonBuf), err
 }
 
-// callAPI do the request.
-func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
+// CallAPI do the request.
+func (c *APIClient) CallAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Debug {
 		dump, err := httputil.DumpRequestOut(request, true)
 		if err != nil {
@@ -227,8 +230,8 @@ func (c *APIClient) GetConfig() *Configuration {
 	return c.cfg
 }
 
-// prepareRequest build the request
-func (c *APIClient) prepareRequest(
+// PrepareRequest build the request
+func (c *APIClient) PrepareRequest(
 	ctx context.Context,
 	path string, method string,
 	postBody interface{},
@@ -445,12 +448,18 @@ func reportError(format string, a ...interface{}) error {
 
 // Set request body from an interface{}
 func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
+	if reflect.ValueOf(body).IsNil() {
+		return nil, nil
+	}
+
 	if bodyBuf == nil {
 		bodyBuf = &bytes.Buffer{}
 	}
 
 	if reader, ok := body.(io.Reader); ok {
 		_, err = bodyBuf.ReadFrom(reader)
+	} else if fp, ok := body.(**os.File); ok {
+		_, err = bodyBuf.ReadFrom(*fp)
 	} else if b, ok := body.([]byte); ok {
 		_, err = bodyBuf.Write(b)
 	} else if s, ok := body.(string); ok {

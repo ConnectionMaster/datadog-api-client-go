@@ -3,29 +3,29 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Attributes** | Pointer to [**PermissionAttributes**](PermissionAttributes.md) |  | [optional] 
 **Id** | Pointer to **string** | ID of the permission. | [optional] 
-**Type** | [**PermissionsType**](PermissionsType.md) |  | [default to "permissions"]
+**Type** | [**PermissionsType**](PermissionsType.md) |  | [default to PERMISSIONSTYPE_PERMISSIONS]
 
 ## Methods
 
 ### NewPermission
 
-`func NewPermission(type_ PermissionsType, ) *Permission`
+`func NewPermission(type_ PermissionsType) *Permission`
 
-NewPermission instantiates a new Permission object
+NewPermission instantiates a new Permission object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewPermissionWithDefaults
 
 `func NewPermissionWithDefaults() *Permission`
 
-NewPermissionWithDefaults instantiates a new Permission object
+NewPermissionWithDefaults instantiates a new Permission object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAttributes
 

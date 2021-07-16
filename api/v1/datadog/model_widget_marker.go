@@ -10,11 +10,12 @@ package datadog
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // WidgetMarker Markers allow you to add visual conditional formatting for your graphs.
 type WidgetMarker struct {
-	// Combination of:   - A severity error, warning, ok, or info   - A line type: dashed, solid, or bold
+	// Combination of:   - A severity error, warning, ok, or info   - A line type: dashed, solid, or bold In this case of a Distribution widget, this can be set to be `x_axis_percentile`.
 	DisplayType *string `json:"display_type,omitempty"`
 	// Label to display over the marker.
 	Label *string `json:"label,omitempty"`
@@ -177,6 +178,34 @@ func (o WidgetMarker) MarshalJSON() ([]byte, error) {
 		toSerialize["value"] = o.Value
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o *WidgetMarker) UnmarshalJSON(bytes []byte) (err error) {
+	required := struct {
+		Value *string `json:"value"`
+	}{}
+	all := struct {
+		DisplayType *string `json:"display_type,omitempty"`
+		Label       *string `json:"label,omitempty"`
+		Time        *string `json:"time,omitempty"`
+		Value       string  `json:"value"`
+	}{}
+	err = json.Unmarshal(bytes, &required)
+	if err != nil {
+		return err
+	}
+	if required.Value == nil {
+		return fmt.Errorf("Required field value missing")
+	}
+	err = json.Unmarshal(bytes, &all)
+	if err != nil {
+		return err
+	}
+	o.DisplayType = all.DisplayType
+	o.Label = all.Label
+	o.Time = all.Time
+	o.Value = all.Value
+	return nil
 }
 
 type NullableWidgetMarker struct {

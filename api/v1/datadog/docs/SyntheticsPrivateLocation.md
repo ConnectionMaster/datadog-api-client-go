@@ -3,31 +3,31 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Description** | **string** | Description of the private location. | 
 **Id** | Pointer to **string** | Unique identifier of the private location. | [optional] [readonly] 
 **Name** | **string** | Name of the private location. | 
-**Secrets** | Pointer to [**SyntheticsPrivateLocationSecrets**](SyntheticsPrivateLocation_secrets.md) |  | [optional] 
+**Secrets** | Pointer to [**SyntheticsPrivateLocationSecrets**](SyntheticsPrivateLocationSecrets.md) |  | [optional] 
 **Tags** | **[]string** | Array of tags attached to the private location. | 
 
 ## Methods
 
 ### NewSyntheticsPrivateLocation
 
-`func NewSyntheticsPrivateLocation(description string, name string, tags []string, ) *SyntheticsPrivateLocation`
+`func NewSyntheticsPrivateLocation(description string, name string, tags []string) *SyntheticsPrivateLocation`
 
-NewSyntheticsPrivateLocation instantiates a new SyntheticsPrivateLocation object
+NewSyntheticsPrivateLocation instantiates a new SyntheticsPrivateLocation object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSyntheticsPrivateLocationWithDefaults
 
 `func NewSyntheticsPrivateLocationWithDefaults() *SyntheticsPrivateLocation`
 
-NewSyntheticsPrivateLocationWithDefaults instantiates a new SyntheticsPrivateLocation object
+NewSyntheticsPrivateLocationWithDefaults instantiates a new SyntheticsPrivateLocation object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDescription
 

@@ -9,6 +9,7 @@
 package datadog
 
 import (
+	"bytes"
 	_context "context"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
@@ -24,7 +25,7 @@ var (
 // TagsApiService TagsApi service
 type TagsApiService service
 
-type ApiCreateHostTagsRequest struct {
+type apiCreateHostTagsRequest struct {
 	ctx        _context.Context
 	ApiService *TagsApiService
 	hostName   string
@@ -32,40 +33,49 @@ type ApiCreateHostTagsRequest struct {
 	source     *string
 }
 
-func (r ApiCreateHostTagsRequest) Body(body HostTags) ApiCreateHostTagsRequest {
-	r.body = &body
-	return r
-}
-func (r ApiCreateHostTagsRequest) Source(source string) ApiCreateHostTagsRequest {
-	r.source = &source
-	return r
+type CreateHostTagsOptionalParameters struct {
+	Source *string
 }
 
-func (r ApiCreateHostTagsRequest) Execute() (HostTags, *_nethttp.Response, error) {
-	return r.ApiService.CreateHostTagsExecute(r)
+func NewCreateHostTagsOptionalParameters() *CreateHostTagsOptionalParameters {
+	this := CreateHostTagsOptionalParameters{}
+	return &this
+}
+func (r *CreateHostTagsOptionalParameters) WithSource(source string) *CreateHostTagsOptionalParameters {
+	r.Source = &source
+	return r
 }
 
 /*
  * CreateHostTags Add tags to a host
  * This endpoint allows you to add new tags to a host,
 optionally specifying where these tags come from.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param hostName This endpoint allows you to add new tags to a host, optionally specifying where the tags came from.
- * @return ApiCreateHostTagsRequest
 */
-func (a *TagsApiService) CreateHostTags(ctx _context.Context, hostName string) ApiCreateHostTagsRequest {
-	return ApiCreateHostTagsRequest{
+func (a *TagsApiService) CreateHostTags(ctx _context.Context, hostName string, body HostTags, o ...CreateHostTagsOptionalParameters) (HostTags, *_nethttp.Response, error) {
+	req := apiCreateHostTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		hostName:   hostName,
+		body:       &body,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue HostTags
+		return localVarReturnValue, nil, reportError("only one argument of type CreateHostTagsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.source = o[0].Source
+	}
+
+	return req.ApiService.createHostTagsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return HostTags
  */
-func (a *TagsApiService) CreateHostTagsExecute(r ApiCreateHostTagsRequest) (HostTags, *_nethttp.Response, error) {
+func (a *TagsApiService) createHostTagsExecute(r apiCreateHostTagsRequest) (HostTags, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -144,18 +154,19 @@ func (a *TagsApiService) CreateHostTagsExecute(r ApiCreateHostTagsRequest) (Host
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -199,42 +210,53 @@ func (a *TagsApiService) CreateHostTagsExecute(r ApiCreateHostTagsRequest) (Host
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteHostTagsRequest struct {
+type apiDeleteHostTagsRequest struct {
 	ctx        _context.Context
 	ApiService *TagsApiService
 	hostName   string
 	source     *string
 }
 
-func (r ApiDeleteHostTagsRequest) Source(source string) ApiDeleteHostTagsRequest {
-	r.source = &source
-	return r
+type DeleteHostTagsOptionalParameters struct {
+	Source *string
 }
 
-func (r ApiDeleteHostTagsRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.DeleteHostTagsExecute(r)
+func NewDeleteHostTagsOptionalParameters() *DeleteHostTagsOptionalParameters {
+	this := DeleteHostTagsOptionalParameters{}
+	return &this
+}
+func (r *DeleteHostTagsOptionalParameters) WithSource(source string) *DeleteHostTagsOptionalParameters {
+	r.Source = &source
+	return r
 }
 
 /*
  * DeleteHostTags Remove host tags
  * This endpoint allows you to remove all user-assigned tags
 for a single host.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param hostName This endpoint allows you to remove all user-assigned tags for a single host.
- * @return ApiDeleteHostTagsRequest
 */
-func (a *TagsApiService) DeleteHostTags(ctx _context.Context, hostName string) ApiDeleteHostTagsRequest {
-	return ApiDeleteHostTagsRequest{
+func (a *TagsApiService) DeleteHostTags(ctx _context.Context, hostName string, o ...DeleteHostTagsOptionalParameters) (*_nethttp.Response, error) {
+	req := apiDeleteHostTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		hostName:   hostName,
 	}
+
+	if len(o) > 1 {
+		return nil, reportError("only one argument of type DeleteHostTagsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.source = o[0].Source
+	}
+
+	return req.ApiService.deleteHostTagsExecute(req)
 }
 
 /*
  * Execute executes the request
  */
-func (a *TagsApiService) DeleteHostTagsExecute(r ApiDeleteHostTagsRequest) (*_nethttp.Response, error) {
+func (a *TagsApiService) deleteHostTagsExecute(r apiDeleteHostTagsRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
@@ -307,18 +329,19 @@ func (a *TagsApiService) DeleteHostTagsExecute(r ApiDeleteHostTagsRequest) (*_ne
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -353,42 +376,54 @@ func (a *TagsApiService) DeleteHostTagsExecute(r ApiDeleteHostTagsRequest) (*_ne
 	return localVarHTTPResponse, nil
 }
 
-type ApiGetHostTagsRequest struct {
+type apiGetHostTagsRequest struct {
 	ctx        _context.Context
 	ApiService *TagsApiService
 	hostName   string
 	source     *string
 }
 
-func (r ApiGetHostTagsRequest) Source(source string) ApiGetHostTagsRequest {
-	r.source = &source
-	return r
+type GetHostTagsOptionalParameters struct {
+	Source *string
 }
 
-func (r ApiGetHostTagsRequest) Execute() (HostTags, *_nethttp.Response, error) {
-	return r.ApiService.GetHostTagsExecute(r)
+func NewGetHostTagsOptionalParameters() *GetHostTagsOptionalParameters {
+	this := GetHostTagsOptionalParameters{}
+	return &this
+}
+func (r *GetHostTagsOptionalParameters) WithSource(source string) *GetHostTagsOptionalParameters {
+	r.Source = &source
+	return r
 }
 
 /*
  * GetHostTags Get host tags
  * Return the list of tags that apply to a given host.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param hostName When specified, filters list of tags to those tags with the specified source.
- * @return ApiGetHostTagsRequest
  */
-func (a *TagsApiService) GetHostTags(ctx _context.Context, hostName string) ApiGetHostTagsRequest {
-	return ApiGetHostTagsRequest{
+func (a *TagsApiService) GetHostTags(ctx _context.Context, hostName string, o ...GetHostTagsOptionalParameters) (HostTags, *_nethttp.Response, error) {
+	req := apiGetHostTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		hostName:   hostName,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue HostTags
+		return localVarReturnValue, nil, reportError("only one argument of type GetHostTagsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.source = o[0].Source
+	}
+
+	return req.ApiService.getHostTagsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return HostTags
  */
-func (a *TagsApiService) GetHostTagsExecute(r ApiGetHostTagsRequest) (HostTags, *_nethttp.Response, error) {
+func (a *TagsApiService) getHostTagsExecute(r apiGetHostTagsRequest) (HostTags, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -462,18 +497,19 @@ func (a *TagsApiService) GetHostTagsExecute(r ApiGetHostTagsRequest) (HostTags, 
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -517,39 +553,52 @@ func (a *TagsApiService) GetHostTagsExecute(r ApiGetHostTagsRequest) (HostTags, 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListHostTagsRequest struct {
+type apiListHostTagsRequest struct {
 	ctx        _context.Context
 	ApiService *TagsApiService
 	source     *string
 }
 
-func (r ApiListHostTagsRequest) Source(source string) ApiListHostTagsRequest {
-	r.source = &source
-	return r
+type ListHostTagsOptionalParameters struct {
+	Source *string
 }
 
-func (r ApiListHostTagsRequest) Execute() (TagToHosts, *_nethttp.Response, error) {
-	return r.ApiService.ListHostTagsExecute(r)
+func NewListHostTagsOptionalParameters() *ListHostTagsOptionalParameters {
+	this := ListHostTagsOptionalParameters{}
+	return &this
+}
+func (r *ListHostTagsOptionalParameters) WithSource(source string) *ListHostTagsOptionalParameters {
+	r.Source = &source
+	return r
 }
 
 /*
  * ListHostTags Get Tags
  * Return a mapping of tags to hosts for your whole infrastructure.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @return ApiListHostTagsRequest
  */
-func (a *TagsApiService) ListHostTags(ctx _context.Context) ApiListHostTagsRequest {
-	return ApiListHostTagsRequest{
+func (a *TagsApiService) ListHostTags(ctx _context.Context, o ...ListHostTagsOptionalParameters) (TagToHosts, *_nethttp.Response, error) {
+	req := apiListHostTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue TagToHosts
+		return localVarReturnValue, nil, reportError("only one argument of type ListHostTagsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.source = o[0].Source
+	}
+
+	return req.ApiService.listHostTagsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return TagToHosts
  */
-func (a *TagsApiService) ListHostTagsExecute(r ApiListHostTagsRequest) (TagToHosts, *_nethttp.Response, error) {
+func (a *TagsApiService) listHostTagsExecute(r apiListHostTagsRequest) (TagToHosts, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -622,18 +671,19 @@ func (a *TagsApiService) ListHostTagsExecute(r ApiListHostTagsRequest) (TagToHos
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -677,7 +727,7 @@ func (a *TagsApiService) ListHostTagsExecute(r ApiListHostTagsRequest) (TagToHos
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateHostTagsRequest struct {
+type apiUpdateHostTagsRequest struct {
 	ctx        _context.Context
 	ApiService *TagsApiService
 	hostName   string
@@ -685,40 +735,49 @@ type ApiUpdateHostTagsRequest struct {
 	source     *string
 }
 
-func (r ApiUpdateHostTagsRequest) Body(body HostTags) ApiUpdateHostTagsRequest {
-	r.body = &body
-	return r
-}
-func (r ApiUpdateHostTagsRequest) Source(source string) ApiUpdateHostTagsRequest {
-	r.source = &source
-	return r
+type UpdateHostTagsOptionalParameters struct {
+	Source *string
 }
 
-func (r ApiUpdateHostTagsRequest) Execute() (HostTags, *_nethttp.Response, error) {
-	return r.ApiService.UpdateHostTagsExecute(r)
+func NewUpdateHostTagsOptionalParameters() *UpdateHostTagsOptionalParameters {
+	this := UpdateHostTagsOptionalParameters{}
+	return &this
+}
+func (r *UpdateHostTagsOptionalParameters) WithSource(source string) *UpdateHostTagsOptionalParameters {
+	r.Source = &source
+	return r
 }
 
 /*
  * UpdateHostTags Update host tags
  * This endpoint allows you to update/replace all tags in
 an integration source with those supplied in the request.
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param hostName This endpoint allows you to update/replace all in an integration source with those supplied in the request.
- * @return ApiUpdateHostTagsRequest
 */
-func (a *TagsApiService) UpdateHostTags(ctx _context.Context, hostName string) ApiUpdateHostTagsRequest {
-	return ApiUpdateHostTagsRequest{
+func (a *TagsApiService) UpdateHostTags(ctx _context.Context, hostName string, body HostTags, o ...UpdateHostTagsOptionalParameters) (HostTags, *_nethttp.Response, error) {
+	req := apiUpdateHostTagsRequest{
 		ApiService: a,
 		ctx:        ctx,
 		hostName:   hostName,
+		body:       &body,
 	}
+
+	if len(o) > 1 {
+		var localVarReturnValue HostTags
+		return localVarReturnValue, nil, reportError("only one argument of type UpdateHostTagsOptionalParameters is allowed")
+	}
+
+	if o != nil {
+		req.source = o[0].Source
+	}
+
+	return req.ApiService.updateHostTagsExecute(req)
 }
 
 /*
  * Execute executes the request
  * @return HostTags
  */
-func (a *TagsApiService) UpdateHostTagsExecute(r ApiUpdateHostTagsRequest) (HostTags, *_nethttp.Response, error) {
+func (a *TagsApiService) updateHostTagsExecute(r apiUpdateHostTagsRequest) (HostTags, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
@@ -797,18 +856,19 @@ func (a *TagsApiService) UpdateHostTagsExecute(r ApiUpdateHostTagsRequest) (Host
 			}
 		}
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.PrepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
 
-	localVarHTTPResponse, err := a.client.callAPI(req)
+	localVarHTTPResponse, err := a.client.CallAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

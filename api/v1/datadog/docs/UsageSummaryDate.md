@@ -3,10 +3,11 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AgentHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all agent hosts over all hours in the current date for all organizations. | [optional] 
 **ApmAzureAppServiceHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all Azure app services using APM over all hours in the current date all organizations. | [optional] 
 **ApmHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all distinct APM hosts over all hours in the current date for all organizations. | [optional] 
+**AuditLogsLinesIndexedSum** | Pointer to **int64** | Shows the sum of audit logs lines indexed over all hours in the current date for all organizations. | [optional] 
 **AwsHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all AWS hosts over all hours in the current date for all organizations. | [optional] 
 **AwsLambdaFuncCount** | Pointer to **int64** | Shows the average of the number of functions that executed 1 or more times each hour in the current date for all organizations. | [optional] 
 **AwsLambdaInvocationsSum** | Pointer to **int64** | Shows the sum of all AWS Lambda invocations over all hours in the current date for all organizations. | [optional] 
@@ -14,22 +15,29 @@ Name | Type | Description | Notes
 **BillableIngestedBytesSum** | Pointer to **int64** | Shows the sum of all log bytes ingested over all hours in the current date for all organizations. | [optional] 
 **ContainerAvg** | Pointer to **int64** | Shows the average of all distinct containers over all hours in the current date for all organizations. | [optional] 
 **ContainerHwm** | Pointer to **int64** | Shows the high-water mark of all distinct containers over all hours in the current date for all organizations. | [optional] 
+**CspmContainerAvg** | Pointer to **int64** | Shows the average number of Cloud Security Posture Management containers over all hours in the current date for all organizations. | [optional] 
+**CspmContainerHwm** | Pointer to **int64** | Shows the high-water mark of Cloud Security Posture Management containers over all hours in the current date for all organizations. | [optional] 
+**CspmHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all Cloud Security Posture Management hosts over all hours in the current date for all organizations. | [optional] 
 **CustomTsAvg** | Pointer to **int64** | Shows the average number of distinct custom metrics over all hours in the current date for all organizations. | [optional] 
+**CwsContainerCountAvg** | Pointer to **int64** | Shows the average of all distinct Cloud Workload Security containers over all hours in the current date for all organizations. | [optional] 
+**CwsHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all Cloud Workload Security hosts over all hours in the current date for all organizations. | [optional] 
 **Date** | Pointer to **time.Time** | The date for the usage. | [optional] 
 **FargateTasksCountAvg** | Pointer to **int64** | Shows the high-watermark of all Fargate tasks over all hours in the current date for all organizations. | [optional] 
 **FargateTasksCountHwm** | Pointer to **int64** | Shows the average of all Fargate tasks over all hours in the current date for all organizations. | [optional] 
 **GcpHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all GCP hosts over all hours in the current date for all organizations. | [optional] 
+**HerokuHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all Heroku dynos over all hours in the current date for all organizations. | [optional] 
 **IncidentManagementMonthlyActiveUsersHwm** | Pointer to **int64** | Shows the high-water mark of incident management monthly active users over all hours in the current date for all organizations. | [optional] 
 **IndexedEventsCountSum** | Pointer to **int64** | Shows the sum of all log events indexed over all hours in the current date for all organizations. | [optional] 
 **InfraHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all distinct infrastructure hosts over all hours in the current date for all organizations. | [optional] 
 **IngestedEventsBytesSum** | Pointer to **int64** | Shows the sum of all log bytes ingested over all hours in the current date for all organizations. | [optional] 
-**IotDeviceAggSum** | Pointer to **int64** | Shows the sum of all IoT devices over all hours in the current date for all organizations. | [optional] 
-**IotDeviceTop99pSum** | Pointer to **int64** | Shows the 99th percentile of all IoT devices over all hours in the current date all organizations. | [optional] 
+**IotDeviceSum** | Pointer to **int64** | Shows the sum of all IoT devices over all hours in the current date for all organizations. | [optional] 
+**IotDeviceTop99p** | Pointer to **int64** | Shows the 99th percentile of all IoT devices over all hours in the current date all organizations. | [optional] 
 **MobileRumSessionCountAndroidSum** | Pointer to **int64** | Shows the sum of all mobile RUM Sessions on Android over all hours in the current date for all organizations. | [optional] 
 **MobileRumSessionCountIosSum** | Pointer to **int64** | Shows the sum of all mobile RUM Sessions on iOS over all hours in the current date for all organizations. | [optional] 
 **MobileRumSessionCountSum** | Pointer to **int64** | Shows the sum of all mobile RUM Sessions over all hours in the current date for all organizations | [optional] 
 **NetflowIndexedEventsCountSum** | Pointer to **int64** | Shows the sum of all Network flows indexed over all hours in the current date for all organizations. | [optional] 
 **NpmHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all distinct Networks hosts over all hours in the current date for all organizations. | [optional] 
+**OpentelemetryHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all hosts reported by the Datadog exporter for the OpenTelemetry Collector over all hours in the current date for all organizations. | [optional] 
 **Orgs** | Pointer to [**[]UsageSummaryDateOrg**](UsageSummaryDateOrg.md) | Organizations associated with a user. | [optional] 
 **ProfilingHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all profiled hosts over all hours in the current date for all organizations. | [optional] 
 **RumSessionCountSum** | Pointer to **int64** | Shows the sum of all browser RUM Sessions over all hours in the current date for all organizations | [optional] 
@@ -38,6 +46,7 @@ Name | Type | Description | Notes
 **SyntheticsCheckCallsCountSum** | Pointer to **int64** | Shows the sum of all Synthetic API tests over all hours in the current date for all organizations. | [optional] 
 **TraceSearchIndexedEventsCountSum** | Pointer to **int64** | Shows the sum of all Indexed Spans indexed over all hours in the current date for all organizations. | [optional] 
 **TwolIngestedEventsBytesSum** | Pointer to **int64** | Shows the sum of all tracing without limits bytes ingested over all hours in the current date for all organizations. | [optional] 
+**VsphereHostTop99p** | Pointer to **int64** | Shows the 99th percentile of all vSphere hosts over all hours in the current date for all organizations. | [optional] 
 
 ## Methods
 
@@ -45,18 +54,18 @@ Name | Type | Description | Notes
 
 `func NewUsageSummaryDate() *UsageSummaryDate`
 
-NewUsageSummaryDate instantiates a new UsageSummaryDate object
+NewUsageSummaryDate instantiates a new UsageSummaryDate object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewUsageSummaryDateWithDefaults
 
 `func NewUsageSummaryDateWithDefaults() *UsageSummaryDate`
 
-NewUsageSummaryDateWithDefaults instantiates a new UsageSummaryDate object
+NewUsageSummaryDateWithDefaults instantiates a new UsageSummaryDate object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAgentHostTop99p
 
@@ -132,6 +141,31 @@ SetApmHostTop99p sets ApmHostTop99p field to given value.
 `func (o *UsageSummaryDate) HasApmHostTop99p() bool`
 
 HasApmHostTop99p returns a boolean if a field has been set.
+
+### GetAuditLogsLinesIndexedSum
+
+`func (o *UsageSummaryDate) GetAuditLogsLinesIndexedSum() int64`
+
+GetAuditLogsLinesIndexedSum returns the AuditLogsLinesIndexedSum field if non-nil, zero value otherwise.
+
+### GetAuditLogsLinesIndexedSumOk
+
+`func (o *UsageSummaryDate) GetAuditLogsLinesIndexedSumOk() (*int64, bool)`
+
+GetAuditLogsLinesIndexedSumOk returns a tuple with the AuditLogsLinesIndexedSum field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuditLogsLinesIndexedSum
+
+`func (o *UsageSummaryDate) SetAuditLogsLinesIndexedSum(v int64)`
+
+SetAuditLogsLinesIndexedSum sets AuditLogsLinesIndexedSum field to given value.
+
+### HasAuditLogsLinesIndexedSum
+
+`func (o *UsageSummaryDate) HasAuditLogsLinesIndexedSum() bool`
+
+HasAuditLogsLinesIndexedSum returns a boolean if a field has been set.
 
 ### GetAwsHostTop99p
 
@@ -308,6 +342,81 @@ SetContainerHwm sets ContainerHwm field to given value.
 
 HasContainerHwm returns a boolean if a field has been set.
 
+### GetCspmContainerAvg
+
+`func (o *UsageSummaryDate) GetCspmContainerAvg() int64`
+
+GetCspmContainerAvg returns the CspmContainerAvg field if non-nil, zero value otherwise.
+
+### GetCspmContainerAvgOk
+
+`func (o *UsageSummaryDate) GetCspmContainerAvgOk() (*int64, bool)`
+
+GetCspmContainerAvgOk returns a tuple with the CspmContainerAvg field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCspmContainerAvg
+
+`func (o *UsageSummaryDate) SetCspmContainerAvg(v int64)`
+
+SetCspmContainerAvg sets CspmContainerAvg field to given value.
+
+### HasCspmContainerAvg
+
+`func (o *UsageSummaryDate) HasCspmContainerAvg() bool`
+
+HasCspmContainerAvg returns a boolean if a field has been set.
+
+### GetCspmContainerHwm
+
+`func (o *UsageSummaryDate) GetCspmContainerHwm() int64`
+
+GetCspmContainerHwm returns the CspmContainerHwm field if non-nil, zero value otherwise.
+
+### GetCspmContainerHwmOk
+
+`func (o *UsageSummaryDate) GetCspmContainerHwmOk() (*int64, bool)`
+
+GetCspmContainerHwmOk returns a tuple with the CspmContainerHwm field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCspmContainerHwm
+
+`func (o *UsageSummaryDate) SetCspmContainerHwm(v int64)`
+
+SetCspmContainerHwm sets CspmContainerHwm field to given value.
+
+### HasCspmContainerHwm
+
+`func (o *UsageSummaryDate) HasCspmContainerHwm() bool`
+
+HasCspmContainerHwm returns a boolean if a field has been set.
+
+### GetCspmHostTop99p
+
+`func (o *UsageSummaryDate) GetCspmHostTop99p() int64`
+
+GetCspmHostTop99p returns the CspmHostTop99p field if non-nil, zero value otherwise.
+
+### GetCspmHostTop99pOk
+
+`func (o *UsageSummaryDate) GetCspmHostTop99pOk() (*int64, bool)`
+
+GetCspmHostTop99pOk returns a tuple with the CspmHostTop99p field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCspmHostTop99p
+
+`func (o *UsageSummaryDate) SetCspmHostTop99p(v int64)`
+
+SetCspmHostTop99p sets CspmHostTop99p field to given value.
+
+### HasCspmHostTop99p
+
+`func (o *UsageSummaryDate) HasCspmHostTop99p() bool`
+
+HasCspmHostTop99p returns a boolean if a field has been set.
+
 ### GetCustomTsAvg
 
 `func (o *UsageSummaryDate) GetCustomTsAvg() int64`
@@ -332,6 +441,56 @@ SetCustomTsAvg sets CustomTsAvg field to given value.
 `func (o *UsageSummaryDate) HasCustomTsAvg() bool`
 
 HasCustomTsAvg returns a boolean if a field has been set.
+
+### GetCwsContainerCountAvg
+
+`func (o *UsageSummaryDate) GetCwsContainerCountAvg() int64`
+
+GetCwsContainerCountAvg returns the CwsContainerCountAvg field if non-nil, zero value otherwise.
+
+### GetCwsContainerCountAvgOk
+
+`func (o *UsageSummaryDate) GetCwsContainerCountAvgOk() (*int64, bool)`
+
+GetCwsContainerCountAvgOk returns a tuple with the CwsContainerCountAvg field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCwsContainerCountAvg
+
+`func (o *UsageSummaryDate) SetCwsContainerCountAvg(v int64)`
+
+SetCwsContainerCountAvg sets CwsContainerCountAvg field to given value.
+
+### HasCwsContainerCountAvg
+
+`func (o *UsageSummaryDate) HasCwsContainerCountAvg() bool`
+
+HasCwsContainerCountAvg returns a boolean if a field has been set.
+
+### GetCwsHostTop99p
+
+`func (o *UsageSummaryDate) GetCwsHostTop99p() int64`
+
+GetCwsHostTop99p returns the CwsHostTop99p field if non-nil, zero value otherwise.
+
+### GetCwsHostTop99pOk
+
+`func (o *UsageSummaryDate) GetCwsHostTop99pOk() (*int64, bool)`
+
+GetCwsHostTop99pOk returns a tuple with the CwsHostTop99p field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCwsHostTop99p
+
+`func (o *UsageSummaryDate) SetCwsHostTop99p(v int64)`
+
+SetCwsHostTop99p sets CwsHostTop99p field to given value.
+
+### HasCwsHostTop99p
+
+`func (o *UsageSummaryDate) HasCwsHostTop99p() bool`
+
+HasCwsHostTop99p returns a boolean if a field has been set.
 
 ### GetDate
 
@@ -433,6 +592,31 @@ SetGcpHostTop99p sets GcpHostTop99p field to given value.
 
 HasGcpHostTop99p returns a boolean if a field has been set.
 
+### GetHerokuHostTop99p
+
+`func (o *UsageSummaryDate) GetHerokuHostTop99p() int64`
+
+GetHerokuHostTop99p returns the HerokuHostTop99p field if non-nil, zero value otherwise.
+
+### GetHerokuHostTop99pOk
+
+`func (o *UsageSummaryDate) GetHerokuHostTop99pOk() (*int64, bool)`
+
+GetHerokuHostTop99pOk returns a tuple with the HerokuHostTop99p field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetHerokuHostTop99p
+
+`func (o *UsageSummaryDate) SetHerokuHostTop99p(v int64)`
+
+SetHerokuHostTop99p sets HerokuHostTop99p field to given value.
+
+### HasHerokuHostTop99p
+
+`func (o *UsageSummaryDate) HasHerokuHostTop99p() bool`
+
+HasHerokuHostTop99p returns a boolean if a field has been set.
+
 ### GetIncidentManagementMonthlyActiveUsersHwm
 
 `func (o *UsageSummaryDate) GetIncidentManagementMonthlyActiveUsersHwm() int64`
@@ -533,55 +717,55 @@ SetIngestedEventsBytesSum sets IngestedEventsBytesSum field to given value.
 
 HasIngestedEventsBytesSum returns a boolean if a field has been set.
 
-### GetIotDeviceAggSum
+### GetIotDeviceSum
 
-`func (o *UsageSummaryDate) GetIotDeviceAggSum() int64`
+`func (o *UsageSummaryDate) GetIotDeviceSum() int64`
 
-GetIotDeviceAggSum returns the IotDeviceAggSum field if non-nil, zero value otherwise.
+GetIotDeviceSum returns the IotDeviceSum field if non-nil, zero value otherwise.
 
-### GetIotDeviceAggSumOk
+### GetIotDeviceSumOk
 
-`func (o *UsageSummaryDate) GetIotDeviceAggSumOk() (*int64, bool)`
+`func (o *UsageSummaryDate) GetIotDeviceSumOk() (*int64, bool)`
 
-GetIotDeviceAggSumOk returns a tuple with the IotDeviceAggSum field if it's non-nil, zero value otherwise
+GetIotDeviceSumOk returns a tuple with the IotDeviceSum field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIotDeviceAggSum
+### SetIotDeviceSum
 
-`func (o *UsageSummaryDate) SetIotDeviceAggSum(v int64)`
+`func (o *UsageSummaryDate) SetIotDeviceSum(v int64)`
 
-SetIotDeviceAggSum sets IotDeviceAggSum field to given value.
+SetIotDeviceSum sets IotDeviceSum field to given value.
 
-### HasIotDeviceAggSum
+### HasIotDeviceSum
 
-`func (o *UsageSummaryDate) HasIotDeviceAggSum() bool`
+`func (o *UsageSummaryDate) HasIotDeviceSum() bool`
 
-HasIotDeviceAggSum returns a boolean if a field has been set.
+HasIotDeviceSum returns a boolean if a field has been set.
 
-### GetIotDeviceTop99pSum
+### GetIotDeviceTop99p
 
-`func (o *UsageSummaryDate) GetIotDeviceTop99pSum() int64`
+`func (o *UsageSummaryDate) GetIotDeviceTop99p() int64`
 
-GetIotDeviceTop99pSum returns the IotDeviceTop99pSum field if non-nil, zero value otherwise.
+GetIotDeviceTop99p returns the IotDeviceTop99p field if non-nil, zero value otherwise.
 
-### GetIotDeviceTop99pSumOk
+### GetIotDeviceTop99pOk
 
-`func (o *UsageSummaryDate) GetIotDeviceTop99pSumOk() (*int64, bool)`
+`func (o *UsageSummaryDate) GetIotDeviceTop99pOk() (*int64, bool)`
 
-GetIotDeviceTop99pSumOk returns a tuple with the IotDeviceTop99pSum field if it's non-nil, zero value otherwise
+GetIotDeviceTop99pOk returns a tuple with the IotDeviceTop99p field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetIotDeviceTop99pSum
+### SetIotDeviceTop99p
 
-`func (o *UsageSummaryDate) SetIotDeviceTop99pSum(v int64)`
+`func (o *UsageSummaryDate) SetIotDeviceTop99p(v int64)`
 
-SetIotDeviceTop99pSum sets IotDeviceTop99pSum field to given value.
+SetIotDeviceTop99p sets IotDeviceTop99p field to given value.
 
-### HasIotDeviceTop99pSum
+### HasIotDeviceTop99p
 
-`func (o *UsageSummaryDate) HasIotDeviceTop99pSum() bool`
+`func (o *UsageSummaryDate) HasIotDeviceTop99p() bool`
 
-HasIotDeviceTop99pSum returns a boolean if a field has been set.
+HasIotDeviceTop99p returns a boolean if a field has been set.
 
 ### GetMobileRumSessionCountAndroidSum
 
@@ -707,6 +891,31 @@ SetNpmHostTop99p sets NpmHostTop99p field to given value.
 `func (o *UsageSummaryDate) HasNpmHostTop99p() bool`
 
 HasNpmHostTop99p returns a boolean if a field has been set.
+
+### GetOpentelemetryHostTop99p
+
+`func (o *UsageSummaryDate) GetOpentelemetryHostTop99p() int64`
+
+GetOpentelemetryHostTop99p returns the OpentelemetryHostTop99p field if non-nil, zero value otherwise.
+
+### GetOpentelemetryHostTop99pOk
+
+`func (o *UsageSummaryDate) GetOpentelemetryHostTop99pOk() (*int64, bool)`
+
+GetOpentelemetryHostTop99pOk returns a tuple with the OpentelemetryHostTop99p field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOpentelemetryHostTop99p
+
+`func (o *UsageSummaryDate) SetOpentelemetryHostTop99p(v int64)`
+
+SetOpentelemetryHostTop99p sets OpentelemetryHostTop99p field to given value.
+
+### HasOpentelemetryHostTop99p
+
+`func (o *UsageSummaryDate) HasOpentelemetryHostTop99p() bool`
+
+HasOpentelemetryHostTop99p returns a boolean if a field has been set.
 
 ### GetOrgs
 
@@ -907,6 +1116,31 @@ SetTwolIngestedEventsBytesSum sets TwolIngestedEventsBytesSum field to given val
 `func (o *UsageSummaryDate) HasTwolIngestedEventsBytesSum() bool`
 
 HasTwolIngestedEventsBytesSum returns a boolean if a field has been set.
+
+### GetVsphereHostTop99p
+
+`func (o *UsageSummaryDate) GetVsphereHostTop99p() int64`
+
+GetVsphereHostTop99p returns the VsphereHostTop99p field if non-nil, zero value otherwise.
+
+### GetVsphereHostTop99pOk
+
+`func (o *UsageSummaryDate) GetVsphereHostTop99pOk() (*int64, bool)`
+
+GetVsphereHostTop99pOk returns a tuple with the VsphereHostTop99p field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVsphereHostTop99p
+
+`func (o *UsageSummaryDate) SetVsphereHostTop99p(v int64)`
+
+SetVsphereHostTop99p sets VsphereHostTop99p field to given value.
+
+### HasVsphereHostTop99p
+
+`func (o *UsageSummaryDate) HasVsphereHostTop99p() bool`
+
+HasVsphereHostTop99p returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

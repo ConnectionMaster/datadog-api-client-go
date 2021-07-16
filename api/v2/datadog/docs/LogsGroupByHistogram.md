@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Interval** | **float64** | The bin size of the histogram buckets | 
 **Max** | **float64** | The maximum value for the measure used in the histogram (values greater than this one are filtered out) | 
 **Min** | **float64** | The minimum value for the measure used in the histogram (values smaller than this one are filtered out) | 
@@ -12,20 +12,20 @@ Name | Type | Description | Notes
 
 ### NewLogsGroupByHistogram
 
-`func NewLogsGroupByHistogram(interval float64, max float64, min float64, ) *LogsGroupByHistogram`
+`func NewLogsGroupByHistogram(interval float64, max float64, min float64) *LogsGroupByHistogram`
 
-NewLogsGroupByHistogram instantiates a new LogsGroupByHistogram object
+NewLogsGroupByHistogram instantiates a new LogsGroupByHistogram object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsGroupByHistogramWithDefaults
 
 `func NewLogsGroupByHistogramWithDefaults() *LogsGroupByHistogram`
 
-NewLogsGroupByHistogramWithDefaults instantiates a new LogsGroupByHistogram object
+NewLogsGroupByHistogramWithDefaults instantiates a new LogsGroupByHistogram object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetInterval
 

@@ -17,8 +17,12 @@ import (
 type UsageAttributionBody struct {
 	// Datetime in ISO-8601 format, UTC, precise to month: [YYYY-MM].
 	Month *time.Time `json:"month,omitempty"`
+	// The name of the organization.
+	OrgName *string `json:"org_name,omitempty"`
 	// The organization public ID.
 	PublicId *string `json:"public_id,omitempty"`
+	// The source of the usage attribution tag configuration and the selected tags in the format `<source_org_name>:<selected tag 1>-<selected tag 2>-<selected tag 3>`.
+	TagConfigSource *string `json:"tag_config_source,omitempty"`
 	// Usage Summary by tag name.
 	Tags *map[string][]string `json:"tags,omitempty"`
 	// Shows the the most recent hour in the current months for all organizations for which all usages were calculated.
@@ -75,6 +79,38 @@ func (o *UsageAttributionBody) SetMonth(v time.Time) {
 	o.Month = &v
 }
 
+// GetOrgName returns the OrgName field value if set, zero value otherwise.
+func (o *UsageAttributionBody) GetOrgName() string {
+	if o == nil || o.OrgName == nil {
+		var ret string
+		return ret
+	}
+	return *o.OrgName
+}
+
+// GetOrgNameOk returns a tuple with the OrgName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionBody) GetOrgNameOk() (*string, bool) {
+	if o == nil || o.OrgName == nil {
+		return nil, false
+	}
+	return o.OrgName, true
+}
+
+// HasOrgName returns a boolean if a field has been set.
+func (o *UsageAttributionBody) HasOrgName() bool {
+	if o != nil && o.OrgName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOrgName gets a reference to the given string and assigns it to the OrgName field.
+func (o *UsageAttributionBody) SetOrgName(v string) {
+	o.OrgName = &v
+}
+
 // GetPublicId returns the PublicId field value if set, zero value otherwise.
 func (o *UsageAttributionBody) GetPublicId() string {
 	if o == nil || o.PublicId == nil {
@@ -105,6 +141,38 @@ func (o *UsageAttributionBody) HasPublicId() bool {
 // SetPublicId gets a reference to the given string and assigns it to the PublicId field.
 func (o *UsageAttributionBody) SetPublicId(v string) {
 	o.PublicId = &v
+}
+
+// GetTagConfigSource returns the TagConfigSource field value if set, zero value otherwise.
+func (o *UsageAttributionBody) GetTagConfigSource() string {
+	if o == nil || o.TagConfigSource == nil {
+		var ret string
+		return ret
+	}
+	return *o.TagConfigSource
+}
+
+// GetTagConfigSourceOk returns a tuple with the TagConfigSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UsageAttributionBody) GetTagConfigSourceOk() (*string, bool) {
+	if o == nil || o.TagConfigSource == nil {
+		return nil, false
+	}
+	return o.TagConfigSource, true
+}
+
+// HasTagConfigSource returns a boolean if a field has been set.
+func (o *UsageAttributionBody) HasTagConfigSource() bool {
+	if o != nil && o.TagConfigSource != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTagConfigSource gets a reference to the given string and assigns it to the TagConfigSource field.
+func (o *UsageAttributionBody) SetTagConfigSource(v string) {
+	o.TagConfigSource = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -208,8 +276,14 @@ func (o UsageAttributionBody) MarshalJSON() ([]byte, error) {
 	if o.Month != nil {
 		toSerialize["month"] = o.Month
 	}
+	if o.OrgName != nil {
+		toSerialize["org_name"] = o.OrgName
+	}
 	if o.PublicId != nil {
 		toSerialize["public_id"] = o.PublicId
+	}
+	if o.TagConfigSource != nil {
+		toSerialize["tag_config_source"] = o.TagConfigSource
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags

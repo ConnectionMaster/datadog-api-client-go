@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **DailyLimit** | Pointer to **int64** | The number of log events you can send in this index per day before you are rate-limited. | [optional] 
 **DisableDailyLimit** | Pointer to **bool** | If true, sets the &#x60;daily_limit&#x60; value to null and the index is not limited on a daily basis (any specified &#x60;daily_limit&#x60; value in the request is ignored). If false or omitted, the index&#39;s current &#x60;daily_limit&#x60; is maintained. | [optional] 
 **ExclusionFilters** | Pointer to [**[]LogsExclusion**](LogsExclusion.md) | An array of exclusion objects. The logs are tested against the query of each filter, following the order of the array. Only the first matching active exclusion matters, others (if any) are ignored. | [optional] 
@@ -14,20 +14,20 @@ Name | Type | Description | Notes
 
 ### NewLogsIndexUpdateRequest
 
-`func NewLogsIndexUpdateRequest(filter LogsFilter, ) *LogsIndexUpdateRequest`
+`func NewLogsIndexUpdateRequest(filter LogsFilter) *LogsIndexUpdateRequest`
 
-NewLogsIndexUpdateRequest instantiates a new LogsIndexUpdateRequest object
+NewLogsIndexUpdateRequest instantiates a new LogsIndexUpdateRequest object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewLogsIndexUpdateRequestWithDefaults
 
 `func NewLogsIndexUpdateRequestWithDefaults() *LogsIndexUpdateRequest`
 
-NewLogsIndexUpdateRequestWithDefaults instantiates a new LogsIndexUpdateRequest object
+NewLogsIndexUpdateRequestWithDefaults instantiates a new LogsIndexUpdateRequest object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetDailyLimit
 

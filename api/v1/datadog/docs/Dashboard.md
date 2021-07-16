@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **AuthorHandle** | Pointer to **string** | Identifier of the dashboard author. | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** | Creation date of the dashboard. | [optional] [readonly] 
 **Description** | Pointer to **NullableString** | Description of the dashboard. | [optional] 
@@ -12,8 +12,10 @@ Name | Type | Description | Notes
 **LayoutType** | [**DashboardLayoutType**](DashboardLayoutType.md) |  | 
 **ModifiedAt** | Pointer to **time.Time** | Modification date of the dashboard. | [optional] [readonly] 
 **NotifyList** | Pointer to **[]string** | List of handles of users to notify when changes are made to this dashboard. | [optional] 
+**ReflowType** | Pointer to [**DashboardReflowType**](DashboardReflowType.md) |  | [optional] 
+**RestrictedRoles** | Pointer to **[]string** | A list of role identifiers. Only the author and users associated with at least one of these roles can edit this dashboard. Overrides the &#x60;is_read_only&#x60; property if both are present. **This feature is currently in beta.** | [optional] 
 **TemplateVariablePresets** | Pointer to [**[]DashboardTemplateVariablePreset**](DashboardTemplateVariablePreset.md) | Array of template variables saved views. | [optional] 
-**TemplateVariables** | Pointer to [**[]DashboardTemplateVariables**](DashboardTemplateVariables.md) | List of template variables for this dashboard. | [optional] 
+**TemplateVariables** | Pointer to [**[]DashboardTemplateVariable**](DashboardTemplateVariable.md) | List of template variables for this dashboard. | [optional] 
 **Title** | **string** | Title of the dashboard. | 
 **Url** | Pointer to **string** | The URL of the dashboard. | [optional] [readonly] 
 **Widgets** | [**[]Widget**](Widget.md) | List of widgets to display on the dashboard. | 
@@ -22,20 +24,20 @@ Name | Type | Description | Notes
 
 ### NewDashboard
 
-`func NewDashboard(layoutType DashboardLayoutType, title string, widgets []Widget, ) *Dashboard`
+`func NewDashboard(layoutType DashboardLayoutType, title string, widgets []Widget) *Dashboard`
 
-NewDashboard instantiates a new Dashboard object
+NewDashboard instantiates a new Dashboard object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewDashboardWithDefaults
 
 `func NewDashboardWithDefaults() *Dashboard`
 
-NewDashboardWithDefaults instantiates a new Dashboard object
+NewDashboardWithDefaults instantiates a new Dashboard object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAuthorHandle
 
@@ -252,6 +254,56 @@ HasNotifyList returns a boolean if a field has been set.
 `func (o *Dashboard) UnsetNotifyList()`
 
 UnsetNotifyList ensures that no value is present for NotifyList, not even an explicit nil
+### GetReflowType
+
+`func (o *Dashboard) GetReflowType() DashboardReflowType`
+
+GetReflowType returns the ReflowType field if non-nil, zero value otherwise.
+
+### GetReflowTypeOk
+
+`func (o *Dashboard) GetReflowTypeOk() (*DashboardReflowType, bool)`
+
+GetReflowTypeOk returns a tuple with the ReflowType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReflowType
+
+`func (o *Dashboard) SetReflowType(v DashboardReflowType)`
+
+SetReflowType sets ReflowType field to given value.
+
+### HasReflowType
+
+`func (o *Dashboard) HasReflowType() bool`
+
+HasReflowType returns a boolean if a field has been set.
+
+### GetRestrictedRoles
+
+`func (o *Dashboard) GetRestrictedRoles() []string`
+
+GetRestrictedRoles returns the RestrictedRoles field if non-nil, zero value otherwise.
+
+### GetRestrictedRolesOk
+
+`func (o *Dashboard) GetRestrictedRolesOk() (*[]string, bool)`
+
+GetRestrictedRolesOk returns a tuple with the RestrictedRoles field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRestrictedRoles
+
+`func (o *Dashboard) SetRestrictedRoles(v []string)`
+
+SetRestrictedRoles sets RestrictedRoles field to given value.
+
+### HasRestrictedRoles
+
+`func (o *Dashboard) HasRestrictedRoles() bool`
+
+HasRestrictedRoles returns a boolean if a field has been set.
+
 ### GetTemplateVariablePresets
 
 `func (o *Dashboard) GetTemplateVariablePresets() []DashboardTemplateVariablePreset`
@@ -289,20 +341,20 @@ HasTemplateVariablePresets returns a boolean if a field has been set.
 UnsetTemplateVariablePresets ensures that no value is present for TemplateVariablePresets, not even an explicit nil
 ### GetTemplateVariables
 
-`func (o *Dashboard) GetTemplateVariables() []DashboardTemplateVariables`
+`func (o *Dashboard) GetTemplateVariables() []DashboardTemplateVariable`
 
 GetTemplateVariables returns the TemplateVariables field if non-nil, zero value otherwise.
 
 ### GetTemplateVariablesOk
 
-`func (o *Dashboard) GetTemplateVariablesOk() (*[]DashboardTemplateVariables, bool)`
+`func (o *Dashboard) GetTemplateVariablesOk() (*[]DashboardTemplateVariable, bool)`
 
 GetTemplateVariablesOk returns a tuple with the TemplateVariables field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTemplateVariables
 
-`func (o *Dashboard) SetTemplateVariables(v []DashboardTemplateVariables)`
+`func (o *Dashboard) SetTemplateVariables(v []DashboardTemplateVariable)`
 
 SetTemplateVariables sets TemplateVariables field to given value.
 

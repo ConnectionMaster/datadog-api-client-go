@@ -3,9 +3,9 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
-**Filter** | Pointer to [**SecurityMonitoringSignalListRequestFilter**](SecurityMonitoringSignalListRequest_filter.md) |  | [optional] 
-**Page** | Pointer to [**SecurityMonitoringSignalListRequestPage**](SecurityMonitoringSignalListRequest_page.md) |  | [optional] 
+---- | ---- | ----------- | ------
+**Filter** | Pointer to [**SecurityMonitoringSignalListRequestFilter**](SecurityMonitoringSignalListRequestFilter.md) |  | [optional] 
+**Page** | Pointer to [**SecurityMonitoringSignalListRequestPage**](SecurityMonitoringSignalListRequestPage.md) |  | [optional] 
 **Sort** | Pointer to [**SecurityMonitoringSignalsSort**](SecurityMonitoringSignalsSort.md) |  | [optional] 
 
 ## Methods
@@ -14,18 +14,18 @@ Name | Type | Description | Notes
 
 `func NewSecurityMonitoringSignalListRequest() *SecurityMonitoringSignalListRequest`
 
-NewSecurityMonitoringSignalListRequest instantiates a new SecurityMonitoringSignalListRequest object
+NewSecurityMonitoringSignalListRequest instantiates a new SecurityMonitoringSignalListRequest object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewSecurityMonitoringSignalListRequestWithDefaults
 
 `func NewSecurityMonitoringSignalListRequestWithDefaults() *SecurityMonitoringSignalListRequest`
 
-NewSecurityMonitoringSignalListRequestWithDefaults instantiates a new SecurityMonitoringSignalListRequest object
+NewSecurityMonitoringSignalListRequestWithDefaults instantiates a new SecurityMonitoringSignalListRequest object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetFilter
 

@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Autoscale** | Pointer to **bool** | Whether to use auto-scaling or not. | [optional] 
 **CustomLinks** | Pointer to [**[]WidgetCustomLink**](WidgetCustomLink.md) | List of custom links. | [optional] 
 **CustomUnit** | Pointer to **string** | Display a unit of your choice on the widget. | [optional] 
@@ -14,26 +14,26 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** | Title of your widget. | [optional] 
 **TitleAlign** | Pointer to [**WidgetTextAlign**](WidgetTextAlign.md) |  | [optional] 
 **TitleSize** | Pointer to **string** | Size of the title. | [optional] 
-**Type** | [**QueryValueWidgetDefinitionType**](QueryValueWidgetDefinitionType.md) |  | [default to "query_value"]
+**Type** | [**QueryValueWidgetDefinitionType**](QueryValueWidgetDefinitionType.md) |  | [default to QUERYVALUEWIDGETDEFINITIONTYPE_QUERY_VALUE]
 
 ## Methods
 
 ### NewQueryValueWidgetDefinition
 
-`func NewQueryValueWidgetDefinition(requests []QueryValueWidgetRequest, type_ QueryValueWidgetDefinitionType, ) *QueryValueWidgetDefinition`
+`func NewQueryValueWidgetDefinition(requests []QueryValueWidgetRequest, type_ QueryValueWidgetDefinitionType) *QueryValueWidgetDefinition`
 
-NewQueryValueWidgetDefinition instantiates a new QueryValueWidgetDefinition object
+NewQueryValueWidgetDefinition instantiates a new QueryValueWidgetDefinition object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewQueryValueWidgetDefinitionWithDefaults
 
 `func NewQueryValueWidgetDefinitionWithDefaults() *QueryValueWidgetDefinition`
 
-NewQueryValueWidgetDefinitionWithDefaults instantiates a new QueryValueWidgetDefinition object
+NewQueryValueWidgetDefinitionWithDefaults instantiates a new QueryValueWidgetDefinition object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetAutoscale
 

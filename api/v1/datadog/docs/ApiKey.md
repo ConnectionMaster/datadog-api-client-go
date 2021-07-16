@@ -3,7 +3,7 @@
 ## Properties
 
 Name | Type | Description | Notes
------------- | ------------- | ------------- | -------------
+---- | ---- | ----------- | ------
 **Created** | Pointer to **string** | Date of creation of the API key. | [optional] [readonly] 
 **CreatedBy** | Pointer to **string** | Datadog user handle that created the API key. | [optional] [readonly] 
 **Key** | Pointer to **string** | API key. | [optional] [readonly] 
@@ -15,18 +15,18 @@ Name | Type | Description | Notes
 
 `func NewApiKey() *ApiKey`
 
-NewApiKey instantiates a new ApiKey object
+NewApiKey instantiates a new ApiKey object.
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
-will change when the set of required properties is changed
+will change when the set of required properties is changed.
 
 ### NewApiKeyWithDefaults
 
 `func NewApiKeyWithDefaults() *ApiKey`
 
-NewApiKeyWithDefaults instantiates a new ApiKey object
+NewApiKeyWithDefaults instantiates a new ApiKey object.
 This constructor will only assign default values to properties that have it defined,
-but it doesn't guarantee that properties required by API are set
+but it doesn't guarantee that properties required by API are set.
 
 ### GetCreated
 
