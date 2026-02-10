@@ -472,7 +472,7 @@
 <span id="L415" class="ln">   415  </span><span class="comment">// ListDevicesWithPagination provides a paginated version of ListDevices returning a channel with all items.</span>
 <span id="L416" class="ln">   416  </span>func (a *NetworkDeviceMonitoringApi) ListDevicesWithPagination(ctx _context.Context, o ...ListDevicesOptionalParameters) (&lt;-chan datadog.PaginationResult[DevicesListData], func()) {
 <span id="L417" class="ln">   417  </span>	ctx, cancel := _context.WithCancel(ctx)
-<span id="L418" class="ln">   418  </span>	pageSize_ := int64(10)
+<span id="L418" class="ln">   418  </span>	pageSize_ := int64(50)
 <span id="L419" class="ln">   419  </span>	if len(o) == 0 {
 <span id="L420" class="ln">   420  </span>		o = append(o, ListDevicesOptionalParameters{})
 <span id="L421" class="ln">   421  </span>	}
