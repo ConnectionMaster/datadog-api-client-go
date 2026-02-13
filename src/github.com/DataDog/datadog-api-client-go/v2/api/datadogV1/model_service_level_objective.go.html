@@ -107,11 +107,11 @@
 <span id="L50" class="ln">    50  </span>	MonitorTags []string `json:&#34;monitor_tags,omitempty&#34;`
 <span id="L51" class="ln">    51  </span>	<span class="comment">// The name of the service level objective object.</span>
 <span id="L52" class="ln">    52  </span>	Name string `json:&#34;name&#34;`
-<span id="L53" class="ln">    53  </span>	<span class="comment">// A metric-based SLO. **Required if type is `metric`**. Note that Datadog only allows the sum by aggregator</span>
+<span id="L53" class="ln">    53  </span>	<span class="comment">// A count-based (metric) SLO query. This field is superseded by `sli_specification` but is retained for backwards compatibility. Note that Datadog only allows the sum by aggregator</span>
 <span id="L54" class="ln">    54  </span>	<span class="comment">// to be used because this will sum up all request counts instead of averaging them, or taking the max or</span>
 <span id="L55" class="ln">    55  </span>	<span class="comment">// min of all of those requests.</span>
 <span id="L56" class="ln">    56  </span>	Query *ServiceLevelObjectiveQuery `json:&#34;query,omitempty&#34;`
-<span id="L57" class="ln">    57  </span>	<span class="comment">// A generic SLI specification. This is currently used for time-slice SLOs only.</span>
+<span id="L57" class="ln">    57  </span>	<span class="comment">// A generic SLI specification. This is used for time-slice and count-based (metric) SLOs only.</span>
 <span id="L58" class="ln">    58  </span>	SliSpecification *SLOSliSpec `json:&#34;sli_specification,omitempty&#34;`
 <span id="L59" class="ln">    59  </span>	<span class="comment">// A list of tags associated with this service level objective.</span>
 <span id="L60" class="ln">    60  </span>	<span class="comment">// Always included in service level objective responses (but may be empty).</span>
