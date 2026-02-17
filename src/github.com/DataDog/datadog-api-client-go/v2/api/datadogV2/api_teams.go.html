@@ -3133,7 +3133,7 @@
 <span id="L3076" class="ln">  3076  </span>			ErrorBody:    localVarBody,
 <span id="L3077" class="ln">  3077  </span>			ErrorMessage: localVarHTTPResponse.Status,
 <span id="L3078" class="ln">  3078  </span>		}
-<span id="L3079" class="ln">  3079  </span>		if localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
+<span id="L3079" class="ln">  3079  </span>		if localVarHTTPResponse.StatusCode == 400 || localVarHTTPResponse.StatusCode == 403 || localVarHTTPResponse.StatusCode == 404 || localVarHTTPResponse.StatusCode == 429 {
 <span id="L3080" class="ln">  3080  </span>			var v APIErrorResponse
 <span id="L3081" class="ln">  3081  </span>			err = a.Client.Decode(&amp;v, localVarBody, localVarHTTPResponse.Header.Get(&#34;Content-Type&#34;))
 <span id="L3082" class="ln">  3082  </span>			if err != nil {
