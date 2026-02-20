@@ -72,7 +72,7 @@
 <span id="L15" class="ln">    15  </span><span class="comment">// SyntheticsApi service type</span>
 <span id="L16" class="ln">    16  </span>type SyntheticsApi datadog.Service
 <span id="L17" class="ln">    17  </span>
-<span id="L18" class="ln">    18  </span><span class="comment">// CreateSyntheticsNetworkTest Synthetics: Create a Network Path test.</span>
+<span id="L18" class="ln">    18  </span><span class="comment">// CreateSyntheticsNetworkTest Create a Network Path test.</span>
 <span id="L19" class="ln">    19  </span>
 <span id="L20" class="ln">    20  </span>func (a *SyntheticsApi) CreateSyntheticsNetworkTest(ctx _context.Context, body SyntheticsNetworkTestEditRequest) (SyntheticsNetworkTestResponse, *_nethttp.Response, error) {
 <span id="L21" class="ln">    21  </span>	var (
@@ -152,7 +152,7 @@
 <span id="L95" class="ln">    95  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L96" class="ln">    96  </span>}
 <span id="L97" class="ln">    97  </span>
-<span id="L98" class="ln">    98  </span><span class="comment">// CreateSyntheticsSuite Synthetics: Create a test suite.</span>
+<span id="L98" class="ln">    98  </span><span class="comment">// CreateSyntheticsSuite Create a test suite.</span>
 <span id="L99" class="ln">    99  </span>
 <span id="L100" class="ln">   100  </span>func (a *SyntheticsApi) CreateSyntheticsSuite(ctx _context.Context, body SuiteCreateEditRequest) (SyntheticsSuiteResponse, *_nethttp.Response, error) {
 <span id="L101" class="ln">   101  </span>	var (
@@ -232,7 +232,7 @@
 <span id="L175" class="ln">   175  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L176" class="ln">   176  </span>}
 <span id="L177" class="ln">   177  </span>
-<span id="L178" class="ln">   178  </span><span class="comment">// DeleteSyntheticsSuites Synthetics: Bulk delete suites.</span>
+<span id="L178" class="ln">   178  </span><span class="comment">// DeleteSyntheticsSuites Bulk delete suites.</span>
 <span id="L179" class="ln">   179  </span>
 <span id="L180" class="ln">   180  </span>func (a *SyntheticsApi) DeleteSyntheticsSuites(ctx _context.Context, body DeletedSuitesRequestDeleteRequest) (DeletedSuitesResponse, *_nethttp.Response, error) {
 <span id="L181" class="ln">   181  </span>	var (
@@ -312,7 +312,7 @@
 <span id="L255" class="ln">   255  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L256" class="ln">   256  </span>}
 <span id="L257" class="ln">   257  </span>
-<span id="L258" class="ln">   258  </span><span class="comment">// DeleteSyntheticsTests Synthetics: Bulk delete tests.</span>
+<span id="L258" class="ln">   258  </span><span class="comment">// DeleteSyntheticsTests Bulk delete tests.</span>
 <span id="L259" class="ln">   259  </span>
 <span id="L260" class="ln">   260  </span>func (a *SyntheticsApi) DeleteSyntheticsTests(ctx _context.Context, body DeletedTestsRequestDeleteRequest) (DeletedTestsResponse, *_nethttp.Response, error) {
 <span id="L261" class="ln">   261  </span>	var (
@@ -392,7 +392,7 @@
 <span id="L335" class="ln">   335  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L336" class="ln">   336  </span>}
 <span id="L337" class="ln">   337  </span>
-<span id="L338" class="ln">   338  </span><span class="comment">// EditSyntheticsSuite Synthetics: Edit a test suite.</span>
+<span id="L338" class="ln">   338  </span><span class="comment">// EditSyntheticsSuite Edit a test suite.</span>
 <span id="L339" class="ln">   339  </span>
 <span id="L340" class="ln">   340  </span>func (a *SyntheticsApi) EditSyntheticsSuite(ctx _context.Context, publicId string, body SuiteCreateEditRequest) (SyntheticsSuiteResponse, *_nethttp.Response, error) {
 <span id="L341" class="ln">   341  </span>	var (
@@ -550,7 +550,7 @@
 <span id="L493" class="ln">   493  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L494" class="ln">   494  </span>}
 <span id="L495" class="ln">   495  </span>
-<span id="L496" class="ln">   496  </span><span class="comment">// GetSyntheticsNetworkTest Synthetics: Get a Network Path test.</span>
+<span id="L496" class="ln">   496  </span><span class="comment">// GetSyntheticsNetworkTest Get a Network Path test.</span>
 <span id="L497" class="ln">   497  </span>
 <span id="L498" class="ln">   498  </span>func (a *SyntheticsApi) GetSyntheticsNetworkTest(ctx _context.Context, publicId string) (SyntheticsNetworkTestResponse, *_nethttp.Response, error) {
 <span id="L499" class="ln">   499  </span>	var (
@@ -628,7 +628,7 @@
 <span id="L571" class="ln">   571  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L572" class="ln">   572  </span>}
 <span id="L573" class="ln">   573  </span>
-<span id="L574" class="ln">   574  </span><span class="comment">// GetSyntheticsSuite Synthetics: Get a suite.</span>
+<span id="L574" class="ln">   574  </span><span class="comment">// GetSyntheticsSuite Get a suite.</span>
 <span id="L575" class="ln">   575  </span>
 <span id="L576" class="ln">   576  </span>func (a *SyntheticsApi) GetSyntheticsSuite(ctx _context.Context, publicId string) (SyntheticsSuiteResponse, *_nethttp.Response, error) {
 <span id="L577" class="ln">   577  </span>	var (
@@ -839,8 +839,8 @@
 <span id="L782" class="ln">   782  </span>	return r
 <span id="L783" class="ln">   783  </span>}
 <span id="L784" class="ln">   784  </span>
-<span id="L785" class="ln">   785  </span><span class="comment">// SearchSuites Search Synthetics suites.</span>
-<span id="L786" class="ln">   786  </span><span class="comment">// Search for Synthetics suites.</span>
+<span id="L785" class="ln">   785  </span><span class="comment">// SearchSuites Search test suites.</span>
+<span id="L786" class="ln">   786  </span><span class="comment">// Search for test suites.</span>
 <span id="L787" class="ln">   787  </span>func (a *SyntheticsApi) SearchSuites(ctx _context.Context, o ...SearchSuitesOptionalParameters) (SyntheticsSuiteSearchResponse, *_nethttp.Response, error) {
 <span id="L788" class="ln">   788  </span>	var (
 <span id="L789" class="ln">   789  </span>		localVarHTTPMethod  = _nethttp.MethodGet
@@ -1019,7 +1019,7 @@
 <span id="L962" class="ln">   962  </span>	return localVarReturnValue, localVarHTTPResponse, nil
 <span id="L963" class="ln">   963  </span>}
 <span id="L964" class="ln">   964  </span>
-<span id="L965" class="ln">   965  </span><span class="comment">// UpdateSyntheticsNetworkTest Synthetics: Edit a Network Path test.</span>
+<span id="L965" class="ln">   965  </span><span class="comment">// UpdateSyntheticsNetworkTest Edit a Network Path test.</span>
 <span id="L966" class="ln">   966  </span>
 <span id="L967" class="ln">   967  </span>func (a *SyntheticsApi) UpdateSyntheticsNetworkTest(ctx _context.Context, publicId string, body SyntheticsNetworkTestEditRequest) (SyntheticsNetworkTestResponse, *_nethttp.Response, error) {
 <span id="L968" class="ln">   968  </span>	var (
