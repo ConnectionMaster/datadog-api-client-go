@@ -69,11 +69,11 @@
 <span id="L12" class="ln">    12  </span>
 <span id="L13" class="ln">    13  </span><span class="comment">// WidgetNewFixedSpan Used for fixed span times, such as &#39;March 1 to March 7&#39;.</span>
 <span id="L14" class="ln">    14  </span>type WidgetNewFixedSpan struct {
-<span id="L15" class="ln">    15  </span>	<span class="comment">// Start time in seconds since epoch.</span>
+<span id="L15" class="ln">    15  </span>	<span class="comment">// Start time in milliseconds since epoch.</span>
 <span id="L16" class="ln">    16  </span>	From int64 `json:&#34;from&#34;`
 <span id="L17" class="ln">    17  </span>	<span class="comment">// Whether to hide incomplete cost data in the widget.</span>
 <span id="L18" class="ln">    18  </span>	HideIncompleteCostData *bool `json:&#34;hide_incomplete_cost_data,omitempty&#34;`
-<span id="L19" class="ln">    19  </span>	<span class="comment">// End time in seconds since epoch.</span>
+<span id="L19" class="ln">    19  </span>	<span class="comment">// End time in milliseconds since epoch.</span>
 <span id="L20" class="ln">    20  </span>	To int64 `json:&#34;to&#34;`
 <span id="L21" class="ln">    21  </span>	<span class="comment">// Type &#34;fixed&#34; denotes a fixed span.</span>
 <span id="L22" class="ln">    22  </span>	Type WidgetNewFixedSpanType `json:&#34;type&#34;`
