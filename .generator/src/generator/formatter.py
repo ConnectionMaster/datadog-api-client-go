@@ -559,9 +559,18 @@ def format_data_with_schema_list(
             nested_schema_name = "interface{}"
     else:
         if nested_schema_name:
-            nested_schema_name = f"{name_prefix}{nested_schema_name}"
-        elif list_schema.get("type") == "object" and list_schema.get("additionalProperties") == {}:
-            nested_schema_name = "map[string]interface{}"
+            additional = list_schema.get("additionalProperties", False)
+            if additional != False and not list_schema.get("properties"):
+                # Named schema is a map type (no struct generated for it) — use the
+                # map type directly to avoid referencing a non-existent struct.
+                value_type = (simple_type(additional) if isinstance(additional, dict) and additional else None) or "interface{}"
+                nested_schema_name = f"map[string]{value_type}"
+            else:
+                nested_schema_name = f"{name_prefix}{nested_schema_name}"
+        elif list_schema.get("additionalProperties", False) != False:
+            additional = list_schema.get("additionalProperties")
+            value_type = (simple_type(additional) if isinstance(additional, dict) and additional else None) or "interface{}"
+            nested_schema_name = f"map[string]{value_type}"
         else:
             nested_schema_name = "interface{}"
 
@@ -642,33 +651,66 @@ def format_data_with_schema_dict(
             )
             parameters += f"{camel_case(k)}: {value},\n"
 
-    if schema.get("additionalProperties"):
+    additional = schema.get("additionalProperties", False)
+    if additional != False:
         saved_parameters = ""
         if schema.get("properties"):
             saved_parameters = parameters
             parameters = ""
-        nested_schema = schema["additionalProperties"]
-        nested_schema_name = simple_type(nested_schema)
-        if not nested_schema_name:
-            nested_schema_name = schema_name(nested_schema)
-            if nested_schema_name:
-                nested_schema_name = name_prefix + nested_schema_name
-            elif nested_schema.get("type") is None:
-                nested_schema_name = "interface{}"
+        # Typed additionalProperties (non-empty dict): use it as the nested schema.
+        # Untyped (empty dict or True): any value is allowed, treat as interface{}.
+        nested_schema = additional if isinstance(additional, dict) and additional else None
+        if nested_schema:
+            nested_schema_name = simple_type(nested_schema)
+            if not nested_schema_name:
+                nested_schema_name = schema_name(nested_schema)
+                if nested_schema_name:
+                    nested_schema_name = name_prefix + nested_schema_name
+                elif nested_schema.get("type") is None:
+                    nested_schema_name = "interface{}"
+        else:
+            nested_schema_name = "interface{}"
 
         has_properties = schema.get("properties")
 
         for k, v in data.items():
             if has_properties and k in schema["properties"]:
                 continue
-            value = format_data_with_schema(
-                v,
-                schema["additionalProperties"],
-                name_prefix=name_prefix,
-                replace_values=replace_values,
-                required=True,
-                **kwargs,
-            )
+            if nested_schema:
+                value = format_data_with_schema(
+                    v,
+                    nested_schema,
+                    name_prefix=name_prefix,
+                    replace_values=replace_values,
+                    required=True,
+                    **kwargs,
+                )
+            else:
+                # Infer schema from the Python value type so primitives are formatted
+                # correctly (e.g. strings with newlines use backtick literals, booleans
+                # emit "true"/"false"). bool must come before int because bool is a
+                # subclass of int in Python — format_interface would otherwise return
+                # "True"/"False" instead of valid Go literals.
+                # For complex types (dict, list) inferred stays {}: format_data_with_schema
+                # short-circuits on an empty schema and returns "", so the fallback
+                # f'"{v}"' emits a Python repr string. Not ideal but these values were
+                # previously silently dropped, so this is strictly an improvement.
+                if isinstance(v, bool):
+                    inferred = {"type": "boolean"}
+                elif isinstance(v, (int, float)):
+                    inferred = {"type": "number"}
+                elif isinstance(v, str):
+                    inferred = {"type": "string"}
+                else:
+                    inferred = {}
+                value = format_data_with_schema(
+                    v,
+                    inferred,
+                    name_prefix=name_prefix,
+                    replace_values=replace_values,
+                    required=True,
+                    **kwargs,
+                ) or f'"{v}"'
             parameters += f'"{k}": {value},\n'
 
             # IMPROVE: find a better way to get nested schema name
@@ -687,14 +729,7 @@ def format_data_with_schema_dict(
         return _format_oneof(schema, data, name, name_prefix, replace_values, required, nullable, **kwargs)
 
     if schema.get("type") == "object" and "properties" not in schema:
-        if schema.get("additionalProperties") == {}:
-            name_prefix = ""
-            name = "map[string]interface{}"
-            reference = ""
-            for k, v in data.items():
-                parameters += f'"{k}": "{v}",\n'
-        else:
-            return "new(interface{})"
+        return "new(interface{})"
 
     if not name:
         raise ValueError(f"Unnamed schema {schema} for {data}")

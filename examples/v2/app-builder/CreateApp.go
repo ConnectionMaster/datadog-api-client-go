@@ -36,12 +36,21 @@ func main() {
 												Properties: datadogV2.ComponentProperties{
 													IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 														Bool: datadog.PtrBool(true)},
+													AdditionalProperties: map[string]interface{}{
+														"content":       "# Cat Facts",
+														"contentType":   "markdown",
+														"textAlign":     "left",
+														"verticalAlign": "top",
+													},
 												},
 												Events: []datadogV2.AppBuilderEvent{},
 											},
 										},
 										IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 											String: datadog.PtrString("true")},
+										AdditionalProperties: map[string]interface{}{
+											"layout": "{'default': {'x': 0, 'y': 0, 'width': 4, 'height': 5}}",
+										},
 									},
 									Events: []datadogV2.AppBuilderEvent{},
 								},
@@ -56,12 +65,29 @@ func main() {
 												Properties: datadogV2.ComponentProperties{
 													IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 														Bool: datadog.PtrBool(true)},
+													AdditionalProperties: map[string]interface{}{
+														"data":             "${fetchFacts?.outputs?.body?.data}",
+														"columns":          "[{'dataPath': 'fact', 'header': 'fact', 'isHidden': False, 'id': '0ae2ae9e-0280-4389-83c6-1c5949f7e674'}, {'dataPath': 'length', 'header': 'length', 'isHidden': True, 'id': 'c9048611-0196-4a00-9366-1ef9e3ec0408'}, {'id': '8fa9284b-7a58-4f13-9959-57b7d8a7fe8f', 'dataPath': 'Due Date', 'header': 'Unused Old Column', 'disableSortBy': False, 'formatter': {'type': 'formatted_time', 'format': 'LARGE_WITHOUT_TIME'}, 'isDeleted': True}]",
+														"summary":          true,
+														"pageSize":         "${pageSize?.value}",
+														"paginationType":   "server_side",
+														"isLoading":        "${fetchFacts?.isLoading}",
+														"rowButtons":       "[]",
+														"isWrappable":      false,
+														"isScrollable":     "vertical",
+														"isSubRowsEnabled": false,
+														"globalFilter":     false,
+														"totalCount":       "${fetchFacts?.outputs?.body?.total}",
+													},
 												},
 												Events: []datadogV2.AppBuilderEvent{},
 											},
 										},
 										IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 											String: datadog.PtrString("true")},
+										AdditionalProperties: map[string]interface{}{
+											"layout": "{'default': {'x': 0, 'y': 5, 'width': 12, 'height': 96}}",
+										},
 									},
 									Events: []datadogV2.AppBuilderEvent{},
 								},
@@ -76,12 +102,23 @@ func main() {
 												Properties: datadogV2.ComponentProperties{
 													IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 														Bool: datadog.PtrBool(true)},
+													AdditionalProperties: map[string]interface{}{
+														"content": `## Random Fact
+
+${randomFact?.outputs?.fact}`,
+														"contentType":   "markdown",
+														"textAlign":     "left",
+														"verticalAlign": "top",
+													},
 												},
 												Events: []datadogV2.AppBuilderEvent{},
 											},
 										},
 										IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 											String: datadog.PtrString("true")},
+										AdditionalProperties: map[string]interface{}{
+											"layout": "{'default': {'x': 0, 'y': 101, 'width': 12, 'height': 16}}",
+										},
 									},
 									Events: []datadogV2.AppBuilderEvent{},
 								},
@@ -96,17 +133,34 @@ func main() {
 												Properties: datadogV2.ComponentProperties{
 													IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 														Bool: datadog.PtrBool(true)},
+													AdditionalProperties: map[string]interface{}{
+														"label":        "Increase Page Size",
+														"level":        "default",
+														"isPrimary":    true,
+														"isBorderless": false,
+														"isLoading":    false,
+														"isDisabled":   false,
+														"iconLeft":     "angleUp",
+														"iconRight":    "",
+													},
 												},
 												Events: []datadogV2.AppBuilderEvent{
 													{
 														Name: datadogV2.APPBUILDEREVENTNAME_CLICK.Ptr(),
 														Type: datadogV2.APPBUILDEREVENTTYPE_SETSTATEVARIABLEVALUE.Ptr(),
+														AdditionalProperties: map[string]interface{}{
+															"variableName": "pageSize",
+															"value":        "${pageSize?.value + 1}",
+														},
 													},
 												},
 											},
 										},
 										IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 											String: datadog.PtrString("true")},
+										AdditionalProperties: map[string]interface{}{
+											"layout": "{'default': {'x': 10, 'y': 134, 'width': 2, 'height': 4}}",
+										},
 									},
 									Events: []datadogV2.AppBuilderEvent{},
 								},
@@ -121,17 +175,34 @@ func main() {
 												Properties: datadogV2.ComponentProperties{
 													IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 														Bool: datadog.PtrBool(true)},
+													AdditionalProperties: map[string]interface{}{
+														"label":        "Decrease Page Size",
+														"level":        "default",
+														"isPrimary":    true,
+														"isBorderless": false,
+														"isLoading":    false,
+														"isDisabled":   false,
+														"iconLeft":     "angleDown",
+														"iconRight":    "",
+													},
 												},
 												Events: []datadogV2.AppBuilderEvent{
 													{
 														Name: datadogV2.APPBUILDEREVENTNAME_CLICK.Ptr(),
 														Type: datadogV2.APPBUILDEREVENTTYPE_SETSTATEVARIABLEVALUE.Ptr(),
+														AdditionalProperties: map[string]interface{}{
+															"variableName": "pageSize",
+															"value":        "${pageSize?.value - 1}",
+														},
 													},
 												},
 											},
 										},
 										IsVisible: &datadogV2.ComponentPropertiesIsVisible{
 											String: datadog.PtrString("true")},
+										AdditionalProperties: map[string]interface{}{
+											"layout": "{'default': {'x': 10, 'y': 138, 'width': 2, 'height': 4}}",
+										},
 									},
 									Events: []datadogV2.AppBuilderEvent{},
 								},
