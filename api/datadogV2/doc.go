@@ -992,6 +992,7 @@
 //   - [UsageMeteringApi.GetUsageAttributionTypes]
 //   - [UsageMeteringApi.GetUsageLambdaTracedInvocations]
 //   - [UsageMeteringApi.GetUsageObservabilityPipelines]
+//   - [UsersApi.AnonymizeUsers]
 //   - [UsersApi.CreateUser]
 //   - [UsersApi.DisableUser]
 //   - [UsersApi.GetInvitation]
